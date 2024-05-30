@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../logo.png.png">
+    <title>Producto Casco</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
+    <!-- Start Header/Navigation -->
+    <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Brama<span>.</span></a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+                aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsFurni">
+                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../index.html">Inicio</a>
+                    </li>
+                    <li class="active"><a class="nav-link" href="../about.html">Nosotros</a></li>
+                </ul>
+
+                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                    <li><a class="nav-link" href="#"><img src="../images/user.svg"></a></li>
+                    <li><a class="nav-link" href="../cart.html"><img src="../images/cart.svg"></a></li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+    <!-- End Header/Navigation -->
+    <!-- Start Hero Section -->
+    <div class="hero" style="background-image: url('path_to_your_background_image.jpg');">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6">
+                    <div class="intro-excerpt">
+                        <h1>Armería Brama</h1>
+                        <h3 class="mb-4">Por la compra de un arma, te llevas un botiquín de emergencias para tus viajes
+                        </h3>
+                        <p><a href="../shop.html" class="btn btn-primary">Volver atrás</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block">
+                    <img src="../images/military-medical.webp" alt="Destacado" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Hero Section -->
+
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="../images/casco-remove.png" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h1>Producto Increíble</h1>
+                <p class="text-muted">$135.000</p>
+                <div class="product-description">
+                    <h4>Descripción del Producto</h4>
+                    <p>El complemento necesario para tus actividades
+                       Este casco te dará comodidad y seguridad para que puedas disfrutar de las actividades que más te gustan sin preocupaciones.
+                    </p>
+
+                    <h4>Características</h4>
+                    <ul>
+                        <li>Color: Coyote</li>
+                        <li>Marca: Deltaforcecl </li>
+                        <li>Talla: talla universal</li>
+                        <li>Género: Sin género</li>
+                    </ul>
+
+                    <h4>Instrucciones de Cuidado para el Casco</h4>
+                    <ul>
+                        <li>Limpia regularmente el casco usando un paño suave y agua tibia con jabón neutro. Evita el uso de limpiadores abrasivos o solventes químicos que puedan dañar el material del casco o devaluar sus propiedades protectoras.</li>
+                        <li>Inspecciona el casco antes y después de cada uso en busca de cualquier signo de daño, como grietas, deformaciones o desgaste del material. En caso de encontrar algún defecto, reemplaza el casco de inmediato.</li>
+                        <li>Ajusta las correas y asegúrate de que el casco se asiente correctamente en la cabeza para una máxima protección. Las correas deben estar bien ajustadas pero cómodas, permitiendo un dedo de espacio entre la correa y tu barbilla.</li>
+                        <li>Almacena el casco en un lugar seco y fresco, lejos de la exposición directa al sol cuando no esté en uso, ya que la luz UV puede degradar los materiales del casco con el tiempo.</li>
+                        <li>No coloques objetos pesados sobre el casco, ya que pueden deformar la carcasa y comprometer la estructura del casco.</li>
+                    </ul>
+                    
+
+
+                    <div class="product-sizes">
+                        <h4>Colores Disponibles</h4>
+                        <div>
+                            <button class="btn btn-size" data-size="38/S">Coyote</button>
+                            <button class="btn btn-size" data-size="39/M">Negro</button>
+                            <button class="btn btn-size" data-size="40/L">Azul</button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <a href="../cart.html" class="btn btn-success">Añadir al carrito</a>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const addButton = document.querySelector('.btn-success');
+            addButton.addEventListener('click', function () {
+                alert('Producto añadido al carrito!');
+            });
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.btn-size').forEach(button => {
+            button.addEventListener('click', function () {
+                // Remover la clase 'active' de todos los botones
+                document.querySelectorAll('.btn-size').forEach(btn => btn.classList.remove('active'));
+
+                // Añadir la clase 'active' al botón clickeado
+                this.classList.add('active');
+
+                // Opcional: Realizar alguna acción como actualizar el carrito
+                console.log("Tamaño seleccionado: " + this.getAttribute('data-size'));
+            });
+        });
+
+
+    </script>
+</body>
+
+
+</html>

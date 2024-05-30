@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto Militar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="css/tiny-slider.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <title>Panel de Control</title>
+    <style>
+        body {
+            background-color: #DDDDDD;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .btn-primary {
+            background-color: #627254;
+            color: #FFFFFF;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: #76885B;
+            color: #FFFFFF;
+        }
+
+        .form-control {
+            background-color: #FFFFFF;
+            border: 1px solid #DDDDDD;
+            color: #333;
+        }
+
+        img.preview-img {
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Start Header/Navigation -->
+    <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
+
+        <div class="container">
+            <a class="navbar-brand" href="#">Brama Admin<span>.</span></a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+                aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsFurni">
+                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="panelcontrolestadocompra.html">Estado de Compra</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="panelcontrolusuarios.html">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="panelcontrolagregararmas.html">Agregar Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="panelcontroleditararmas.html">Editar Producto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="panelcerrasesion.html">Cerrar Sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+    <!-- End Header/Navigation -->
+    <div class="container">
+        <h1>Agregar Producto</h1>
+        <form action=""  method="get">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre del Producto</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre del producto" required   >
+            </div>
+            <div class="mb-3">
+                <label for="tipo" class="form-label">Tipo de Producto</label>
+                <select class="form-select" id="tipo" required>
+                    <option value="arma">Arma</option>
+                    <option value="ropa">Ropa</option>
+                    <option value="ropa">Otros</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="material" class="form-label">Material</label>
+                <input type="text" class="form-control" id="material" placeholder="Ingrese el material" required>
+            </div>
+            <div class="mb-3">
+                <label for="imagen" class="form-label">Cargar imagen del producto</label>
+                <input type="file" class="form-control" id="imagen" accept="image/*" required>
+            </div>
+            <input type="submit" value="Agregar producto" onclick="agregarProducto(event)" class="btn btn-primary">
+
+            <a href="panelcontrol.html" class="btn btn-primary">Volver</a>
+        </form>
+
+        <h2>Estado de Productos Militares</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Material</th>
+                    <th>Imagen</th>
+                </tr>
+            </thead>
+            <tbody id="tablaProductos">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function agregarProducto(event) {
+            event.preventDefault(); // Prevenir el envío del formulario por defecto
+    
+            const nombre = document.getElementById('nombre').value;
+            const tipo = document.getElementById('tipo').value;
+            const material = document.getElementById('material').value;
+            const imagenFile = document.getElementById('imagen').files[0];
+            const tablaProductos = document.getElementById('tablaProductos');
+    
+            if (imagenFile) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td>${nombre}</td><td>${tipo}</td><td>${material}</td><td><img class="preview-img" src="${e.target.result}" alt="Imagen del producto"></td>`;
+                    tablaProductos.appendChild(tr);
+                };
+                reader.readAsDataURL(imagenFile);
+            } else {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${nombre}</td><td>${tipo}</td><td>${material}</td><td>Sin imagen</td>`;
+                tablaProductos.appendChild(tr);
+            }
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
