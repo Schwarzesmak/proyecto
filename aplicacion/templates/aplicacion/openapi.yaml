@@ -1,0 +1,291 @@
+openapi: "3.0.3"
+info:
+  title: "digidatesAPI"
+  description: "REST API for time and date functions"
+  version: "1.0"
+  contact:
+    email: "webmaster@digidates.de"
+  license:
+    name: "Apache 2.0"
+    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+servers:
+  - url: "https://digidates.de/api/v1"
+    description: digidatesAPI Live Server
+paths:
+  /unixtime:
+    get:
+      description: Returns unix time
+      responses:
+        '200':
+          description: A unix time
+          content:
+            application/json:
+              schema:
+                type: integer
+        '400':
+          description: "Given timestamp is not valid"
+      parameters:
+        - in: query
+          name: timestamp
+          description: "Timestamp to convert"
+          schema:
+            type: string
+            example: ["1970-01-01 00:00:01", "Sat, 01 Jan 2022 00:00:00"]
+
+  /week:
+    get:
+      description: Returns week number
+      responses:
+        '200':
+          description: Number of Week
+          content:
+            application/json:
+              schema:
+                type: integer
+      parameters:
+        - in: query
+          name: date
+          description: "Date to get week of"
+          schema:
+            type: string
+            example: "1970-01-01"
+  /leapyear:
+    get:
+      description: Leap year or not
+      responses:
+        '200':
+          description: Is leap year or not
+          content:
+            application/json:
+              schema:
+                type: boolean
+      parameters:
+        - in: query
+          name: year
+          description: "Is given year a leap year or not"
+          schema:
+            type: string
+            example: "1970"
+  /checkdate:
+    get:
+      description: Valid date or not
+      responses:
+        '200':
+          description: Is it a valid date or not
+          content:
+            application/json:
+              schema:
+                type: boolean
+      parameters:
+        - in: query
+          name: date
+          description: "Date to check if valid"
+          schema:
+            type: string
+            example: "2020-01-01"
+  /weekday:
+    get:
+      description: Get the weekday
+      responses:
+        '200':
+          description: Get the weekday
+          content:
+            application/json:
+              schema:
+                type: integer
+      parameters:
+        - in: query
+          name: date
+          description: "Date of which to get week day"
+          schema:
+            type: integer
+            example: "2020-01-01"
+  /progress:
+    get:
+      description: Progress made from one timestamp to another
+      responses:
+        '200':
+          description: Get the progress
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  float:
+                    type: number
+                  percent:
+                    type: integer
+      parameters:
+        - in: query
+          name: start
+          description: Timestamp for start of period
+          schema:
+            type: string
+            example: "2022-01-01"
+        - in: query
+          name: end
+          description: Timestamp for end of period
+          schema:
+            type: string
+            example: "2022-12-31"
+  /countdown/{date}:
+    get:
+      description: Countdown to day X
+      responses:
+        '200':
+          description: Countdown to day X
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  daysonly:
+                    type: integer
+                  countdownextended:
+                    type: object
+                    properties:
+                      years:
+                        type: integer
+                      months:
+                        type: integer
+                      days:
+                        type: integer
+      parameters:
+        - in: path
+          name: date
+          required: true
+          description: Date for countdown
+          schema:
+            type: string
+            example: "2024-12-31"
+  /age/{date}:
+    get:
+      description: Age of give date
+      responses:
+        '200':
+          description: Get the age
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  age:
+                    type: integer
+                  ageextended:
+                    type: object
+                    properties:
+                      years:
+                        type: integer
+                      months:
+                        type: integer
+                      days:
+                        type: integer
+      parameters:
+        - in: path
+          name: date
+          required: true
+          description: Date of Birthday
+          schema:
+            type: string
+            example: "1970-01-01"
+  /co2/{year}:
+    get:
+      description: Mean CO2 level for given year in PPM
+      responses:
+        '200':
+          description: CO² level in PPM
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  co2:
+                    type: number
+      parameters:
+        - in: path
+          name: year
+          required: true
+          description: Year between 1959 and last year
+          schema:
+            type: string
+            example: "1959"
+  /co2/reverse/{co2}:
+    get:
+      description: Possible year for given CO² level
+      responses:
+        '200':
+          description: Possible year
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  year:
+                    type: number
+                  co2:
+                    type: number
+      parameters:
+        - in: path
+          name: co2
+          required: true
+          description: Value of CO² level
+          schema:
+            type: number
+            example: 414.24
+
+  /germanpublicholidays:
+    get:
+      description: Get German public holidays of given year
+      responses:
+        '200':
+          description: German public holidays
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      parameters:
+        - in: query
+          name: year
+          required: false
+          description: Year
+          schema:
+            type: string
+            example: "2022"
+        - in: query
+          name: region
+          required: false
+          description: region
+          schema:
+            type: string
+            example: "de-bb"
+
+  /germanpublicholidays/supportedyears:
+    get:
+      description: Supported years for German public holidays
+      responses:
+        '200':
+          description: Supported years
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+
+  /germanpublicholidays/supportedregions:
+    get:
+      description: Supported regions for German public holidays
+      responses:
+        '200':
+          description: Supported regions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: array
+                  items:
+                    type: string
+

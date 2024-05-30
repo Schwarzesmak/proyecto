@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../logo.png.png">
+    <title>Producto Beretta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        transition: background-color 0.3s, transform 0.2s;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .btn-success:hover, .btn-success:focus {
+        background-color: #218838;
+        color: white;
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    </style>
+</head>
+<body>
+
+	<!-- Start Header/Navigation -->
+    <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Brama<span>.</span></a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsFurni">
+                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../index.html">Inicio</a>
+                    </li>
+                    <li class="active"><a class="nav-link" href="../about.html">Nosotros</a></li>
+                </ul>
+
+                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                    <li><a class="nav-link" href="#"><img src="../images/user.svg"></a></li>
+                    <li><a class="nav-link" href="../cart.html"><img src="../images/cart.svg"></a></li>
+                </ul>
+            </div>
+        </div>
+            
+    </nav>
+    <!-- End Header/Navigation -->
+<!-- Start Hero Section -->
+<div class="hero" style="background-image: url('path_to_your_background_image.jpg');">
+    <div class="container">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-lg-6">
+                <div class="intro-excerpt">
+                    <h1>Armería Brama</h1>
+                    <h3 class="mb-4">Por la compra de un arma, te llevas un botiquín de emergencias para tus viajes</h3>
+                    <p><a href="../shop.html" class="btn btn-primary">Volver atrás</a></p>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <img src="../images/military-medical.webp" alt="Destacado" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Hero Section -->
+
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="../images/bereta-remove.png" alt="Producto" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <h1>BERETTA AIRSOFT</h1>
+                <p class="text-muted">$144.000</p>
+                <div class="description">
+                    <h4>FICHA TÉCNICA</h4>
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr><td>Calibre</td><td>6 mm</td></tr>
+                            <tr><td>BLOW BACK</td><td>NO</td></tr>
+                            <tr><td>Fuente de energía</td><td>CARGA MUELLE MANUAL</td></tr>
+                            <tr><td>Capacidad del cargador</td><td>12 BBS</td></tr>
+                            <tr><td>Materiales</td><td>ABS - Polímero</td></tr>
+                            <tr><td>Velocidad de salida</td><td>250 FPS (0,12g)</td></tr>
+                            <tr><td>Energía Máxima</td><td>0,5 Joule(s)</td></tr>
+                            <tr><td>Longitud</td><td>216 mm</td></tr>
+                            <tr><td>Peso</td><td>360 g</td></tr>
+                            <tr><td>Acción</td><td>CARGA - DISPARO</td></tr>
+                            <tr><td>Otros datos</td><td>Munición reco: 0,12g-0,20G</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <a href="../cart.html" class="btn btn-success">Añadir al carrito</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const addButton = document.querySelector('.btn-success');
+        addButton.addEventListener('click', function() {
+            alert('Producto añadido al carrito!');
+        });
+    });
+    </script>
+</body>
+</html>
+
