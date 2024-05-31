@@ -3,7 +3,6 @@
 <!-- #76885B verde claro -->
 <!-- #DDDDDD plomo -->
 <!-- #EEEEEE blanco -->
-{% include "aplicacion/base.html" %}
 <!doctype html>
 <html lang="es">
 
@@ -11,16 +10,21 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="author" content="Untree.co">
-	<link rel="shortcut icon" href="logo.png.png">
+	<!-- <link rel="shortcut icon" href="logo.png.png"> -->
+	<link rel="shortcut icon" href="{% static "aplicacion/img/logo.png.png" %}">
 
 	<meta name="description" content="" />
 	<meta name="keywords" content="bootstrap, bootstrap4" />
 
 	<!-- Bootstrap CSS -->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-	<link href="css/tiny-slider.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet">
+	<!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+	<link rel="stylesheet" href="{% static "aplcacion/css/bootstrap.min.css"%}">
+	<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> -->
+	<link rel="stylesheet" href="{% static "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" %}" >
+	<!-- <link href="css/tiny-slider.css" rel="stylesheet">  -->
+	<link rel="stylesheet" href="{% static "aplicacion/css/tiny-slider.css" %}" >
+	<!-- <link href="css/style.css" rel="stylesheet"> -->
+	<link rel="stylesheet" href="{% static "aplicacion/css/style.css" %}" >
 	<title>Inicio </title>
 </head>
 
@@ -30,7 +34,8 @@
 	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
 		<div class="container">
-			<a class="navbar-brand" href="index.html">Brama<span>.</span></a>
+			<!-- <a class="navbar-brand" href="index.html">Brama<span>.</span></a> -->
+			<a class="navbar-brand" href="{% url "index" %}">Brama<span>.</span></a>
 
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
 				aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,18 +44,24 @@
 
 			<div class="collapse navbar-collapse" id="navbarsFurni">
 				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-					<li><a class="nav-link" href="miscompras.html">Mis Compras
+					<!-- <li><a class="nav-link" href="miscompras.html">Mis Compras -->
+					<li><a class="nav-link" href="{% url "miscompras" %}">Mis Compras	
 						</a></li>
 					<li class="nav-item active">
-						<a class="nav-link" href="index.html">Inicio</a>
+				   <!-- <a class="nav-link" href="index.html">Inicio</a> -->
+						<a class="nav-link" href="{% url "index" %}">Inicio</a>
 					</li>
-					<li><a class="nav-link" href="shop.html">Tienda</a></li>
-					<li><a class="nav-link" href="about.html">Nosotros</a></li>
+			   <!-- <li><a class="nav-link" href="shop.html">Tienda</a></li> -->
+					<li><a class="nav-link" href="{% url "shop" %}">Tienda</a></li>
+				<!--<li><a class="nav-link" href="about.html">Nosotros</a></li>  -->
+					<li><a class="nav-link" href="{% url "about" %}">Nosotros</a></li>
 				</ul>
 
 				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-					<li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li>
-					<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
+				<!--<li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li> -->
+					<li><a class="nav-link" href="{% url "sesion" %}"><img src="{% static "aplicacion/img/user.svg" %}"></a></li>
+				<!--<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li> -->
+					<li><a class="nav-link" href="{% url "cart" %}"><img src="{% static "aplicacion/img/cart.svg" %}"></a></li>
 				</ul>
 			</div>
 		</div>
@@ -68,12 +79,14 @@
 						<p class="mb-4">Brindamos la mejor experiencia para cualquier situación descabellada, te
 							protegemos y aportamos con nuestro equipo de primera clase, tal como nuestra arma destacada
 							de la semana. </p>
-						<p><a href="shop.html" class="btn btn-secondary me-2">Tienda</a></p>
+					<!--<p><a href="shop.html" class="btn btn-secondary me-2">Tienda</a></p> -->
+						<p><a href="{% url "shop" %}" class="btn btn-secondary me-2">Tienda</a></p>
 					</div>
 				</div>
 				<div class="col-lg-7">
 					<div class="hero-img-wrap">
-						<img responsive src="images/ak74.jpg" class="img-fluid">
+					<!--<img responsive src="images/ak74.jpg" class="img-fluid"> -->
+						<img responsive src="{%static "aplicacion/img/ak74.jpg" %}" class="img-fluid">
 					</div>
 				</div>
 			</div>
@@ -93,19 +106,23 @@
 					<p class="mb-4">Estos productos son seleccionados cuidadosamente para ofrecer las mejores opciones
 						en el mercado de armamento y seguridad, asegurando calidad y confiabilidad para la protección
 						personal y profesional de nuestros clientes. </p>
-					<p><a href="shop.html" class="btn">Explorar</a></p>
+			   <!-- <p><a href="shop.html" class="btn">Explorar</a></p> -->
+					<p><a href="{% url "shop" %}" class="btn">Explorar</a></p>
 				</div>
 				<!-- End Column 1 -->
 
 				<!-- Start Column 2 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-					<a class="product-item" href="producto/beretta.html">
-						<img src="images/bereta-remove.png" class="img-fluid product-thumbnail">
+				<!--<a class="product-item" href="producto/beretta.html">  -->
+					<a class="product-item" href="{% url "beretta" %}">
+					<!--<img src="images/bereta-remove.png" class="img-fluid product-thumbnail">  -->
+						<img src="{% static "aplicacion/img/bereta-remove.png" %}" class="img-fluid product-thumbnail">
 						<h3 class="product-title">Beretta</h3>
 						<strong class="product-price">$144.000</strong>
 
 						<span class="icon-cross">
-							<img src="images/cross.svg" class="img-fluid">
+						<!--<img src="images/cross.svg" class="img-fluid">  -->
+							<img src="{% static "aplicacion/img/cross.svg" %}" class="img-fluid">
 						</span>
 					</a>
 				</div>
@@ -113,13 +130,15 @@
 
 				<!-- Start Column 3 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-					<a class="product-item" href="producto/cuchillo.html">
-						<img src="images/cuchillo-remove.png" class="img-fluid product-thumbnail">
+				<!--<a class="product-item" href="producto/cuchillo.html"> -->
+					<a class="product-item" href="{% url "cuchillo" %}">
+					<!--<img src="images/cuchillo-remove.png" class="img-fluid product-thumbnail">-->
+						<img src="{% static "aplicacion/img/cuchillo-remove.png" %}" class="img-fluid product-thumbnail">
 						<h3 class="product-title">Cuchillo tactico</h3>
 						<strong class="product-price">$50.000</strong>
 
 						<span class="icon-cross">
-							<img src="images/cross.svg" class="img-fluid">
+							<img src="{% static "aplicacion/img/cross.svg" %}" class="img-fluid">
 						</span>
 					</a>
 				</div>
@@ -127,13 +146,15 @@
 
 				<!-- Start Column 4 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
-					<a class="product-item" href="producto/carpa.html">
-						<img src="images/carpa3-remove.png" class="img-fluid product-thumbnail">
+			   <!-- <a class="product-item" href="producto/carpa.html">-->
+					<a class="product-item" href="{% url "carpa"%}">
+			       <!-- <img src="images/carpa3-remove.png" class="img-fluid product-thumbnail"> -->
+						<img src="{% static "aplicacion/img/carpa3-remove.png" %}" class="img-fluid product-thumbnail">
 						<h3 class="product-title">Carpa</h3>
 						<strong class="product-price">$135.000</strong>
 
 						<span class="icon-cross">
-							<img src="images/cross.svg" class="img-fluid">
+							<img src="{% static "aplicacion/img/cross.svg" %}" class="img-fluid">
 						</span>
 					</a>
 				</div>
@@ -158,7 +179,8 @@
 						<div class="col-6 col-md-6">
 							<div class="feature">
 								<div class="icon">
-									<img src="images/truck.svg" alt="Image" class="imf-fluid">
+							   <!-- <img src="images/truck.svg" alt="Image" class="imf-fluid"> -->
+									<img src="{% static "aplicacion/img/truck.svg" %}" alt="Image" class="imf-fluid">
 								</div>
 								<h3>Rapido &amp; y envío gratis</h3>
 								<p>Disponemos de numero de seguimiento para cada actualizacion</p>
@@ -168,7 +190,8 @@
 						<div class="col-6 col-md-6">
 							<div class="feature">
 								<div class="icon">
-									<img src="images/bag.svg" alt="Image" class="imf-fluid">
+							   <!-- <img src="images/bag.svg" alt="Image" class="imf-fluid">  -->
+									<img src="{% static "aplicacion/img/bag.svg" %}" alt="Image" class="imf-fluid">
 								</div>
 								<h3>Facil de comprar</h3>
 								<p>Aceptamos pago con tarjeta Debito, Credito, transferencia</p>
@@ -178,7 +201,8 @@
 						<div class="col-6 col-md-6">
 							<div class="feature">
 								<div class="icon">
-									<img src="images/support.svg" alt="Image" class="imf-fluid">
+							    <!--<img src="images/support.svg" alt="Image" class="imf-fluid">  -->
+									<img src="{% static "aplicacion/img/support.svg" %}" alt="Image" class="imf-fluid">
 								</div>
 								<h3>Atención al cliente</h3>
 								<p>Nos puedes mandar un correo electronico a armeria@brama.cl, presencial, o via
@@ -189,7 +213,8 @@
 						<div class="col-6 col-md-6">
 							<div class="feature">
 								<div class="icon">
-									<img src="images/return.svg" alt="Image" class="imf-fluid">
+							 <!--	<img src="images/return.svg" alt="Image" class="imf-fluid"> -->
+									<img src="{% static "aplicacion/img/return.svg" %}" alt="Image" class="imf-fluid">
 								</div>
 								<h3>Garantia </h3>
 								<p>En caso de fallo de fabrica, mal estado comprado ya nuevo, se puede contactar con
@@ -202,7 +227,8 @@
 
 				<div class="col-lg-5">
 					<div class="img-wrap">
-						<img src="images/bramalimpioo.jpg" alt="Image" class="img-fluid">
+					<!--<img src="images/bramalimpioo.jpg" alt="Image" class="img-fluid"> -->
+						<img src="{% static "aplicacion/img/bramalimpioo.jpg" %}" alt="Image" class="img-fluid">
 					</div>
 				</div>
 
@@ -212,9 +238,12 @@
 	<!-- End Why Choose Us Section -->
 
 
-	<script src="js/bootstrap.bundle.min.js"></script>
-	<script src="js/tiny-slider.js"></script>
-	<script src="js/custom.js"></script>
+<!--<script src="js/bootstrap.bundle.min.js"></script> -->
+	<script src='{% static "aplicacion/js/bootstrap.bundle.min.js" %}}'></script>
+<!--<script src="js/tiny-slider.js"></script>  -->
+	<script src='{% static "aplicacion/js/tiny-slider.js" %}}'></script>
+<!--<script src="js/custom.js"></script> -->
+	<script src='{% static "aplicacion/js/custom.js" %}}'></script>
 </body>
 
 </html>
