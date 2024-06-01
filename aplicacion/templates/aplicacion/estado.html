@@ -3,90 +3,67 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="logo.png.png">
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Untree.co">
+	<!-- <link rel="shortcut icon" href="logo.png.png"> -->
+	<link rel="shortcut icon" href="{%static "aplicacion/img/logo.png.png" %}">
+
+	<meta name="description" content="" />
+	<meta name="keywords" content="bootstrap, bootstrap4" />
+
+	<!-- Bootstrap CSS -->
+	<!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+	<link rel="stylesheet" href="{%static "aplcacion/css/bootstrap.min.css"%}">
+	<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> -->
+	<link rel="stylesheet" href="{%static "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" %}" >
+	<!-- <link href="css/tiny-slider.css" rel="stylesheet">  -->
+	<link rel="stylesheet" href="{%static "aplicacion/css/tiny-slider.css" %}" >
+	<!-- <link href="css/style.css" rel="stylesheet"> -->
+	<link rel="stylesheet" href="{%static "aplicacion/css/style.css" %}" >
     <title>Estado de Pedido</title>
-    <!-- Bootstrap CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="css/tiny-slider.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        p {
-            color: #666;
-        }
-
-        .success {
-            font-size: 24px;
-            color: green;
-        }
-
-        .details {
-            margin-top: 20px;
-        }
-
-        table {
-            width: 80%;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            border: 1px solid #dddddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <link rel="stylesheet" href="{%static "aplicacion/css/styleestadopedido.css" %}" >
 </head>
 
 <body>
     <!-- Start Header/Navigation -->
-    <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
-        <div class="container">
-            <a class="navbar-brand" href="index.html">Brama<span>.</span></a>
+		<div class="container">
+			<!-- <a class="navbar-brand" href="index.html">Brama<span>.</span></a> -->
+			<a class="navbar-brand" href="{% url "index" %}">Brama<span>.</span></a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
-                aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+				aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-            <div class="collapse navbar-collapse" id="navbarsFurni">
-                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                    <li><a class="nav-link" href="miscompras.html">Mis Compras
-                    </a></li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="index.html">Inicio</a>
-                    </li>
-                    <li><a class="nav-link" href="shop.html">Tienda</a></li>
-                    <li><a class="nav-link" href="about.html">Nosotros</a></li>
-                </ul>
+			<div class="collapse navbar-collapse" id="navbarsFurni">
+				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+					<!-- <li><a class="nav-link" href="miscompras.html">Mis Compras -->
+					<li><a class="nav-link" href="{% url "miscompras" %}">Mis Compras	
+						</a></li>
+					<li class="nav-item active">
+				   <!-- <a class="nav-link" href="index.html">Inicio</a> -->
+						<a class="nav-link" href="{% url "index" %}">Inicio</a>
+					</li>
+			   <!-- <li><a class="nav-link" href="shop.html">Tienda</a></li> -->
+					<li><a class="nav-link" href="{% url "shop" %}">Tienda</a></li>
+				<!--<li><a class="nav-link" href="about.html">Nosotros</a></li>  -->
+					<li><a class="nav-link" href="{% url "about" %}">Nosotros</a></li>
+				</ul>
 
-                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-                    <li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li>
-                    <li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>
-                </ul>
-            </div>
-        </div>
+				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+				<!--<li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li> -->
+					<li><a class="nav-link" href="{% url "sesion" %}"><img src="{% static "aplicacion/img/user.svg" %}"></a></li>
+				<!--<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li> -->
+					<li><a class="nav-link" href="{% url "cart" %}"><img src="{% static "aplicacion/img/cart.svg" %}"></a></li>
+				</ul>
+			</div>
+		</div>
 
-    </nav>
-    <!-- End Header/Navigation -->
+	</nav>
+	<!-- End Header/Navigation -->
 
     <!-- Start Hero Section -->
     <div class="hero">
@@ -136,14 +113,19 @@
                 </tr>
             </table>
         </div>
-        <p><a href="index.html" class="btn btn-sm btn-outline-black">Volver al Inicio</a>
-            <a href="index.html" class="btn btn-sm btn-outline-black">Descargar Comprobante</a>
+    <!--<p><a href="index.html" class="btn btn-sm btn-outline-black">Volver al Inicio</a> -->
+        <p><a href="{% url "index" %}" class="btn btn-sm btn-outline-black">Volver al Inicio</a>    
+        <!--<a href="index.html" class="btn btn-sm btn-outline-black">Descargar Comprobante</a> -->
+            <a href="{% url "index" %}" class="btn btn-sm btn-outline-black">Descargar Comprobante</a>
         </p>
     </div>
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/tiny-slider.js"></script>
-    <script src="js/custom.js"></script>
+     <!--<script src="js/bootstrap.bundle.min.js"></script> -->
+	  <script src='{% static "aplicacion/js/bootstrap.bundle.min.js" %}'></script>
+	  <!--<script src="js/tiny-slider.js"></script>  -->
+		  <script src='{% static "aplicacion/js/tiny-slider.js" %}'></script>
+	  <!--<script src="js/custom.js"></script> -->
+		  <script src='{% static "aplicacion/js/custom.js" %}'></script>
 </body>
 
 </html>
