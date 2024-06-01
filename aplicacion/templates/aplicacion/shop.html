@@ -29,7 +29,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="author" content="Untree.co">
-	<link rel="shortcut icon" href="{% static "logo.png.png"%}">
+	<link rel="shortcut icon" href="{% url "logo.png"%}">
 <!--	<li><a class="nav-link" href=" {% static "about.html"%}">Nosotros</a></li> --> 
 
 	<meta name="description" content="" />
@@ -37,13 +37,13 @@
 
 	<!-- Bootstrap CSS -->
 	<!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-	<link href="{% static "css/bootstrap.min.css" rel="stylesheet"%}">
-	<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> -->
-	<link href="{% static "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"%}" rel="stylesheet">
-	<!-- <link href="css/tiny-slider.css" rel="stylesheet"> -->
-	<link href="{% static "css/tiny-slider.css" rel="stylesheet"%}">
-	<!-- <link href="css/style.css" rel="stylesheet"> -->
-	<link href="{% static "css/style.css" rel="stylesheet"%}">
+    <link href="{% static 'aplicacion/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> -->
+	<link href="{% static "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" %}" rel="stylesheet">
+    <!-- <link href="{% static 'css/tiny-slider.css' %}" rel="stylesheet"> -->
+    <link href="{% static 'aplicacion/css/tiny-slider.css' %}" rel="stylesheet">
+    <!-- <link href="css/style.css" rel="stylesheet"> -->
+    <link href="{% static 'aplicacion/css/style.css' %}" rel="stylesheet">	
 	<title>Tienda</title>
 </head>
 
@@ -54,8 +54,7 @@
 	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
 		<div class="container">
-		<!--<a class="navbar-brand" href="index.html">Brama<span>.</span></a> -->
-			<a class="navbar-brand" href=" {% static "index.html"%}">Brama<span>.</span></a>
+			<a class="navbar-brand" href="{% url "index.html"%}">Brama<span>.</span></a>
 
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
 				aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,23 +63,24 @@
 
 			<div class="collapse navbar-collapse" id="navbarsFurni">
 				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-				<!--<li><a class="nav-link" href="miscompras.html">Mis Compras  -->
-						<li><a class="nav-link" href="{% static "miscompras.html"%}">Mis Compras
+					<!-- <li><a class="nav-link" href=" {% static "miscompras.html" %}">Mis Compras--> 
+					<li><a class="nav-link" href=" {% url "miscompras" %}">Mis Compras
                     </a></li>
 					<li class="nav-item ">
-					<!--<a class="nav-link" href="index.html">Inicio</a> -->
-						<a class="nav-link" href="{% static"index.html"%}">Inicio</a>
+					<!-- <a class="nav-link" href="{% static "index.html" %}">Inicio</a>-->
+					<a class="nav-link" href="{% url "index" %}">Inicio</a>
 					</li>
-					<!-- <li class="active"><a class="nav-link" href="shop.html">Tienda</a></li> -->
-					<li class="active"><a class="nav-link" href="{% static"shop.html"%}">Tienda</a></li>
-					<li><a class="nav-link" href="{% static"about.html"%}">Nosotros</a></li>
+					<!-- <li><a class="nav-link" href=" {% static "shop.html"%}" >Tienda</a></li>-->
+					<li><a class="nav-link" href=" {% url "shop"%}" >Tienda</a></li>
+					<!-- <li><a class="nav-link" href=" {% static "about.html"%}">Nosotros</a></li>-->
+					<li><a class="nav-link" href=" {% url "about"%}">Nosotros</a></li>
 				</ul>
 
 				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-					<!--<li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li>-->
-					<li><a class="nav-link" href="{% static"sesion.html"%}"><img src="images/user.svg"></a></li>
-					<!--<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li>-->
-					<li><a class="nav-link" href="{% static"cart.html"%}"><img src="images/cart.svg"></a></li>
+					<!-- <li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li> -->
+					<li><a class="nav-link" href="{% url "sesion"%}"><img src="{% static "aplicacion/img/user.svg" %}"></a></li>
+					<!-- <li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li> -->
+					<li><a class="nav-link" href="{% url "cart" %}"><img src="{% static "aplicacion/img/cart.svg" %}"></a></li>
 				</ul>
 			</div>
 		</div>
@@ -114,123 +114,107 @@
 
 				<!-- Start Column 1 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5">
-					<!-- <a class="product-item" href="producto/beretta.html"> -->
-						<a class="product-item" href="{% static"producto/beretta.html"%}">
-						<img src="images/bereta-remove.png" class="img-fluid product-thumbnail">
-						<h3 class="product-title">Beretta</h3>
-						<strong class="product-price">$144.000</strong>
-
-						<span class="icon-cross">
-							<img src="images/cross.svg" class="img-fluid">
-						</span>
-					</a>
-				</div>
+                    <a class="product-item" href="{% url 'beretta' %}">
+                        <img src="{% static 'aplicacion/img/bereta-remove.png' %}" class="img-fluid product-thumbnail" alt="Beretta">
+                        <h3 class="product-title">Beretta</h3>
+                        <strong class="product-price">$144.000</strong>
+                        <span class="icon-cross">
+                            <img src="{% static 'aplicacion/img/cross.svg' %}" class="img-fluid" alt="cross">
+                        </span>
+                    </a>
+                </div>
 				<!-- End Column 1 -->
 
 				<!-- Start Column 2 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5">
-					<!-- <a class="product-item" href="producto/chaleco.html"> -->
-						<a class="product-item" href="{% static"producto/chaleco.html"%}"> 
-						<img src="images/chaleco-remove.png" class="img-fluid product-thumbnail">
-						<h3 class="product-title">Pin on Hunting and tactical Gear</h3>
-						<strong class="product-price">$129.990</strong>
-
-						<span class="icon-cross">
-							<img src="images/cross.svg" class="img-fluid">
-						</span>
-					</a>
-				</div>
+                    <a class="product-item" href="{% url 'chaleco' %}">
+                        <img src="{% static 'aplicacion/img/chaleco-remove.png' %}" class="img-fluid product-thumbnail" alt="Chaleco">
+                        <h3 class="product-title">Pin on Hunting and tactical Gear</h3>
+                        <strong class="product-price">$129.990</strong>
+                        <span class="icon-cross">
+                            <img src="{% static 'aplicacion/img/cross.svg' %}" class="img-fluid" alt="cross">
+                        </span>
+                    </a>
+                </div>
 				<!-- End Column 2 -->
 
 				<!-- Start Column 3 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5">
-					<!-- <a class="product-item" href="producto/valken.html"> -->
-						<a class="product-item" href="{% static"producto/valken.html"%}">
-						<img src="images/rifle-remove.png" class="img-fluid product-thumbnail">
-						<h3 class="product-title">Valken Airsoft </h3>
-						<strong class="product-price">$300.000</strong>
-
-						<span class="icon-cross">
-							<img src="images/cross.svg" class="img-fluid">
-						</span>
-					</a>
-				</div>
+                    <a class="product-item" href="{% url 'valken' %}">
+                        <img src="{% static 'aplicacion/img/rifle-remove.png' %}" class="img-fluid product-thumbnail" alt="Valken">
+                        <h3 class="product-title">Valken Airsoft</h3>
+                        <strong class="product-price">$300.000</strong>
+                        <span class="icon-cross">
+                            <img src="{% static 'aplicacion/img/cross.svg' %}" class="img-fluid" alt="cross">
+                        </span>
+                    </a>
+                </div>
 				<!-- End Column 3 -->
 
 				<!-- Start Column 4 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5">
-					<!-- <a class="product-item" href="producto/casco.html"> -->
-						<a class="product-item" href="{% static"producto/casco.html"%}">
-						<img src="images/casco-remove.png" class="img-fluid product-thumbnail">
-						<h3 class="product-title">Casco militar Airsoft</h3>
-						<strong class="product-price">$135.000</strong>
-
-						<span class="icon-cross">
-							<img src="images/cross.svg" class="img-fluid">
-						</span>
-					</a>
+                    <a class="product-item" href="{% url 'casco' %}">
+                        <img src="{% static 'aplicacion/img/casco-remove.png' %}" class="img-fluid product-thumbnail" alt="Casco">
+                        <h3 class="product-title">Casco militar Airsoft</h3>
+                        <strong class="product-price">$135.000</strong>
+                        <span class="icon-cross">
+                            <img src="{% static 'aplicacion/img/cross.svg' %}" class="img-fluid" alt="cross">
+                        </span>
+                    </a>
 				</div>
 				<!-- End Column 4 -->
 
 
 				<!-- Start Column 1 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5">
-					<!-- <a class="product-item" href="{% static"producto/cuchillo.html "%}"> -->
-						<a class="product-item" href="{% static"producto/cuchillo.html "%}">
-						<img src="images/cuchillo-remove.png" class="img-fluid product-thumbnail">
-						<h3 class="product-title">Cuchillo tactico</h3>
-						<strong class="product-price">$50.000</strong>
-
-						<span class="icon-cross">
-							<img src="images/cross.svg" class="img-fluid">
-						</span>
-					</a>
-				</div>
+                    <a class="product-item" href="{% url 'cuchillo' %}">
+                        <img src="{% static 'aplicacion/img/cuchillo-remove.png' %}" class="img-fluid product-thumbnail" alt="Cuchillo">
+                        <h3 class="product-title">Cuchillo táctico</h3>
+                        <strong class="product-price">$50.000</strong>
+                        <span class="icon-cross">
+                            <img src="{% static 'aplicacion/img/cross.svg' %}" class="img-fluid" alt="cross">
+                        </span>
+                    </a>
+                </div>
 				<!-- End Column 1 -->
 
 				<!-- Start Column 2 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5">
-					<!-- <a class="product-item" href="producto/pantalon.html"> -->
-						<a class="product-item" href="{% static"producto/pantalon.html"%}"> 
-						<img src="images/pantalonmilico-remove.png" class="img-fluid product-thumbnail">
-						<h3 class="product-title">Pantalon Militar bien tejido</h3>
-						<strong class="product-price">$49.000</strong>
-
-						<span class="icon-cross">
-							<img src="images/cross.svg" class="img-fluid">
-						</span>
-					</a>
-				</div>
+                    <a class="product-item" href="{% url 'pantalon' %}">
+                        <img src="{% static 'aplicacion/img/pantalonmilico-remove.png' %}" class="img-fluid product-thumbnail" alt="Pantalón Militar">
+                        <h3 class="product-title">Pantalón Militar bien tejido</h3>
+                        <strong class="product-price">$49.000</strong>
+                        <span class="icon-cross">
+                            <img src="{% static 'aplicacion/img/cross.svg' %}" class="img-fluid" alt="cross">
+                        </span>
+                    </a>
+                </div>
 				<!-- End Column 2 -->
 
 				<!-- Start Column 3 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5">
-					<!-- <a class="product-item" href="producto/camisa.html"> -->
-						<a class="product-item" href="{% static"producto/camisa.html"%}">
-						<img src="images/camisa-remove.png" class="img-fluid product-thumbnail">
-						<h3 class="product-title">Camisa militar con cierre</h3>
-						<strong class="product-price">$39.500</strong>
-
-						<span class="icon-cross">
-							<img src="images/cross.svg" class="img-fluid">
-						</span>
-					</a>
-				</div>
+                    <a class="product-item" href="{% url 'camisa' %}">
+                        <img src="{% static 'aplicacion/img/camisa-remove.png' %}" class="img-fluid product-thumbnail" alt="Camisa Militar">
+                        <h3 class="product-title">Camisa militar con cierre</h3>
+                        <strong class="product-price">$39.500</strong>
+                        <span class="icon-cross">
+                            <img src="{% static 'aplicacion/img/cross.svg' %}" class="img-fluid" alt="cross">
+                        </span>
+                    </a>
+                </div>
 				<!-- End Column 3 -->
 
 				<!-- Start Column 4 -->
 				<div class="col-12 col-md-4 col-lg-3 mb-5">
-				<!--	<a class="product-item" href="producto/carpa.html"> -->
-						<a class="product-item" href="{% static"producto/carpa.html"%}"> 
-						<img src="images/carpa3-remove.png" class="img-fluid product-thumbnail">
-						<h3 class="product-title">Carpa </h3>
-						<strong class="product-price">$135.000</strong>
-
-						<span class="icon-cross">
-							<img src="images/cross.svg" class="img-fluid">
-						</span>
-					</a>
-				</div>
+                    <a class="product-item" href="{% url 'carpa' %}">
+                        <img src="{% static 'aplicacion/img/carpa3-remove.png' %}" class="img-fluid product-thumbnail" alt="Carpa">
+                        <h3 class="product-title">Carpa</h3>
+                        <strong class="product-price">$135.000</strong>
+                        <span class="icon-cross">
+                            <img src="{% static 'aplicacion/img/cross.svg' %}" class="img-fluid" alt="cross">
+                        </span>
+                    </a>
+                </div>
 				<!-- End Column 4 -->
 
 			</div>
@@ -247,9 +231,10 @@
 				
 
 
-	<script src="js/bootstrap.bundle.min.js"></script>
-	<script src="js/tiny-slider.js"></script>
-	<script src="js/custom.js"></script>
+		<script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
+		<script src="{% static 'aplicacion/js/tiny-slider.js' %}"></script>
+		<script src="{% static 'aplicacion/js/custom.js' %}"></script>
+
 </body>
 
 </html>

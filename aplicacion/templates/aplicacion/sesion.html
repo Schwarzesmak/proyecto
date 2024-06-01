@@ -1,22 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-    	<!-- <a class="product-item" href="{% static"producto/pantalon.html"%}"> -->
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="logo.png.png">
+    <link rel="shortcut icon" href="{% static 'logo.png' %}">
     <title>Inicio de Sesión</title>
-   <!-- <link href="css/bootstrap.min.css" rel="stylesheet">  -->
-    <link href="{% static"css/bootstrap.min.css"%}" rel="stylesheet">
-    <!--  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> -->
-    <link href="{% static" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"%}" rel="stylesheet"> 
-    <!-- <link href="css/tiny-slider.css" rel="stylesheet"> -->
-    <link href="{% static" css/tiny-slider.css"%}" rel="stylesheet">
-    <!-- <link href="css/style.css" rel="stylesheet"> -->
-    <link href="{% static" css/style.css"%}" rel="stylesheet">
-
+    <link href="{% static 'aplicacion/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/tiny-slider.css' %}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/style.css' %}" rel="stylesheet">
 </head>
 
 <body>
@@ -26,21 +19,20 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="text-center mb-4">Inicio de sesión</h1>
-                        <form action="index.html" method="get" id="formulariosesion">
+                        <form action="{% url 'index' %}" method="get" id="formulariosesion">
                             <div class="mb-3">
                                 <label for="usuario" class="form-label">Nombre de usuario</label>
-                                <input type="text" class="form-control" id="usuario" name="usuario" required
-                                    maxlength="25">
+                                <input type="text" class="form-control" id="usuario" name="usuario" required maxlength="25">
                             </div>
                             <div class="mb-3">
                                 <label for="contraseña" class="form-label">Contraseña</label>
                                 <input type="password" class="form-control" id="contraseña" name="contraseña" required>
                             </div>
                             <div>
-                                <input type="submit" value="Iniciar Sesión" class="btn btn-primary w-100">  
+                                <input type="submit" value="Iniciar Sesión" class="btn btn-primary w-100">
                             </div>
                             <div class="text-center mt-3">
-                                Quiero hacer el <a href="registro.html">registro</a>
+                                Quiero hacer el <a href="{% url 'registro' %}">registro</a>
                             </div>
                         </form>
                     </div>
@@ -48,10 +40,10 @@
             </div>
         </div>
     </div>
-    <script src="js/validacionsesion.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/tiny-slider.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="{% static 'aplicacion/js/validacionsesion.js' %}"></script>
+    <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'aplicacion/js/tiny-slider.js' %}"></script>
+    <script src="{% static 'aplicacion/js/custom.js' %}"></script>
 </body>
 
 </html>
