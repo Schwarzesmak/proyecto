@@ -13,15 +13,13 @@
 
     <!-- Bootstrap CSS -->
     <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-    <link href="{% static"aplicacion/css/bootstrap.min.css"%}" rel="stylesheet">
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> -->
-    <link href="{% static"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"%}" rel="stylesheet">
-    <!-- <link href="css/tiny-slider.css" rel="stylesheet"> -->
-    <link href="{% static"aplicacion/css/tiny-slider.css"%}" rel="stylesheet">
-    <!-- <link href="css/style.css" rel="stylesheet"> -->
-    <link href="{% static"aplicacion/css/style.css"%}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/tiny-slider.css' %}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/style.css' %}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="aplicacion/js/controlusuario.js"></script>
+    <script src="{% static 'aplicacion/js/controlusuario.js' %}"></script>
+    
 
     <title>Panel de Administración - Tienda de Poleras</title>
     <style>
@@ -84,43 +82,34 @@
 <body>
     <!-- Start Header/Navigation -->
     <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
-
         <div class="container">
-            <a class="navbar-brand" href="{% static"#"%}">Brama Admin<span>.</span></a>
-
+            <a class="navbar-brand" href="{% url 'home' %}">Brama Admin<span>.</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
                 aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarsFurni">
                 <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                    <li class="nav-item ">
-                      <!--  <a class="nav-link" href="panelcontrolestadocompra.html">Estado de Compra</a> -->
-                        <a class="nav-link" href="{% static"panelcontrolestadocompra.html"%}">Estado de Compra</a>   
-                    </li> 
-
                     <li class="nav-item">
-                    </li>
-                    <!-- <a class="nav-link" href="panelcontrolusuarios.html">Usuarios</a> -->
-                    <a class="nav-link" href="{% static"panelcontrolusuarios.html"%}">Usuarios</a>
-                    <li class="nav-item">
-                        <!-- <a class="nav-link" href="panelcontrolagregararmas.html">Agregar Productos</a> -->
-                        <a class="nav-link" href="{% static"panelcontrolagregararmas.html"%}">Agregar Productos</a>
+                        <a class="nav-link" href="{% url 'estado_compra' %}">Estado de Compra</a>   
                     </li>
                     <li class="nav-item">
-                        <!-- <a class="nav-link" href="panelcontroleditararmas.html">Editar Producto</a> -->
-                        <a class="nav-link" href="{% static"panelcontroleditararmas.html"%}">Editar Producto</a>
+                        <a class="nav-link" href="{% url 'usuarios' %}">Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <!-- <a class="nav-link" href="panelcerrasesion.html">Cerrar Sesión</a> -->
-                        <a class="nav-link" href="{% static"panelcerrasesion.html"%}">Cerrar Sesión</a>
+                        <a class="nav-link" href="{% url 'agregar_productos' %}">Agregar Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'editar_producto' %}">Editar Producto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
                     </li>
                 </ul>
             </div>
         </div>
-
     </nav>
+    
     <!-- End Header/Navigation -->
 
     <div class="col-md-6">
@@ -220,10 +209,10 @@
     </div>
 
 
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/tiny-slider.js"></script>
-    <script src="js/custom.js"></script>
-    <script src="js/controlusuario.js"></script>
+    <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'aplicacion/js/tiny-slider.js' %}"></script>
+    <script src="{% static 'aplicacion/js/custom.js' %}"></script>
+    <script src="{% static 'aplicacion/js/controlusuario.js' %}"></script>
 
     
     <script>
