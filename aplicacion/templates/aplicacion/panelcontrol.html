@@ -12,10 +12,10 @@
     <meta name="keywords" content="bootstrap, bootstrap4" />
 
     <!-- Bootstrap CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="css/tiny-slider.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/tiny-slider.css' %}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/style.css' %}" rel="stylesheet">
     <title>Panel de Control</title>
 
 </head>
@@ -25,7 +25,7 @@
     <!-- Start Header/Navigation -->
     <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
         <div class="container">
-            <a class="navbar-brand" href="#">Brama Admin<span>.</span></a>
+            <a class="navbar-brand" href="{% static "#" %}">Brama Admin<span>.</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
                 aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -33,19 +33,19 @@
             <div class="collapse navbar-collapse" id="navbarsFurni">
                 <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
                     <li class="nav-item ">
-                        <a class="nav-link" href="panelcontrolestadocompra.html">Estado de Compra</a>
+                        <a class="nav-link" href="{% url 'panelcontrolestadocompra' %}">Estado de Compra</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="panelcontrolusuarios.html">Usuarios</a>
+                        <a class="nav-link" href="{% url 'panelcontrolusuarios' %}">Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="panelcontrolagregararmas.html">Agregar Productos</a>
+                        <a class="nav-link" href="{% url 'panelcontrolagregararmas' %}">Agregar Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="panelcontroleditararmas.html">Editar Producto</a>
+                        <a class="nav-link" href="{% url 'panelcontroleditararmas' %}">Editar Producto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="panelcerrasesion.html">Cerrar Sesión</a>
+                        <a class="nav-link" href="{% url 'panelcerrasesion' %}">Cerrar Sesión</a>
                     </li>
                 </ul>
             </div>
@@ -114,13 +114,13 @@
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'https://cdn.jsdelivr.net/npm/chart.js' %}"></script>
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'https://code.jquery.com/jquery-3.6.0.min.js' %}"></script>
     <!-- Archivo JavaScript separado -->
-    <script src="js/panelcontrol.js"></script>
+    <script src="{% url 'aplicacion/js/panelcontrol.js' %}"></script>
 </body>
 
 </html>
