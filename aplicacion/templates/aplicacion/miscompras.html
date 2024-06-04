@@ -91,7 +91,7 @@
 <!-- Start Header/Navigation -->
 <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
     <div class="container">
-        <a class="navbar-brand" href="index.html">Brama<span>.</span></a>
+        <a class="navbar-brand" href="{% url 'index' %}">Brama<span>.</span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
                 aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -99,24 +99,24 @@
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="miscompras.html" style="color: #EEEEEE;">Mis Compras</a>
+                    <a class="nav-link" href="{% url 'miscompras' %}" style="color: #EEEEEE;">Mis Compras</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html" style="color: #EEEEEE;">Inicio</a>
+                    <a class="nav-link" href="{% url 'index' %}" style="color: #EEEEEE;">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="shop.html" style="color: #EEEEEE;">Tienda</a>
+                    <a class="nav-link" href="{% url 'shop' %}" style="color: #EEEEEE;">Tienda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html" style="color: #EEEEEE;">Nosotros</a>
+                    <a class="nav-link" href="{% url 'about' %}" style="color: #EEEEEE;">Nosotros</a>
                 </li>
             </ul>
             <ul class="navbar-nav mb-2 mb-md-0 ms-5">
                 <li class="nav-item">
-                    <a class="nav-link" href="sesion.html"><img src="images/user.svg"></a>
+                    <a class="nav-link" href="{% url 'sesion.html' %}"><img src="images/user.svg"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="cart.html"><img src="images/cart.svg"></a>
+                    <a class="nav-link" href="{% url 'cart.html' %}"><img src="images/cart.svg"></a>
                 </li>
             </ul>
         </div>
@@ -218,6 +218,6 @@
         });
     });
 </script>
-<script src="js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>
