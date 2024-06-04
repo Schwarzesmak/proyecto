@@ -4,43 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../logo.png.png">
-    <title>Producto Pantalón</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
-
+<!--<link rel="shortcut icon" href="../logo.png.png"> -->
+    <link rel="shortcut icon" href="{%static "aplicacion/img/logo.png.png" %}">
+<!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{% static "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" %}" >
+<!--<link rel="stylesheet" href="../css/style.css"> -->
+    <link rel="stylesheet" href="{% static "aplicacion/css/style.css" %}">
+    <title>Producto Pantalon</title>
 </head>
 
 <body>
 
     <!-- Start Header/Navigation -->
-    <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
-        <div class="container">
-            <a class="navbar-brand" href="../index.html">Brama<span>.</span></a>
+		<div class="container">
+			<!-- <a class="navbar-brand" href="index.html">Brama<span>.</span></a> -->
+			<a class="navbar-brand" href="{% url "index" %}">Brama<span>.</span></a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
-                aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+				aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-            <div class="collapse navbar-collapse" id="navbarsFurni">
-                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                    <li class="nav-item ">
-                        <a class="nav-link" href="../index.html">Inicio</a>
-                    </li>
-                    <li class="active"><a class="nav-link" href="../about.html">Nosotros</a></li>
-                </ul>
+			<div class="collapse navbar-collapse" id="navbarsFurni">
+				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+					<!-- <li><a class="nav-link" href="miscompras.html">Mis Compras -->
+					<li><a class="nav-link" href="{% url "miscompras" %}">Mis Compras	
+						</a></li>
+					<li class="nav-item active">
+				   <!-- <a class="nav-link" href="index.html">Inicio</a> -->
+						<a class="nav-link" href="{% url "index" %}">Inicio</a>
+					</li>
+			   <!-- <li><a class="nav-link" href="shop.html">Tienda</a></li> -->
+					<li><a class="nav-link" href="{% url "shop" %}">Tienda</a></li>
+				<!--<li><a class="nav-link" href="about.html">Nosotros</a></li>  -->
+					<li><a class="nav-link" href="{% url "about" %}">Nosotros</a></li>
+				</ul>
 
-                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-                    <li><a class="nav-link" href="#"><img src="../images/user.svg"></a></li>
-                    <li><a class="nav-link" href="../cart.html"><img src="../images/cart.svg"></a></li>
-                </ul>
-            </div>
-        </div>
+				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+				<!--<li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li> -->
+					<li><a class="nav-link" href="{% url "sesion" %}"><img src="{% static "aplicacion/img/user.svg" %}"></a></li>
+				<!--<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li> -->
+					<li><a class="nav-link" href="{% url "cart" %}"><img src="{% static "aplicacion/img/cart.svg" %}"></a></li>
+				</ul>
+			</div>
+		</div>
 
-    </nav>
-    <!-- End Header/Navigation -->
+	</nav>
+	<!-- End Header/Navigation -->
     <!-- Start Hero Section -->
     <div class="hero" style="background-image: url('path_to_your_background_image.jpg');">
         <div class="container">
@@ -48,24 +60,27 @@
                 <div class="col-lg-6">
                     <div class="intro-excerpt">
                         <h1>Armería Brama</h1>
-                        <h3 class="mb-4">Por la compra de un arma, te llevas un botiquín de emergencias para tus viajes
-                        </h3>
-                        <p><a href="../shop.html" class="btn btn-primary">Volver atrás</a></p>
+                        <h3 class="mb-4">Por la compra de un arma, te llevas un botiquín de emergencias para tus viajes</h3>
+                    <!--<p><a href="../shop.html" class="btn btn-primary">Volver atrás</a></p>-->
+                        <p><a href="{% url "shop" %}" class="btn btn-primary">Volver atrás</a></p>
                     </div>
                 </div>
                 <div class="col-lg-5 d-none d-lg-block">
-                    <img src="../images/military-medical.webp" alt="Destacado" class="img-fluid">
+                <!--<img src="../images/military-medical.webp" alt="Destacado" class="img-fluid"> -->
+                    <img src="{% static "aplicacion/img/military-medical.webp" %}" alt="Destacado" class="img-fluid">
                 </div>
             </div>
         </div>
-    </div>
-    <!-- End Hero Section -->
+        </div>
+        <!-- End Hero Section -->
+
 
 
     <div class="container py-5">
         <div class="row">
             <div class="col-md-6">
                 <img src="../images/pantalonmilico-remove.png" alt="Producto" class="img-fluid">
+            <!--<img src="{% static "aplicacion/img/pantalonmilico-remove.png" %}" alt="Producto" class="img-fluid"> -->
             </div>
             <div class="col-md-6">
                 <h1>Producto Increíble</h1>
@@ -102,11 +117,13 @@
                 </div>
 
 
-                <a href="../cart.html" class="btn btn-success">Añadir al carrito</a>
+            <!--<a href="../cart.html" class="btn btn-success">Añadir al carrito</a> -->
+                <a href="{% url "cart" %}" class="btn btn-success">Añadir al carrito</a>
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
+    <script src='{% static "aplicacion/js/script.js" %}'></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const addButton = document.querySelector('.btn-success');
