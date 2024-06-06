@@ -5,13 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="logo.png.png">
+    <link rel="shortcut icon" href="{% static 'logo.png' %}">
     <title>Registro</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="css/tiny-slider.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-
+    <link href="{% static 'aplicacion/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/tiny-slider.css' %}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/style.css' %}" rel="stylesheet">
 </head>
 
 <body>
@@ -21,26 +20,24 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="text-center mb-4">Registro</h1>
-                        <form action="index.html" method="get" id="formularioregistro">
+                        <form action="{% url 'index' %}" method="get" id="formularioregistro">
                             <div class="mb-3">
                                 <label for="usuario" class="form-label">Crear nombre de usuario</label>
-                                <input type="text" class="form-control" id="usuario" name="usuario" required
-                                    maxlength="25">
+                                <input type="text" class="form-control" id="usuario" name="usuario" required maxlength="25">
                             </div>
                             <div class="mb-3">
                                 <label for="correo" class="form-label">Correo electrónico</label>
-                                <input type="email" class="form-control" id="correo" name="correo"
-                                    required>
+                                <input type="email" class="form-control" id="correo" name="correo" required>
                             </div>
                             <div class="mb-3">
                                 <label for="contraseña" class="form-label">Contraseña</label>
                                 <input type="password" class="form-control" id="contraseña" name="contraseña" required>
                             </div>
                             <div class="text-center mt-3">
-                                <input type="submit" value="Iniciar Sesión" class="btn btn-primary w-100">
+                                <input type="submit" value="Registrarse" class="btn btn-primary w-100">
                             </div>
                             <div class="text-center mt-3">
-                                Si ya tiene cuenta haga click <a href="sesion.html">aquí</a>
+                                Si ya tiene cuenta haga click <a href="{% url 'sesion' %}">aquí</a>
                             </div>
                         </form>
                     </div>
@@ -48,10 +45,10 @@
             </div>
         </div>
     </div>
-    <script src="js/validacionregistro.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/tiny-slider.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="{% static 'aplicacion/js/validacionregistro.js' %}"></script>
+    <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'aplicacion/js/tiny-slider.js' %}"></script>
+    <script src="{% static 'aplicacion/js/custom.js' %}"></script>
 </body>
 
 </html>

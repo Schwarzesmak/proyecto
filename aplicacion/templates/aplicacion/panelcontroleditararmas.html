@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Control - Lista de Productos y Edición de Armas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="css/tiny-slider.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/tiny-slider.css' %}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/style.css' %}" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
@@ -75,19 +75,19 @@
             <div class="collapse navbar-collapse" id="navbarsFurni">
                 <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
                     <li class="nav-item ">
-                        <a class="nav-link" href="panelcontrolestadocompra.html">Estado de Compra</a>
+                        <a class="nav-link" href="{% url 'panelcontrolestadocompra' %}">Estado de Compra</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="panelcontrolusuarios.html">Usuarios</a>
+                        <a class="nav-link" href="{% url 'panelcontrolusuarios' %}">Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="panelcontrolagregararmas.html">Agregar Productos</a>
+                        <a class="nav-link" href="{% url 'panelcontrolagregararmas' %}">Agregar Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="panelcontroleditararmas.html">Editar Producto</a>
+                        <a class="nav-link" href="{% url 'panelcontroleditararmas' %}">Editar Producto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="panelcerrasesion.html">Cerrar Sesión</a>
+                        <a class="nav-link" href="{% url 'panelcerrasesion' %}">Cerrar Sesión</a>
                     </li>
                 </ul>
             </div>
@@ -171,7 +171,7 @@
                     <td>100</td>
                     <td id="precioCuchillo">$50.000</td>
                     <td><input type="text" class="form-control" id="nuevoPrecioCuchillo" placeholder="Nuevo Precio"
-                        onkeypress="return soloNumeros(event)" required">
+                        onkeypress="return soloNumeros(event)"required>
                     </td>
                     <td>
                         <button onclick="actualizarPrecio('nuevoPrecioCuchillo', 'precioCuchillo')"
@@ -270,7 +270,7 @@
             return true;
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 
 </html>
