@@ -17,7 +17,8 @@ TIPO_PRODUCTO={
 }
 
 class Producto(models.Model):
-    nombre = models.CharField(primary_key=True, max_length=50, null=False)
+    cod_producto = models.IntegerField(primary_key=True,  validators=[MinValueValidator(1), MaxValueValidator(999999999)])
+    nombre = models.CharField(max_length=50, null=False)
     tipo_producto = models.CharField(max_length=10, choices=TIPO_PRODUCTO, default="OTRO PRODUCTO")
     #ESTO VA EN HTML, TIPO_MUNICION
     tipo_municion = models.CharField(max_length=5, choices=TIPO_MUNICION, default= "OTRO")
@@ -30,7 +31,8 @@ class Producto(models.Model):
 
 
 class Persona (models.Model):
-    pnombre        =  models.CharField(primary_key=True, max_length=20, null=False)
+    cod_persona    =  models.IntegerField(primary_key=True,  validators=[MinValueValidator(1), MaxValueValidator(999999999)])
+    pnombre        =  models.CharField(max_length=20, null=False)
     snombre        =  models.CharField(max_length=20, null=True)
     apellidop      =  models.CharField(max_length=20, null=False)
     apellidom      =  models.CharField(max_length=20, null=False)
