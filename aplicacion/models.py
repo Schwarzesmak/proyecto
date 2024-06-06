@@ -20,7 +20,7 @@ class Producto(models.Model):
     nombre = models.CharField(primary_key=True, max_length=50, null=False)
     tipo_producto = models.CharField(max_length=10, choices=TIPO_PRODUCTO, default="OTRO PRODUCTO")
     #ESTO VA EN HTML, TIPO_MUNICION
-    tipo_municion = models.CharField(max_length=5, choices=TIPO_MUNICION, default= "OTRO")
+    tipo_municion = models.CharField(max_length=100, choices=TIPO_MUNICION, default= "OTRO")
     precio = models.IntegerField(verbose_name='Dinero', validators=[MinValueValidator(1000), MaxValueValidator(999999999)])
     stock = models.IntegerField( validators=[MinValueValidator(0)], default=0 )
     imagen=models.ImageField(upload_to='productos',null=True)
@@ -50,6 +50,7 @@ class Usuario (models.Model):
 class Envio (models.Model):
     idcompra = models.AutoField(primary_key=True)
     fecha_compra = models.DateField(("Fecha de compra"), auto_now=False, auto_now_add=False)
-    estado = models.CharField(max_length=25, choices= "ESTADOS", default="ENTREGADO")
+    estado = models.CharField(max_length=100, choices=ESTADOS, default="ENTREGADO")
     usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
     imagenenvio = models.ImageField(upload_to='imagenenvios',null=True)
+    

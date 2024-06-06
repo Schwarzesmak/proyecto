@@ -3,6 +3,7 @@ from django.urls import path
 from .views import index, beretta, camisa, carpa, casco, chaleco, cuchillo, pantalon, valken, about, admin, cart, checkout, estado
 from .views import miscompras, panelcerrarsesion, panelcontrol, panelcontrolagregararmas,panelcontroleditararmas, panelcontrolestadocompra
 from .views import panelcontrolusuarios, punitario, registro, sesion, shop, thankyou
+from . import views
 
 #URLS DE APLICACION
 urlpatterns = [
@@ -33,10 +34,4 @@ urlpatterns = [
        path('shop/', shop, name='shop'),
        path('thankyou/', thankyou, name='thankyou'),
        #Esto es experimental, se puede sacar
-       path('', views.home, name='home'),
-       path('estado_compra/', views.estado_compra, name='estado_compra'),
-       path('usuarios/', views.usuarios, name='usuarios'),
-       path('agregar_productos/', views.agregar_productos, name='agregar_productos'),
-       path('editar_producto/', views.editar_producto, name='editar_producto'),
-       path('cerrar_sesion/', views.cerrar_sesion, name='cerrar_sesion'),
 ]
