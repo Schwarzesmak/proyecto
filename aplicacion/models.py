@@ -4,16 +4,16 @@ from .enumeraciones import *
 
 # Create your models here.
 TIPO_MUNICION={
-    ("POSTON", "Poston") 
-    ("AIRSOFT", "Airsoft")
-    ("BALIN", "Balin")
-    ("OTRO", "Otro")
+    ("POSTON", "Poston"), 
+    ("AIRSOFT", "Airsoft"),
+    ("BALIN", "Balin"),
+    ("OTRO", "Otro"),
 }
 
 TIPO_PRODUCTO={
-    ("ROPA", "Ropa")
-    ("ARMA", "Arma")
-    ("CUCHILLA", "Cuchilla")
+    ("ROPA", "Ropa"),
+    ("ARMA", "Arma"),
+    ("CUCHILLA", "Cuchilla"),
 }
 
 class Producto(models.Model):
@@ -49,7 +49,7 @@ class Usuario (models.Model):
     
 class Envio (models.Model):
     idcompra = models.AutoField(primary_key=True)
-    fecha_compra = models.DateField(_("Fecha de compra"), auto_now=False, auto_now_add=False)
+    fecha_compra = models.DateField(("Fecha de compra"), auto_now=False, auto_now_add=False)
     estado = models.CharField(max_length=25, choices= "ESTADOS", default="ENTREGADO")
     usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
     imagenenvio = models.ImageField(upload_to='imagenenvios',null=True)
