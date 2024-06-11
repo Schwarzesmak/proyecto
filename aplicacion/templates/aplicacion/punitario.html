@@ -13,21 +13,21 @@
 	<!-- Start Header/Navigation -->
     <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
         <div class="container">
-            <a class="navbar-brand" href="{% static 'index.html' %}">Brama<span>.</span></a>
+            <a class="navbar-brand" href="{% url 'index' %}">Brama<span>.</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarsFurni">
                 <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                    <li><a class="nav-link" href="{% static 'miscompras.html' %}">Mis Compras</a></li>
+                    <li><a class="nav-link" href="{% url 'miscompras' %}">Mis Compras</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% static 'index.html' %}">Inicio</a>
+                        <a class="nav-link" href="{% url 'index' %}">Inicio</a>
                     </li>
-                    <li class="active"><a class="nav-link" href="{% static 'about.html' %}">Nosotros</a></li>
+                    <li class="active"><a class="nav-link" href="{% url 'about' %}">Nosotros</a></li>
                 </ul>
                 <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-                    <li><a class="nav-link" href="#"><img src="{% static 'images/user.svg' %}"></a></li>
-                    <li><a class="nav-link" href="{% static 'cart.html' %}"><img src="{% static 'images/cart.svg' %}"></a></li>
+                    <li><a class="nav-link" href="{% url "sesion" %}"><img src="{% static 'aplicacion/img/user.svg' %}"></a></li>
+                    <li><a class="nav-link" href="{% url 'cart' %}"><img src="{% static 'aplicacion/img/cart.svg' %}"></a></li>
                 </ul>
             </div>
         </div>

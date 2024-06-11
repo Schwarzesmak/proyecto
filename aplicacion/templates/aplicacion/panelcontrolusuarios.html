@@ -80,37 +80,37 @@
 </head>
 
 <body>
-    <!-- Start Header/Navigation -->
+    !-- Start Header/Navigation -->
     <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">Brama Admin<span>.</span></a>
+            <a class="navbar-brand" href="{% static "#" %}">Brama Admin<span>.</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
                 aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarsFurni">
                 <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'estado_compra' %}">Estado de Compra</a>   
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{% url 'panelcontrolestadocompra' %}">Estado de Compra</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'usuarios' %}">Usuarios</a>
+                        <a class="nav-link" href="{% url 'panelcontrolusuarios' %}">Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'agregar_productos' %}">Agregar Productos</a>
+                        <a class="nav-link" href="{% url 'panelcontrolagregararmas' %}">Agregar Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'editar_producto' %}">Editar Producto</a>
+                        <a class="nav-link" href="{% url 'panelcontroleditararmas' %}">Editar Producto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
+                        <a class="nav-link" href="{% url 'panelcerrarsesion' %}">Cerrar Sesión</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    
     <!-- End Header/Navigation -->
+
 
     <div class="col-md-6">
         <h2>Usuarios</h2>

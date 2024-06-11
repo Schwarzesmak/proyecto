@@ -45,7 +45,7 @@
                         <a class="nav-link" href="{% url 'panelcontroleditararmas' %}">Editar Producto</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'panelcerrasesion' %}">Cerrar Sesión</a>
+                        <a class="nav-link" href="{% url 'panelcerrarsesion' %}">Cerrar Sesión</a>
                     </li>
                 </ul>
             </div>
@@ -114,13 +114,13 @@
     </div>
 
     <!-- Bootstrap JS -->
-    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src= '{% static "js/bootstrap.bundle.min.js" %}'></script>
     <!-- Chart.js -->
-    <script src="{% static 'https://cdn.jsdelivr.net/npm/chart.js' %}"></script>
+    <script src= '{% static "https://cdn.jsdelivr.net/npm/chart.js" %}'></script>
     <!-- jQuery -->
-    <script src="{% static 'https://code.jquery.com/jquery-3.6.0.min.js' %}"></script>
+    <script src='{% static "https://code.jquery.com/jquery-3.6.0.min.js" %}'></script>
     <!-- Archivo JavaScript separado -->
-    <script src="{% url 'aplicacion/js/panelcontrol.js' %}"></script>
+    <script src="{% static 'aplicacion/js/panelcontrol.js' %}"></script>
 </body>
 
 </html>

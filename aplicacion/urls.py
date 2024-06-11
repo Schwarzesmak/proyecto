@@ -1,6 +1,6 @@
 
 from django.urls import path
-from .views import index, beretta, camisa, carpa, casco, chaleco, cuchillo, pantalon, valken, about, admin, cart, checkout, estado
+from .views import index, beretta, camisa, carpa, casco, chaleco, cuchillo, pantalon, valken, about, admini, cart, checkout, estado
 from .views import miscompras, panelcerrarsesion, panelcontrol, panelcontrolagregararmas,panelcontroleditararmas, panelcontrolestadocompra
 from .views import panelcontrolusuarios, punitario, registro, sesion, shop, thankyou
 from . import views
@@ -17,7 +17,7 @@ urlpatterns = [
        path('producto/pantalon', pantalon, name='pantalon'),
        path('producto/valken', valken, name='valken'),
        path('about/', about, name='about'),
-       path('admin/', admin, name='admin'),
+       path('admini/', admini, name='admini'),
        path('cart/', cart, name='cart'),
        path('checkout/', checkout, name='checkout'),
        path('estado/', estado, name='estado'),

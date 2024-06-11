@@ -26,8 +26,8 @@ def valken (request):
 #Aqui es para las paginas
 def about (request):
     return render(request, "aplicacion/about.html")
-def admin (request):
-    return render(request, "aplicacion/admin.html")
+def admini (request):
+    return render(request, "aplicacion/admini.html")
 def cart (request):
     return render(request, "aplicacion/cart.html")
 def checkout (request):
