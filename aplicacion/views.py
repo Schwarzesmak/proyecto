@@ -1,4 +1,6 @@
 from django.shortcuts import render
+#desde el crud del profe
+from django.shortcuts import get_object_or_404, redirect
 
 # Create your views here.
 def index (request):
@@ -58,4 +60,7 @@ def shop (request):
     return render(request, "aplicacion/shop.html")
 def thankyou (request):
     return render(request, "aplicacion/thankyou.html")
+
+
+#FUNCIONES CREAR MODIFICAR Y ELIMINAR
 

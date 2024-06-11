@@ -1,9 +1,13 @@
 
-from django.urls import path
+from django.urls import path, include
 from .views import index, beretta, camisa, carpa, casco, chaleco, cuchillo, pantalon, valken, about, admini, cart, checkout, estado
 from .views import miscompras, panelcerrarsesion, panelcontrol, panelcontrolagregararmas,panelcontroleditararmas, panelcontrolestadocompra
 from .views import panelcontrolusuarios, punitario, registro, sesion, shop, thankyou
 from . import views
+
+#PARA TRABAJAR CON IMAGENES
+from django.conf import settings
+from django.conf.urls.static import static
 
 #URLS DE APLICACION
 urlpatterns = [
@@ -35,3 +39,7 @@ urlpatterns = [
        path('thankyou/', thankyou, name='thankyou'),
        #Esto es experimental, se puede sacar
 ]
+
+#si, no me acuerdo pq va esto pero si.
+if settings.DEBUG:
+       urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

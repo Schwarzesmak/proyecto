@@ -19,4 +19,6 @@ class AdmEnvio(admin.ModelAdmin):
 class AdmProducto(admin.ModelAdmin):
     list_display = ['nombre', 'tipo_producto', 'tipo_municion', 'precio', 'stock', 'image']
     list_editable = ['tipo_producto', 'tipo_producto', 'tipo_municion', 'precio', 'stock', 'image']
-    list_filter = ['nombre', 'tipo_producto', 'tipo_municion'] 
+    list_filter = ['nombre', 'tipo_producto', 'tipo_municion']
+    
+admin.site.register(Persona,AdmPersona) 
