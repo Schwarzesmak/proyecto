@@ -3,18 +3,6 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from .enumeraciones import *
 
 # Create your models here.
-TIPO_MUNICION={
-    ("POSTON", "Poston"), 
-    ("AIRSOFT", "Airsoft"),
-    ("BALIN", "Balin"),
-    ("OTRO", "Otro"),
-}
-
-TIPO_PRODUCTO={
-    ("ROPA", "Ropa"),
-    ("ARMA", "Arma"),
-    ("CUCHILLA", "Cuchilla"),
-}
 
 class Producto(models.Model):
     cod_producto = models.IntegerField(primary_key=True,  validators=[MinValueValidator(1), MaxValueValidator(999999999)])
