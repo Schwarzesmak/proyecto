@@ -32,7 +32,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="text-center mb-4">Administrador Brama</h1>
-                        <form action="panelcontrol.html" method="get" id="formulariosesion">
+                        <form action="{% url "panelcontrol" %}" method="get" id="formulariosesion">
                             <div class="mb-3">
                                 <label for="usuario" class="form-label">Nombre de usuario</label>
                                 <input type="text" class="form-control" id="usuario" required>
