@@ -1,6 +1,9 @@
 from django.shortcuts import render
 #desde el crud del profe
 from django.shortcuts import get_object_or_404, redirect
+from .models import Persona, Producto #Carrito, Usuario, Envio
+#importar forms.py tambien, falta
+from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoForm #para formularios de persona y productos
 
 # Create your views here.
 def index (request):
@@ -22,8 +25,6 @@ def pantalon (request):
     return render(request, "aplicacion/producto/pantalon.html")
 def valken (request):
     return render(request, "aplicacion/producto/valken.html")
-
-
 
 #Aqui es para las paginas
 def about (request):
@@ -61,6 +62,97 @@ def shop (request):
 def thankyou (request):
     return render(request, "aplicacion/thankyou.html")
 
+#DETALLES DE PERSONA Y PRODUCTO 
 
-#FUNCIONES CREAR MODIFICAR Y ELIMINAR
 
+#FUNCIONES CREAR MODIFICAR Y ELIMINAR PARA PRODUCTO Y PERSONAS ##SE LE CAMBIA EL NOMBRE DE LA FUNCION POR LA PAGINA HTML , son vistas
+#CREAR 
+def crearpersona(request):
+    form=PersonaForm()
+    
+    if request.method=="POST":
+        form=PersonaForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect(to="#NOMBRE_PAG_HTML_AQUI!!!")
+    
+    datos={
+        "form":form
+    }
+    return render(request, 'aplicacion/#NOMBRE_PAG_HTML_AQUI!!!', datos)
+
+def crearproducto(request):
+    form=ProductoForm()
+    
+    if request.method=="POST":
+        form=ProductoForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect(to="#NOMBRE_PAG_HTML_AQUI!!!")
+    
+    datos={
+        "form":form
+    }
+    return render(request, 'aplicacion/#NOMBRE_PAG_HTML_AQUI!!!', datos)
+
+#MODIFICAR, VER CRUD DEL PROFE Y TERMINAR BIEN NUESTROS MODIFICAR 
+def modificarpersona(request, id): #*****
+    persona=get_object_or_404(Persona,rut=id) #***********
+
+    form=UpdatePersonaForm(instance=persona)
+    datos={
+        "form":form,
+        "persona":persona
+    }
+
+    if request.method=="POST":
+        form=UpdatePersonaForm(data=request.POST, files=request.FILES, instance=persona)
+        if form.is_valid():
+            form.save()
+            return redirect(to="#NOMBRE_PAG_HTML_AQUI!!!")
+        
+    return render(request,'aplicacion/#NOMBRE_PAG_HTML_AQUI!!!',datos)
+
+def modificarproducto(request, id): #******
+    producto=get_object_or_404(Producto,rut=id) #**********
+
+    form=UpdateProductoForm(instance=producto)
+    datos={
+        "form":form,
+        "producto":producto
+    }
+
+    if request.method=="POST":
+        form=UpdateProductoForm(data=request.POST, files=request.FILES, instance=producto)
+        if form.is_valid():
+            form.save()
+            return redirect(to="#NOMBRE_PAG_HTML_AQUI!!!")
+        
+    return render(request,'aplicacion/#NOMBRE_PAG_HTML_AQUI!!!',datos)
+
+#ELIMINAR , VER EL CRUD DEL PROFE Y ADAPTARLO A NUESTRA PAGINA
+def eliminarpersona(request, id): #*********
+    persona=get_object_or_404(Persona,rut=id) #******
+
+    datos={
+        "persona":persona
+    }
+
+    if request.method=="POST":
+        persona.delete()
+        return redirect(to="#NOMBRE_PAG_HTML_AQUI!!!")
+   
+    return render(request,'aplicacion/#NOMBRE_PAG_HTML_AQUI!!!',datos)
+
+def eliminarproducto(request, id): #*********
+    producto=get_object_or_404(Producto,rut=id) #******
+
+    datos={
+        "producto":producto
+    }
+
+    if request.method=="POST":
+        producto.delete()
+        return redirect(to="#NOMBRE_PAG_HTML_AQUI!!!")
+   
+    return render(request,'aplicacion/#NOMBRE_PAG_HTML_AQUI!!!',datos)

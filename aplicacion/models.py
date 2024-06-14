@@ -44,9 +44,9 @@ class Envio (models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
     imagenenvio = models.ImageField(upload_to='imagenenvios',null=True)
     
-#Class Carrito():
-#   usuario
-#   producto
-#   cantidad
-#
+class Carrito():
+    usuario  = models.CharField(max_length=50, primary_key=True)
+    producto = models.CharField(max_length=10)
+    cantidad = models.IntegerField()
+
     
