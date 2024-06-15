@@ -85,9 +85,10 @@
                     <td>{{ p.celular }}</td>
                     <td>{{ p.region }}</td>
                     <td>{{ p.info_adicional }}</td>
-               <!--     <td> -->
-              <!--          <a href="{% url 'detallepersona' p.rut %}" role="button" class="btn btn-info text-light shadow rounded">Ver detalle</a> -->
-             <!--       </td> -->
+                    <td>
+                        <a href="{% url 'modificar_persona' persona.cod_persona %}">Editar</a>
+                        <a href="{% url 'eliminarpersona' persona.cod_persona %}">Eliminar</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

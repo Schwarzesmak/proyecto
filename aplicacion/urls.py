@@ -39,8 +39,12 @@ urlpatterns = [
        path('thankyou/', thankyou, name='thankyou'),
        path('personas/', personas, name= 'personas'),
        path('crearpersona/', crearpersona, name= 'crearpersona'),
-       path('modificarpersona/', modificarpersona, name= 'modificarpersona'),
+       path('modificarpersona/<int:id>', views.modificarpersona, name= 'modificarpersona'),
        path('eliminarpersona/', eliminarpersona, name= 'eliminarpersona' ),
+       path('modificarpersona/<int:id>/', views.modificar_persona, name='modificarpersona'),
+       path('alguna_vista/', views.alguna_vista, name='alguna_vista'),
+       path('modificarpersona/<int:id>/', views.modificar_persona, name='modificar_persona'),
+       path('eliminarpersona/<int:id>/', views.eliminarpersona, name='eliminarpersona'),
        #Esto es experimental, se puede sacar
 ]
 

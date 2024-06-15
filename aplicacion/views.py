@@ -151,21 +151,22 @@ def modificarproducto(request, id): #******
     return render(request,'aplicacion/#NOMBRE_PAG_HTML_AQUI!!!',datos)
 
 #ELIMINAR , VER EL CRUD DEL PROFE Y ADAPTARLO A NUESTRA PAGINA
-def eliminarpersona(request, id): #*********
-    persona=get_object_or_404(Persona,rut=id) #******
+def eliminarpersona(request, id):
+    persona = get_object_or_404(Persona, cod_persona=id) 
 
-    datos={
-        "persona":persona
+    datos = {
+        "persona": persona
     }
 
-    if request.method=="POST":
+    if request.method == "POST":
         persona.delete()
-        return redirect(to="#NOMBRE_PAG_HTML_AQUI!!!")
-   
-    return render(request,'aplicacion/#NOMBRE_PAG_HTML_AQUI!!!',datos)
+        return redirect(to="personas")
 
-def eliminarproducto(request, id): #*********
-    producto=get_object_or_404(Producto,rut=id) #******
+    return render(request, 'aplicacion/eliminarpersona.html', datos)
+
+
+def eliminarproducto(request, id): 
+    producto=get_object_or_404(Producto,rut=id) 
 
     datos={
         "producto":producto
@@ -175,4 +176,40 @@ def eliminarproducto(request, id): #*********
         producto.delete()
         return redirect(to="#NOMBRE_PAG_HTML_AQUI!!!")
    
-    return render(request,'aplicacion/#NOMBRE_PAG_HTML_AQUI!!!',datos)
+def alguna_vista(request):
+    persona_id = 1  # Aquí debes obtener el id de la persona que deseas modificar
+    return redirect('modificar_persona', id=persona_id)
+
+def modificarpersona(request, id):
+    persona = get_object_or_404(Persona, cod_persona=id)
+
+    form = UpdatePersonaForm(instance=persona)
+    datos = {
+        "form": form,
+        "persona": persona
+    }
+
+    if request.method == "POST":
+        form = UpdatePersonaForm(data=request.POST, files=request.FILES, instance=persona)
+        if form.is_valid():
+            form.save()
+            return redirect(to="personas")
+
+    return render(request, 'aplicacion/modificarpersona.html', datos)
+
+def modificar_persona(request, id):
+    persona = get_object_or_404(Persona, cod_persona=id)
+
+    form = UpdatePersonaForm(instance=persona)
+    datos = {
+        "form": form,
+        "persona": persona
+    }
+
+    if request.method == "POST":
+        form = UpdatePersonaForm(data=request.POST, files=request.FILES, instance=persona)
+        if form.is_valid():
+            form.save()
+            return redirect(to="personas")
+
+    return render(request, 'aplicacion/modificarpersona.html', datos)

@@ -1,11 +1,54 @@
-{% extends "appcrud/base.html" %}
+
 {% load static %}
-{% load crispy_forms_tags %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="{% static 'logo.png' %}">
 
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
 
-{% block contenido %}
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'aplicacion/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="{% static 'aplicacion/css/tiny-slider.css' %}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/style.css' %}" rel="stylesheet">
+    <title>Modificar Personas</title>
+</head>
+
+<!-- Start Header/Navigation -->
+<nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
+    <div class="container">
+        <a class="navbar-brand" href="{% static "#" %}">Brama Admin<span>.</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+            aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'panelcontrolestadocompra' %}">Estado de Compra</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'panelcontrolusuarios' %}">Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'panelcontrolagregararmas' %}">Agregar Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'panelcontroleditararmas' %}">Editar Producto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'panelcerrarsesion' %}">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- End Header/Navigation -->
 <div class="container">
-    <!-- ['rut','imagen','nombre', 'apellido','fecha_ncto', 'correo','telefono']-->
+
     <div class='mt-4 mb-5'>
 
         <div class="row">
@@ -18,7 +61,7 @@
                             <h1>Está a punto de eliminar a la siguiente persona:</h1>
                         </strong>
                         <div class="mt-5">
-                            <h3>{{persona.nombre}} {{persona.apellido }} Rut:{{persona.rut}}</h3>
+                            <h3>{{persona.pnombre}} {{persona.papellido }}</h3>
                         </div>
                     </div>
 
@@ -43,27 +86,27 @@
     </div>
     <!-- Button to Open the Modal -->
     
-
     <!-- The Modal -->
     <div class="modal fade" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
-
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Importante</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-
                 <!-- Modal body -->
                 <div class="modal-body">
                     Esta seguro que desea eliminar a {{persona.pnombre}} {{persona.papellido}}
                 </div>
-
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit">Eliminar</button>
+                    <a href="{% url 'personas' %}">Cancelar</a>
+                </form>
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <form action="" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
                         
                         <input type="submit" value="Confirmar Eliminación" class="btn btn-danger btn-lg">
                         
@@ -73,8 +116,4 @@
             </div>
         </div>
     </div>
-
 </div>
-
-
-{% endblock contenido %}
