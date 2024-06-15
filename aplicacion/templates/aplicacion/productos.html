@@ -50,44 +50,36 @@
 
     <div class="container">
         <div class="mt-4">
-            <h3>Lista de Personas</h3>
-            <a href="{% url 'crearpersona' %}" role="button" class="btn text-primary">+ Agregar Persona</a>
+            <h3>Lista de Productos</h3>
+            <a href="{% url 'crearpersona' %}" role="button" class="btn text-primary">+ Agregar Producto</a>
         </div>
         <p>{{ fecha }}</p>
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Imagen</th>
-                    <th>cod_persona</th>
-                    <th>pnombre</th>
-                    <th>snombre</th>
-                    <th>apellidop</th>
-                    <th>apellidom</th>
-                    <th>correo</th>
-                    <th>direccion</th>
-                    <th>celular</th>
-                    <th>region</th>
-                    <th>info_adicional</th>
-                    <th>Detalle</th>
+                    <th>cod_producto</th>
+                    <th>nombre</th>
+                    <th>tipo_producto</th>
+                    <th>tipo_municion</th>
+                    <th>precio</th>
+                    <th>stock</th>
+                    <th>imagen</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for p in personas %}
+            <tbody> 
+                {% for p in productos %}
                 <tr>
                     <td><img src="{{ p.imagen.url }}" alt="foto" height="150"></td>
-                    <td>{{ p.cod_persona }}</td>
-                    <td>{{ p.pnombre }}</td>
-                    <td>{{ p.snombre }}</td>
-                    <td>{{ p.apellidop }}</td>
-                    <td>{{ p.apellidom }}</td>
-                    <td>{{ p.correo }}</td>
-                    <td>{{ p.direccion }}</td>
-                    <td>{{ p.celular }}</td>
-                    <td>{{ p.region }}</td>
-                    <td>{{ p.info_adicional }}</td>
+                    <td>{{ p.cod_producto }}</td>
+                    <td>{{ p.nombre }}</td>
+                    <td>{{ p.tipo_producto }}</td>
+                    <td>{{ p.tipo_municion }}</td>
+                    <td>{{ p.precio }}</td>
+                    <td>{{ p.stock }}</td>
+                    <td>{{ p.imagen }}</td>
                     <td>
-                        <a href="{% url 'modificar_persona' p.cod_persona %}">Editar</a>
-                        <a href="{% url 'eliminarpersona' p.cod_persona %}">Eliminar</a>
+                        <a href="{% url 'eliminarproducto' p.cod_producto %}">Eliminar</a>
+                        <a href="{% url 'modificarproducto' p.cod_producto %}">Modificar</a>
                     </td>
                 </tr>
                 {% endfor %}

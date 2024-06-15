@@ -102,18 +102,18 @@ def crearpersona(request):
     return render(request, 'aplicacion/crearpersona.html', datos)
 
 def crearproducto(request):
-    form=ProductoForm()
-    
-    if request.method=="POST":
-        form=ProductoForm(data=request.POST, files=request.FILES)
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(to="#NOMBRE_PAG_HTML_AQUI!!!")
-    
-    datos={
-        "form":form
+            return redirect('productos') 
+    else:
+        form = ProductoForm()
+
+    datos = {
+        'form': form
     }
-    return render(request, 'aplicacion/#NOMBRE_PAG_HTML_AQUI!!!', datos)
+    return render(request, 'aplicacion/crearproducto.html', datos)
 
 #MODIFICAR, VER CRUD DEL PROFE Y TERMINAR BIEN NUESTROS MODIFICAR 
 def modificarpersona(request, id): #*****
@@ -134,7 +134,7 @@ def modificarpersona(request, id): #*****
     return render(request,'aplicacion/modificarpersona.html',datos)
 
 def modificarproducto(request, id): #******
-    producto=get_object_or_404(Producto,rut=id) #**********
+    producto=get_object_or_404(Producto, cod_producto=id) #**********
 
     form=UpdateProductoForm(instance=producto)
     datos={
@@ -146,9 +146,9 @@ def modificarproducto(request, id): #******
         form=UpdateProductoForm(data=request.POST, files=request.FILES, instance=producto)
         if form.is_valid():
             form.save()
-            return redirect(to="#NOMBRE_PAG_HTML_AQUI!!!")
+            return redirect(to="productos")
         
-    return render(request,'aplicacion/#NOMBRE_PAG_HTML_AQUI!!!',datos)
+    return render(request,'aplicacion/modificarproducto.html',datos)
 
 #ELIMINAR , VER EL CRUD DEL PROFE Y ADAPTARLO A NUESTRA PAGINA
 def eliminarpersona(request, id):
@@ -165,19 +165,21 @@ def eliminarpersona(request, id):
     return render(request, 'aplicacion/eliminarpersona.html', datos)
 
 
-def eliminarproducto(request, id): 
-    producto=get_object_or_404(Producto,rut=id) 
+def eliminarproducto(request, id):
+    producto = get_object_or_404(Producto, cod_producto=id)  
 
-    datos={
-        "producto":producto
+    if request.method == "POST":
+        producto.delete()
+        return redirect('productos')  
+
+    datos = {
+        "producto": producto
     }
 
-    if request.method=="POST":
-        producto.delete()
-        return redirect(to="#NOMBRE_PAG_HTML_AQUI!!!")
+    return render(request, 'aplicacion/eliminarproducto.html', datos)
    
 def alguna_vista(request):
-    persona_id = 1  # Aquí debes obtener el id de la persona que deseas modificar
+    persona_id = 1 
     return redirect('modificar_persona', id=persona_id)
 
 def modificarpersona(request, id):
@@ -213,3 +215,15 @@ def modificar_persona(request, id):
             return redirect(to="personas")
 
     return render(request, 'aplicacion/modificarpersona.html', datos)
+
+def productos(request):
+ 
+    
+    personas=Producto.objects.all()
+
+    datos={
+
+        "productos":productos
+    }
+
+    return render(request,'aplicacion/productos.html', datos)

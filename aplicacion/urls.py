@@ -2,7 +2,7 @@
 from django.urls import path, include
 from .views import index, beretta, camisa, carpa, casco, chaleco, cuchillo, pantalon, valken, about, admini, cart, checkout, estado
 from .views import miscompras, panelcerrarsesion, panelcontrol, panelcontrolagregararmas,panelcontroleditararmas, panelcontrolestadocompra
-from .views import panelcontrolusuarios, punitario, registro, sesion, shop, thankyou, personas, crearpersona, modificarpersona, eliminarpersona
+from .views import panelcontrolusuarios, punitario, registro, sesion, shop, thankyou, personas, crearpersona, modificarpersona, modificarproducto, eliminarpersona, productos, eliminarproducto, crearproducto
 from . import views
 
 #PARA TRABAJAR CON IMAGENES
@@ -45,6 +45,12 @@ urlpatterns = [
        path('alguna_vista/', views.alguna_vista, name='alguna_vista'),
        path('modificarpersona/<int:id>/', views.modificar_persona, name='modificar_persona'),
        path('eliminarpersona/<int:id>/', views.eliminarpersona, name='eliminarpersona'),
+       path('productos/', productos, name = 'productos'),
+       path('eliminarproducto/<int:id>/', eliminarproducto, name= 'eliminarproducto' ),
+       path('crearproducto/', crearproducto, name= 'crearproducto'),
+       path('modificarproducto/<int:id>/', views.modificarproducto, name='modificarproducto'),
+
+
        #Esto es experimental, se puede sacar
 ]
 
