@@ -67,6 +67,26 @@ def thankyou (request):
 
 #FUNCIONES CREAR MODIFICAR Y ELIMINAR PARA PRODUCTO Y PERSONAS ##SE LE CAMBIA EL NOMBRE DE LA FUNCION POR LA PAGINA HTML , son vistas
 #CREAR 
+def personas(request):
+ 
+    
+    personas=Persona.objects.all()
+
+    datos={
+
+        "personas":personas
+    }
+
+    return render(request,'aplicacion/personas.html', datos)
+
+def detallepersona(request,id):
+     #persona=Persona.objects.get(rut=id)
+     persona=get_object_or_404(Persona, rut=id)
+     datos={
+         "persona":persona
+     }
+     return render(request,'appcrud/detallepersona.html', datos)
+ 
 def crearpersona(request):
     form=PersonaForm()
     
@@ -74,12 +94,12 @@ def crearpersona(request):
         form=PersonaForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
-            return redirect(to="#NOMBRE_PAG_HTML_AQUI!!!")
+            return redirect(to="personas")
     
     datos={
         "form":form
     }
-    return render(request, 'aplicacion/#NOMBRE_PAG_HTML_AQUI!!!', datos)
+    return render(request, 'aplicacion/crearpersona.html', datos)
 
 def crearproducto(request):
     form=ProductoForm()
@@ -109,9 +129,9 @@ def modificarpersona(request, id): #*****
         form=UpdatePersonaForm(data=request.POST, files=request.FILES, instance=persona)
         if form.is_valid():
             form.save()
-            return redirect(to="#NOMBRE_PAG_HTML_AQUI!!!")
+            return redirect(to="personas")
         
-    return render(request,'aplicacion/#NOMBRE_PAG_HTML_AQUI!!!',datos)
+    return render(request,'aplicacion/modificarpersona.html',datos)
 
 def modificarproducto(request, id): #******
     producto=get_object_or_404(Producto,rut=id) #**********

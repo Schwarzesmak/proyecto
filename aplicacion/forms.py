@@ -9,15 +9,12 @@ class ProductoForm(forms.ModelForm):
                         help_text="Debe ingresar que tipo de producto es")
     tipo_municion = forms.CharField(max_length=35, error_messages= {"required":"Ingrese el tipo de municion"}, 
                         help_text="Debe ingresar que tipo de  es")
-    precio = forms.IntegerField(max_length="20", error_messages= {"required":"Ingrese el precio"}, 
+    precio = forms.IntegerField(min_value= 0 , error_messages= {"required":"Ingrese el precio"}, 
                         help_text="Debe ingresar el valor del producto")
     #VER CRUD DEL PROFE PARA TERMINAR 
     class Meta:
-        model = Persona
-    fields = ['cod_producto',
-              'nombre', 
-              'tipo_producto',
-              'tipo_municion']
+        model = Producto
+        fields = ['nombre','tipo_producto', 'tipo_municion', 'precio', 'stock', 'imagen']
 
 class UpdateProductoForm(forms.ModelForm):
     nombre = forms.CharField(max_length=50, error_messages= {"required":"Ingrese su nombre"}, 
@@ -26,20 +23,17 @@ class UpdateProductoForm(forms.ModelForm):
                         help_text="Debe ingresar que tipo de producto es")
     tipo_municion = forms.CharField(max_length=35, error_messages= {"required":"Ingrese el tipo de municion"}, 
                         help_text="Debe ingresar que tipo de  es")
-    precio = forms.IntegerField(max_length="20", error_messages= {"required":"Ingrese el precio"}, 
+    precio = forms.IntegerField(min_value= 0 , error_messages= {"required":"Ingrese el precio"}, 
                         help_text="Debe ingresar el valor del producto")
     #VER CRUD DEL PROFE PARA TERMINAR 
     class Meta:
-        model = Persona
-    fields = ['cod_producto',
-              'nombre', 
-              'tipo_producto',
-              'tipo_municion']
+        model = Producto
+        fields = ['nombre','tipo_producto', 'tipo_municion', 'precio', 'stock', 'imagen']
     
 class PersonaForm(forms.ModelForm):
-    rut=forms.CharField(max_length=10,
-                        error_messages={"required":"Ingrese rut sin puntos y con guión ej.:12345678-9"}, 
-                        help_text="Debe ingresar rut")
+    cod_persona=forms.CharField(max_length=10,
+                        error_messages={"required":"Ingrese el primer nombre"}, 
+                        help_text="Debe ingresar el nombre")
     
     fecha_ncto=forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
 
@@ -52,15 +46,18 @@ class PersonaForm(forms.ModelForm):
 
 class UpdatePersonaForm(forms.ModelForm):
     
-    rut=forms.CharField(max_length=10,
-                        error_messages={"required":"Ingrese rut sin puntos y con guión ej.:12345678-9"}, 
-                        help_text="Debe ingresar rut")
+    cod_persona=forms.CharField(max_length=10,
+                        error_messages={"required":"Ingrese el primer nombre"}, 
+                        help_text="Debe ingresar el nombre")
     
     fecha_ncto=forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
 
     class Meta:
         model = Persona
-        fields = ['imagen','nombre', 'apellido','fecha_ncto', 'correo','telefono']
+        fields = ['cod_persona','pnombre','snombre',
+                  'apellidop','apellidom', 'correo',
+                  'direccion', 'celular', 'region', 
+                  'info_adicional', 'imagen']
         
 class UsuarioForm(forms.ModelForm):
     nombusuario =forms.CharField(max_length=18,

@@ -24,7 +24,7 @@ class Persona (models.Model):
     snombre        =  models.CharField(max_length=20, null=True)
     apellidop      =  models.CharField(max_length=20, null=False)
     apellidom      =  models.CharField(max_length=20, null=False)
-    correo         =  models.EmailField(error_messages="El correo maldito Peruano")
+    correo         =  models.EmailField(error_messages="El correo")
     direccion      =  models.CharField(max_length=50, null=False)
     celular        =  models.IntegerField(verbose_name="Fono", validators=[MinValueValidator(100000000), MaxValueValidator(999999999)])
     region         =  models.CharField(max_length=25, choices=REGIONES, default="CONCEPCION")  
