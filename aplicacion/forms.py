@@ -35,7 +35,6 @@ class PersonaForm(forms.ModelForm):
                         error_messages={"required":"Ingrese el primer nombre"}, 
                         help_text="Debe ingresar el nombre")
     
-    fecha_ncto=forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
 
     class Meta:
         model = Persona
@@ -50,7 +49,6 @@ class UpdatePersonaForm(forms.ModelForm):
                         error_messages={"required":"Ingrese el primer nombre"}, 
                         help_text="Debe ingresar el nombre")
     
-    fecha_ncto=forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
 
     class Meta:
         model = Persona

@@ -20,7 +20,7 @@
 <!-- Start Header/Navigation -->
 <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
     <div class="container">
-        <a class="navbar-brand" href="{% static "#" %}">Brama Admin<span>.</span></a>
+        <a class="navbar-brand" href= "#">Brama Admin<span>.</span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
             aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,7 +31,7 @@
                     <a class="nav-link" href="{% url 'panelcontrolestadocompra' %}">Estado de Compra</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'panelcontrolusuarios' %}">Usuarios</a>
+                    <a class="nav-link" href="{% url 'personas' %}">Usuarios</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'panelcontrolagregararmas' %}">Agregar Productos</a>
@@ -58,17 +58,17 @@
             <thead>
                 <tr>
                     <th>Imagen</th>
-                    <th>cod_persona</th>
-                    <th>pnombre</th>
-                    <th>snombre</th>
-                    <th>apellidop</th>
-                    <th>apellidom</th>
-                    <th>correo</th>
-                    <th>direccion</th>
-                    <th>celular</th>
-                    <th>region</th>
-                    <th>info_adicional</th>
-                    <th>Detalle</th>
+                    <th>Identificador</th>
+                    <th>Primer nombre</th>
+                    <th>Segundo nombre</th>
+                    <th>Primer apellido</th>
+                    <th>Segundo apellido</th>
+                    <th>Correo</th>
+                    <th>Direccion</th>
+                    <th>Celular</th>
+                    <th>Región</th>
+                    <th>Información</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -86,8 +86,8 @@
                     <td>{{ p.region }}</td>
                     <td>{{ p.info_adicional }}</td>
                     <td>
-                        <a href="{% url 'modificar_persona' persona.cod_persona %}">Editar</a>
-                        <a href="{% url 'eliminarpersona' persona.cod_persona %}">Eliminar</a>
+                        <a href="{% url 'modificar_persona' p.cod_persona %}">Editar</a>
+                        <a href="{% url 'eliminarpersona' p.cod_persona %}">Eliminar</a>
                     </td>
                 </tr>
                 {% endfor %}
