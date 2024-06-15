@@ -1,0 +1,90 @@
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="{% static 'logo.png' %}">
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'aplicacion/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="{% static 'aplicacion/css/tiny-slider.css' %}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/style.css' %}" rel="stylesheet">
+    <title>Personas</title>
+
+</head>
+<!-- Start Header/Navigation -->
+<nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
+    <div class="container">
+        <a class="navbar-brand" href="{% static "#" %}">Brama Admin<span>.</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+            aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'panelcontrolestadocompra' %}">Estado de Compra</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'panelcontrolusuarios' %}">Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'panelcontrolagregararmas' %}">Agregar Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'panelcontroleditararmas' %}">Editar Producto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'panelcerrarsesion' %}">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- End Header/Navigation -->
+
+    <div class="container">
+        <div class="mt-4">
+            <h3>Lista de Productos</h3>
+            <a href="{% url 'crearpersona' %}" role="button" class="btn text-primary">+ Agregar Producto</a>
+        </div>
+        <p>{{ fecha }}</p>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>cod_producto</th>
+                    <th>nombre</th>
+                    <th>tipo_producto</th>
+                    <th>tipo_municion</th>
+                    <th>precio</th>
+                    <th>stock</th>
+                    <th>imagen</th>
+                </tr>
+            </thead>
+            <tbody> 
+                {% for p in productos %}
+                <tr>
+                    <td><img src="{{ p.imagen.url }}" alt="foto" height="150"></td>
+                    <td>{{ p.cod_producto }}</td>
+                    <td>{{ p.nombre }}</td>
+                    <td>{{ p.tipo_producto }}</td>
+                    <td>{{ p.tipo_municion }}</td>
+                    <td>{{ p.precio }}</td>
+                    <td>{{ p.stock }}</td>
+                    <td>{{ p.imagen }}</td>
+                    <td>
+                        <a href="{% url 'eliminarproducto' p.cod_producto %}">Eliminar</a>
+                        <a href="{% url 'modificarproducto' p.cod_producto %}">Modificar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+

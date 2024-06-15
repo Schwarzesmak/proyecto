@@ -1,0 +1,31 @@
+body {
+    background-color: #DDDDDD;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    padding: 20px;
+}
+
+.btn-primary {
+    background-color: #627254;
+    color: #FFFFFF;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #76885B;
+    color: #FFFFFF;
+}
+
+.form-control {
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    color: #333;
+}
+
+img.preview-img {
+    width: 100px;
+    height: auto;
+}

@@ -5,15 +5,14 @@ from .enumeraciones import *
 # Create your models here.
 
 class Producto(models.Model):
-    cod_producto = models.IntegerField(primary_key=True,  validators=[MinValueValidator(1), MaxValueValidator(999999999)])
-    nombre = models.CharField(max_length=50, null=False)
-    tipo_producto = models.CharField(max_length=10, choices=TIPO_PRODUCTO, default="OTRO PRODUCTO")
-    #ESTO VA EN HTML, TIPO_MUNICION
-    tipo_municion = models.CharField(max_length=100, choices=TIPO_MUNICION, default= "OTRO")
-    precio = models.IntegerField(verbose_name='Dinero', validators=[MinValueValidator(1000), MaxValueValidator(999999999)])
-    stock = models.IntegerField( validators=[MinValueValidator(0)], default=0 )
-    imagen=models.ImageField(upload_to='productos',null=True)
-    
+    cod_producto = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=50)
+    tipo_producto = models.CharField(max_length=10, choices=TIPO_PRODUCTO, default='OTRO PRODUCTO')
+    tipo_municion = models.CharField(max_length=100, choices=TIPO_MUNICION, default='OTRO')
+    precio = models.IntegerField(validators=[MinValueValidator(1000), MaxValueValidator(999999999)])
+    stock = models.IntegerField(default=0)
+    imagen = models.ImageField(upload_to='productos', null=True)
+
     def __str__(self):
         return self.nombre
 
