@@ -57,7 +57,7 @@
 
     <div class="container">
         <h1>Estado de Pedido</h1>
-        <p>Su pedido ha sido {{ order.estado }}.</p>
+        <p>Su pedido ha sido {{ envio.estado }}.</p>
         <p class="success">¡Pedido Completado!</p>
 
         <div class="details">
@@ -69,18 +69,19 @@
                     <th>Precio Unitario</th>
                     <th>Total</th>
                 </tr>
-                {% for item in order.items.all %}
+                {% for e in estado %}
                 <tr>
-                    <td>{{ item.producto.nombre }}</td>
-                    <td>{{ item.cantidad }}</td>
-                    <td>{{ item.producto.precio }}</td>
-                    <td>{{ item.get_total_price }}</td>
+                    <td>{{ e.producto.nombre }}</td>
+                    <td>{{ e.cantidad }}</td>
+                    <td>{{ e.producto.precio }}</td>
+                    <td>{{ e.get_total_price }}</td>
                 </tr>
-                {% endfor %}
+                
                 <tr>
                     <td colspan="3"><strong>Total</strong></td>
-                    <td>{{ order.get_total }}</td>
+                    <td>{{ e.get_total }}</td>
                 </tr>
+                {% endfor %}
             </table>
         </div>
 

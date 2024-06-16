@@ -1,7 +1,7 @@
 from django.shortcuts import render
 #desde el crud del profe
 from django.shortcuts import get_object_or_404, redirect
-from .models import Persona, Producto #Carrito, Usuario, Envio
+from .models import Persona, Producto, Envio #Carrito, Usuario
 #importar forms.py tambien, falta
 from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoForm #para formularios de persona y productos
 
@@ -222,6 +222,9 @@ def productos(request):
 
     return render(request,'aplicacion/productos.html', datos)
 
-def order_status(request, idcompra):
-    order = get_object_or_404(Envio, idcompra=idcompra)
-    return render(request, 'estado.html', {'order': order})
+def orden_estado(request, idcompra):
+     Envio = get_object_or_404(Envio, idcompra=idcompra)
+     datos = {
+        "Envio": Envio
+    }
+     return render(request, 'aplicacion/estado.html', datos)

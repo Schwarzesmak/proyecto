@@ -102,7 +102,7 @@ class CarritoForm(forms.ModelForm):
     
 class Meta:
      model = Persona
-     fields = ['usuario', 'producto', 'cantidad']
+     fields = ['usuario', 'envio', 'producto', 'cantidad']
      
 class UpdateCarritoForm(forms.ModelForm):
     usuario      = forms.CharField(max_length=18, error_messages={"required":"Ingrese nombre de usuario"}, 
@@ -110,4 +110,6 @@ class UpdateCarritoForm(forms.ModelForm):
     
 class Meta:
      model = Persona
-     fields = ['usuario', 'producto', 'cantidad']
+     fields = ['usuario', 'envio', 'producto', 'cantidad']
+     
+     
