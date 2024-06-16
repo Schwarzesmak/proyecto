@@ -69,10 +69,10 @@
                     <th>Precio Unitario</th>
                     <th>Total</th>
                 </tr>
-                {% for e in estado %}
+                {% for e in estados %}
                 <tr>
                     <td>{{ e.producto.nombre }}</td>
-                    <td>{{ e.cantidad }}</td>
+                    <td>{{ e..cantidad }}</td>
                     <td>{{ e.producto.precio }}</td>
                     <td>{{ e.get_total_price }}</td>
                 </tr>

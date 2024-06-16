@@ -64,22 +64,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for pedido in pedidos %}
+                    {% for p in pedidos %}
                     <tr>
-                        <td>{{ pedido.id }}</td>
-                        <td>{{ pedido.nombre_cliente }}</td>
-                        <td>{{ pedido.fecha_pedido }}</td>
+                        <td>{{ p.id }}</td>
+                        <td>{{ p.nombre_cliente }}</td>
+                        <td>{{ p.fecha_pedido }}</td>
                         <td>
                             <select name="estado">
-                                <option value="cancelado" {% if pedido.estado == 'cancelado' %}selected{% endif %}>
+                                <option value="cancelado" {% if p.estado == 'cancelado' %}selected{% endif %}>
                                     Cancelado
                                 </option>
 
-                                <option value="pendiente" {% if pedido.estado == 'pendiente' %}selected{% endif %}>
+                                <option value="pendiente" {% if p.estado == 'pendiente' %}selected{% endif %}>
                                     Pendiente
                                 </option>
 
-                                <option value="finalizado" {% if pedido.estado == 'finalizado' %}selected{% endif %}>
+                                <option value="finalizado" {% if p.estado == 'finalizado' %}selected{% endif %}>
                                     Finalizado
                                 </option>
                                 
@@ -110,13 +110,13 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>{{ pedido.direccion }}</td>
-                                                    <td>{{ pedido.nombre_cliente }}</td>
-                                                    <td>{{ pedido.apellidos }}</td>
-                                                    <td>{{ pedido.correo }}</td>
-                                                    <td>{{ pedido.usuario }}</td>
-                                                    <td>{{ pedido.celular }}</td>
-                                                    <td>{{ pedido.region }}</td>
+                                                    <td>{{ p.direccion }}</td>
+                                                    <td>{{ p.nombre_cliente }}</td>
+                                                    <td>{{ p.apellidos }}</td>
+                                                    <td>{{ p.correo }}</td>
+                                                    <td>{{ p.usuario }}</td>
+                                                    <td>{{ p.celular }}</td>
+                                                    <td>{{ p.region }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
