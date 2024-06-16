@@ -32,7 +32,16 @@ def about (request):
 def admini (request):
     return render(request, "aplicacion/admini.html")
 def cart (request):
-    return render(request, "aplicacion/cart.html")
+    
+    carritos=Carrito.objects.all()
+    productos= Producto.objects.all()
+
+    datos={
+
+        "carritos":carritos,
+        "productos":productos
+    }
+    return render(request, "aplicacion/cart.html", datos)
 def checkout (request):
     return render(request, "aplicacion/checkout.html")
 def estado (request):
