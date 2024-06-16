@@ -56,3 +56,27 @@ class Registro(models.Model):
      usuario = models.CharField(max_length=50, primary_key=True)
      email = models.CharField(max_length=20)
      contraseña = models.CharField(max_length=18)
+     
+
+# Esto es experimental, si se requiere se saca 
+class Pedido(models.Model):
+    id = models.AutoField(primary_key=True)
+    nombre_cliente = models.CharField(max_length=100)
+    direccion = models.CharField(max_length=200)
+    correo = models.EmailField()
+    usuario = models.CharField(max_length=50)
+    celular = models.CharField(max_length=20)
+    region = models.CharField(max_length=100)
+    fecha_pedido = models.DateField()
+    boleta = models.CharField(max_length=15, choices=[
+        ('con_factura', 'Con factura'),
+        ('con_boleta', 'Con boleta'),
+    ])
+    estado = models.CharField(max_length=20, choices=[
+        ('cancelado', 'Cancelado'),
+        ('pendiente', 'Pendiente'),
+        ('finalizado', 'Finalizado'),
+    ])
+
+    def __str__(self):
+        return f"Pedido {self.id} - {self.nombre_cliente}"
