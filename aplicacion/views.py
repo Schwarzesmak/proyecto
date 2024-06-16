@@ -228,3 +228,14 @@ def orden_estado(request, idcompra):
         "Envio": Envio
     }
      return render(request, 'aplicacion/estado.html', datos)
+ 
+ #Esto es experimental, si se requiere se saca
+def panel_control(request):
+    # Obtener todos los pedidos ordenados por fecha de pedido descendente
+    pedidos = pedidos.objects.all().order_by('-fecha_pedido')
+    
+    context = {
+        'pedidos': pedidos
+    }
+    
+    return render(request, 'panel_control.html', context)

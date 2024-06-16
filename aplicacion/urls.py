@@ -46,7 +46,7 @@ urlpatterns = [
        path('eliminarproducto/<int:id>/', eliminarproducto, name= 'eliminarproducto' ),
        path('crearproducto/', crearproducto, name= 'crearproducto'),
        path('modificarproducto/<int:id>/', views.modificarproducto, name='modificarproducto'),
-
+       path('panel-control/', views.panel_control, name='panel_control'),
 
        #Esto es experimental, se puede sacar
 ]
