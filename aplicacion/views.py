@@ -43,14 +43,8 @@ def panelcerrarsesion (request):
     return render(request, "aplicacion/panelcerrarsesion.html")
 def panelcontrol (request):
     return render(request, "aplicacion/panelcontrol.html")
-def panelcontrolagregararmas (request):
-    return render(request, "aplicacion/panelcontrolagregararmas.html")
-def panelcontroleditararmas (request):
-    return render(request, "aplicacion/panelcontroleditararmas.html")
 def panelcontrolestadocompra (request):
     return render(request, "aplicacion/panelcontrolestadocompra.html")
-def panelcontrolusuarios (request):
-    return render(request, "aplicacion/panelcontrolusuarios.html")
 def punitario (request):
     return render(request, "aplicacion/punitario.html")
 def registro (request):
@@ -219,7 +213,7 @@ def modificar_persona(request, id):
 def productos(request):
  
     
-    personas=Producto.objects.all()
+    productos=Producto.objects.all()
 
     datos={
 

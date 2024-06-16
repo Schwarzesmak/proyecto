@@ -20,7 +20,7 @@
 <!-- Start Header/Navigation -->
 <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
     <div class="container">
-        <a class="navbar-brand" href="{% static "#" %}">Brama Admin<span>.</span></a>
+        <a class="navbar-brand" href="{% url "panelcontrol" %}">Brama Admin<span>.</span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
             aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,13 +31,10 @@
                     <a class="nav-link" href="{% url 'panelcontrolestadocompra' %}">Estado de Compra</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'panelcontrolusuarios' %}">Usuarios</a>
+                    <a class="nav-link" href="{% url 'personas' %}">Usuarios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'panelcontrolagregararmas' %}">Agregar Productos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'panelcontroleditararmas' %}">Editar Producto</a>
+                    <a class="nav-link" href="{% url 'productos' %}">Productos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'panelcerrarsesion' %}">Cerrar Sesión</a>
@@ -51,19 +48,21 @@
     <div class="container">
         <div class="mt-4">
             <h3>Lista de Productos</h3>
-            <a href="{% url 'crearpersona' %}" role="button" class="btn text-primary">+ Agregar Producto</a>
+            <a href="{% url 'crearproducto' %}" role="button" class="btn text-primary">+ Agregar Producto</a>
         </div>
         <p>{{ fecha }}</p>
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>cod_producto</th>
-                    <th>nombre</th>
-                    <th>tipo_producto</th>
-                    <th>tipo_municion</th>
-                    <th>precio</th>
-                    <th>stock</th>
-                    <th>imagen</th>
+                    <th>Imagen</th>
+                    <th>Codigo producto</th>
+                    <th>Nombre</th>
+                    <th>Tipo producto</th>
+                    <th>Tipo municion</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                    
                 </tr>
             </thead>
             <tbody> 
@@ -76,10 +75,9 @@
                     <td>{{ p.tipo_municion }}</td>
                     <td>{{ p.precio }}</td>
                     <td>{{ p.stock }}</td>
-                    <td>{{ p.imagen }}</td>
                     <td>
                         <a href="{% url 'eliminarproducto' p.cod_producto %}">Eliminar</a>
-                        <a href="{% url 'modificarproducto' p.cod_producto %}">Modificar</a>
+                        <a href="{% url 'modificarproducto' p.cod_producto %}">Editar</a>
                     </td>
                 </tr>
                 {% endfor %}

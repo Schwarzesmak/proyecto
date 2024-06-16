@@ -1,8 +1,8 @@
 
 from django.urls import path, include
 from .views import index, beretta, camisa, carpa, casco, chaleco, cuchillo, pantalon, valken, about, admini, cart, checkout, estado
-from .views import miscompras, panelcerrarsesion, panelcontrol, panelcontrolagregararmas,panelcontroleditararmas, panelcontrolestadocompra
-from .views import panelcontrolusuarios, punitario, registro, sesion, shop, thankyou, personas, crearpersona, modificarpersona, modificarproducto, eliminarpersona, productos, eliminarproducto, crearproducto
+from .views import miscompras, panelcerrarsesion, panelcontrol, panelcontrolestadocompra
+from .views import  punitario, registro, sesion, shop, thankyou, personas, crearpersona, modificarpersona, modificarproducto, eliminarpersona, productos, eliminarproducto, crearproducto
 from . import views
 
 #PARA TRABAJAR CON IMAGENES
@@ -28,10 +28,7 @@ urlpatterns = [
        path('miscompras/', miscompras, name='miscompras'),
        path('panelcerrarsesion/', panelcerrarsesion, name='panelcerrarsesion'),
        path('panelcontrol/', panelcontrol, name='panelcontrol'),
-       path('panelcontrolagregararmas/', panelcontrolagregararmas, name='panelcontrolagregararmas'),
-       path('panelcontroleditararmas/', panelcontroleditararmas, name='panelcontroleditararmas'),
        path('panelcontrolestadocompra/', panelcontrolestadocompra, name='panelcontrolestadocompra'),
-       path('panelcontrolusuarios/', panelcontrolusuarios, name='panelcontrolusuarios'),
        path('punitario/', punitario, name='punitario'),
        path('registro/', registro, name='registro'),
        path('sesion/', sesion, name='sesion'),
