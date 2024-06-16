@@ -1,7 +1,7 @@
 from django.shortcuts import render
 #desde el crud del profe
 from django.shortcuts import get_object_or_404, redirect
-from .models import Persona, Producto, Envio #Carrito, Usuario
+from .models import Persona, Producto, Envio, Pedido,Carrito #Usuario
 #importar forms.py tambien, falta
 from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoForm #para formularios de persona y productos
 
@@ -32,19 +32,43 @@ def about (request):
 def admini (request):
     return render(request, "aplicacion/admini.html")
 def cart (request):
-    return render(request, "aplicacion/cart.html")
+    
+    carritos=Carrito.objects.all()
+    productos= Producto.objects.all()
+
+    datos={
+
+        "carritos":carritos,
+        "productos":productos
+    }
+    return render(request, "aplicacion/cart.html", datos)
 def checkout (request):
     return render(request, "aplicacion/checkout.html")
 def estado (request):
-    return render(request, "aplicacion/estado.html")
+    
+    estados=Carrito.objects.all()
+    envios = Envio.objects.all()
+
+    datos={
+
+        "estados":estados,
+        "envios":envios
+    }
+    return render(request, "aplicacion/estado.html",datos)
 def miscompras  (request):
     return render(request, "aplicacion/miscompras.html")
 def panelcerrarsesion (request):
     return render(request, "aplicacion/panelcerrarsesion.html")
 def panelcontrol (request):
     return render(request, "aplicacion/panelcontrol.html")
+#para que se vean los pedidos en panel control estado 
 def panelcontrolestadocompra (request):
-    return render(request, "aplicacion/panelcontrolestadocompra.html")
+    pedidos=Pedido.objects.all()
+    datos={
+
+        "pedidos":pedidos
+    }
+    return render(request, "aplicacion/panelcontrolestadocompra.html", datos)
 def punitario (request):
     return render(request, "aplicacion/punitario.html")
 def registro (request):

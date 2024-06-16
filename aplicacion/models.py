@@ -43,14 +43,20 @@ class Envio (models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
     imagenenvio = models.ImageField(upload_to='imagenenvios',null=True)
     
-class Carrito():
-    usuario  = models.CharField(max_length=50, primary_key=True)
+class Carrito(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='items')
     envio = models.ForeignKey(Envio, on_delete=models.CASCADE, related_name='items')
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField(validators=[MinValueValidator(1)])
 
     def get_total_price(self):
+        return self.producto.precio * self.cantidad
+
+    def get_total_price(self):
      return self.producto.precio * self.cantidad
+
+    def __str__(self):
+        return f"Carrito de {self.usuario} - Producto: {self.producto.nombre}" #********
 
 class Registro(models.Model): 
      usuario = models.CharField(max_length=50, primary_key=True)
@@ -66,10 +72,10 @@ class Pedido(models.Model):
     correo = models.EmailField()
     usuario = models.CharField(max_length=50)
     celular = models.CharField(max_length=20)
-    region = models.CharField(max_length=100)
+    region         =  models.CharField(max_length=25, choices=REGIONES, default="CONCEPCION")
     fecha_pedido = models.DateField()
     boleta = models.CharField(max_length=15, choices=[
-        ('con_factura', 'Con factura'),
+        ('sin_boleta', 'Sin boleta'),
         ('con_boleta', 'Con boleta'),
     ])
     estado = models.CharField(max_length=20, choices=[
