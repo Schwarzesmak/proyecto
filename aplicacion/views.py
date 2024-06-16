@@ -221,3 +221,7 @@ def productos(request):
     }
 
     return render(request,'aplicacion/productos.html', datos)
+
+def order_status(request, idcompra):
+    order = get_object_or_404(Envio, idcompra=idcompra)
+    return render(request, 'estado.html', {'order': order})

@@ -13,7 +13,7 @@ class Producto(models.Model):
     stock = models.IntegerField(default=0)
     imagen = models.ImageField(upload_to='productos', null=True)
 
-    def __str__(self):
+    def __str__(self): 
         return self.nombre
 
 
@@ -28,7 +28,7 @@ class Persona (models.Model):
     celular        =  models.IntegerField(verbose_name="Fono", validators=[MinValueValidator(100000000), MaxValueValidator(999999999)])
     region         =  models.CharField(max_length=25, choices=REGIONES, default="CONCEPCION")  
     info_adicional =  models.CharField(max_length=100, null=False)
-    imagen=models.ImageField(upload_to='personas',null=True)
+    imagen= models.ImageField(upload_to='personas',null=True)
     
 
 class Usuario (models.Model):
@@ -45,7 +45,14 @@ class Envio (models.Model):
     
 class Carrito():
     usuario  = models.CharField(max_length=50, primary_key=True)
-    producto = models.CharField(max_length=10)
-    cantidad = models.IntegerField()
+    envio = models.ForeignKey(Envio, on_delete=models.CASCADE, related_name='items')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.IntegerField(validators=[MinValueValidator(1)])
 
-    
+    def get_total_price(self):
+     return self.producto.precio * self.cantidad
+
+class Registro(models.Model): 
+     usuario = models.CharField(max_length=50, primary_key=True)
+     email = models.CharField(max_length=20)
+     contraseña = models.CharField(max_length=18)
