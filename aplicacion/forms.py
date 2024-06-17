@@ -1,6 +1,12 @@
 from django import forms
 from .models import Persona, Producto
 from .enumeraciones import *
+from django.contrib.auth.forms import UserCreationForm
+
+#para forumulario de regristro de usuario
+class CrearCuentaForm(UserCreationForm):
+    pass
+
 #Esto es para los formularios #falta completar funciones
 class ProductoForm(forms.ModelForm):
     nombre = forms.CharField(max_length=50, error_messages={"required": "Ingrese el nombre del producto"})
@@ -111,5 +117,7 @@ class UpdateCarritoForm(forms.ModelForm):
 class Meta:
      model = Persona
      fields = ['usuario', 'envio', 'producto', 'cantidad']
+     
+     
      
      

@@ -1,9 +1,11 @@
 from django.shortcuts import render
 #desde el crud del profe
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect
 from .models import Persona, Producto, Envio, Pedido,Carrito #Usuario
 #importar forms.py tambien, falta
-from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoForm #para formularios de persona y productos
+from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoForm, CrearCuentaForm #para formularios de persona y productos
+
 
 # Create your views here.
 def index (request):
@@ -77,12 +79,37 @@ def panelcontrolestadocompra (request):
     return render(request, "aplicacion/panelcontrolestadocompra.html", datos)
 def punitario (request):
     return render(request, "aplicacion/punitario.html")
-def registro (request):
-    return render(request, "aplicacion/registro.html")
+
+def crearcuenta (request):
+    form=CrearCuentaForm()
+    datos={
+        "form":form
+    }
+    if request.method=="POST":
+        form=CrearCuentaForm(data=request.POST)
+        usr=request.POST["username"]
+        existe=User.objects.filter(username=usr).exists()
+        if existe:
+            alerta="El usuario ya existe"
+            datos={
+                "form":form,
+                "alerta":alerta
+            }
+        else:
+            if form.is_valid():
+                form.save()
+                return redirect(to="login")
+            datos={
+                "form":form
+            }
+    return render(request, "registration/crearcuenta.html", datos)
+
 #def sesion (request):
 #    return render(request, "aplicacion/sesion.html")
+
 def shop (request):
     return render(request, "aplicacion/shop.html")
+
 def thankyou (request):
     return render(request, "aplicacion/thankyou.html")
 
@@ -103,13 +130,13 @@ def personas(request):
 
     return render(request,'aplicacion/personas.html', datos)
 
-def detallepersona(request,id):
+#def detallepersona(request,id):
      #persona=Persona.objects.get(rut=id)
-     persona=get_object_or_404(Persona, rut=id)
-     datos={
-         "persona":persona
-     }
-     return render(request,'appcrud/detallepersona.html', datos)
+#     persona=get_object_or_404(Persona, rut=id)
+#     datos={
+#         "persona":persona
+#     }
+#     return render(request,'appcrud/detallepersona.html', datos)
  
 def crearpersona(request):
     form=PersonaForm()

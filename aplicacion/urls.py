@@ -2,7 +2,7 @@
 from django.urls import path, include
 from .views import index, beretta, camisa, carpa, casco, chaleco, cuchillo, pantalon, valken, about, admini, cart, checkout, estado
 from .views import miscompras, panelcerrarsesion, panelcontrol, panelcontrolestadocompra
-from .views import  punitario, registro, shop, thankyou, personas, crearpersona, modificarpersona, modificarproducto, eliminarpersona, productos, eliminarproducto, crearproducto #sesion
+from .views import  punitario, crearcuenta, shop, thankyou, personas, crearpersona, modificarpersona, modificarproducto, eliminarpersona, productos, eliminarproducto, crearproducto #sesion
 from . import views
 
 #PARA TRABAJAR CON IMAGENES
@@ -30,7 +30,7 @@ urlpatterns = [
        path('panelcontrol/', panelcontrol, name='panelcontrol'),
        path('panelcontrolestadocompra/', panelcontrolestadocompra, name='panelcontrolestadocompra'),
        path('punitario/', punitario, name='punitario'),
-       path('registro/', registro, name='registro'),
+       path('crearcuenta/', crearcuenta, name='crearcuenta'),
        #path('sesion/', sesion, name='sesion'),
        path('shop/', shop, name='shop'),
        path('thankyou/', thankyou, name='thankyou'),
