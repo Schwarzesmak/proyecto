@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="es">
 
@@ -21,13 +22,8 @@
                         <h1 class="text-center mb-4">Inicio de sesión</h1>
                         <form action="{% url 'index' %}" method="get" id="formulariosesion">
                             <div class="mb-3">
-                                <label for="usuario" class="form-label">Nombre de usuario</label>
-                                <input type="text" class="form-control" id="usuario" name="usuario" required maxlength="25">
-                            </div>
-                            <div class="mb-3">
-                                <label for="contraseña" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" id="contraseña" name="contraseña" required>
-                            </div>
+                                {% csrf_token %}
+                                {{form | crispy }}
                             <div>
                                 <input type="submit" value="Iniciar Sesión" class="btn btn-primary w-100">
                             </div>

@@ -79,8 +79,8 @@ def punitario (request):
     return render(request, "aplicacion/punitario.html")
 def registro (request):
     return render(request, "aplicacion/registro.html")
-def sesion (request):
-    return render(request, "aplicacion/sesion.html")
+#def sesion (request):
+#    return render(request, "aplicacion/sesion.html")
 def shop (request):
     return render(request, "aplicacion/shop.html")
 def thankyou (request):
