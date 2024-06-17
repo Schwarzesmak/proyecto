@@ -57,8 +57,12 @@
 
     <div class="container">
         <h1>Estado de Pedido</h1>
-        <p>Su pedido ha sido {{ estado }}.</p>
+        {% if envio.estado != 'Completado' %}
+        <p>Su pedido está en proceso.</p>
+        {% else %}
+        <p>Su pedido ha sido {{ envio.estado }}.</p>
         <p class="success">¡Pedido Completado!</p>
+        {% endif %}
 
         <div class="details">
             <h2>Detalles de su Compra</h2>
@@ -76,12 +80,12 @@
                     <td>{{ e.producto.precio }}</td>
                     <td>{{ e.get_total_price }}</td>
                 </tr>
+                {% endfor %}
                 
                 <tr>
                     <td colspan="3"><strong>Total</strong></td>
-                    <td>{{ e.get_total_price }}</td>
+                    <td>{{ envio.get_total }}</td>
                 </tr>
-                {% endfor %}
             </table>
         </div>
 

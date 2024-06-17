@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Compras - Brama</title>
     <link href="{% static 'aplicacion/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="{% static 'aplicacion/css/tiny-slider.css' %}" rel="stylesheet">
     <link href="{% static 'aplicacion/css/style.css' %}" rel="stylesheet">
     <link href="{% static 'aplicacion/css/stylemiscompras.css' %}" rel="stylesheet">
@@ -70,63 +70,21 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Beretta</td>
-                                    <td>$144.000</td>
-                                    <td>
-                                        <img src="{% static "aplicacion/img/bereta-remove.png" %}" alt="Imagen Beretta">
-                                        <button class="btn btn-primary btn-detalle">Detalles de boleta</button> <!-- Botón Detalles -->
-                                    </td>
-                                    <td>01/04/2024</td>
-                                    <td class="entregado">Entregado</td>
-                                    <td class="entregado">Con Boleta</td>
-                                </tr>
-                            <tr>
-                                <td>Camisa</td>
-                                <td>$39.500</td>
-                                <td>
-                                    <img src="{% static "aplicacion/img/camisa-remove.png" %}"alt="Imagen Camisa">
-                                    
-                                </td>
-                                <td>30/03/2024</td>
-                                <td class="cancelado">Cancelado</td>
-                                <td class="cancelado">Sin Boleta</td>
-                            </tr>
-                            <tr>
-                                <td>Cuchillo</td>
-                                <td>$50.000</td>
-                                <td>
-                                    <img src="{% static "aplicacion/img/cuchillo-remove.png" %}" alt="Imagen Cuchillo">
-                                </td>
-                                <td>25/03/2024</td>
-                                <td class="reembolsado">Reembolsado</td>
-                                <td class="reembolsado">Sin Boleta</td>
-                            </tr>
-                            <tr>
-                                <td>Casco</td>
-                                <td>$135.000</td>
-                                <td>
-                                    <img src="{% static "aplicacion/img/casco-remove.png" %}" alt="Imagen Casco">
-                                    <button class="btn btn-primary btn-detalle">Detalles de boleta</button>
-                                </td>
-                                <td>25/03/2024</td>
-                                <td class="entregado">Entregado
-                                    <td class="entregado">Con Boleta</td>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Carpa</td>
-                                <td>$135.000</td>
-                                <td>
-                                    <img src="{% static "aplicacion/img/carpa3-remove.png" %}" alt="Imagen Carpa">
-                                    <button class="btn btn-primary btn-detalle">Detalles de boleta</button>
-                                </td>
-                                <td>25/03/2024</td>
-                                <td class="entregado">Entregado
-                                    <td class="entregado">Con Boleta</td>
-                                </td>
-                            </tr>
-                            <!-- Agrega más filas según sea necesario -->
+                                {% for pedido in compras %}
+                                    {% for detalle in pedido.productos.all %}
+                                        <tr>
+                                            <td>{{ detalle.producto.nombre }}</td>
+                                            <td>${{ detalle.producto.precio }}</td>
+                                            <td>
+                                                <img src="{{ detalle.producto.imagen.url }}" alt="Imagen Producto">
+                                                <button class="btn btn-primary btn-detalle">Detalles de boleta</button>
+                                            </td>
+                                            <td>{{ pedido.fecha_pedido }}</td>
+                                            <td>{{ pedido.estado }}</td>
+                                            <td>{{ pedido.boleta }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -139,7 +97,7 @@
 <script>
     document.querySelectorAll('.btn-detalle').forEach(btn => {
         btn.addEventListener('click', function() {
-            window.location.href = " {% url "estado" %}";
+            window.location.href = "{% url 'estado' %}";
         });
     });
 </script>

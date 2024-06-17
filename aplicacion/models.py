@@ -52,9 +52,6 @@ class Carrito(models.Model):
     def get_total_price(self):
         return self.producto.precio * self.cantidad
 
-    def get_total_price(self):
-     return self.producto.precio * self.cantidad
-
     def __str__(self):
         return f"Carrito de {self.usuario} - Producto: {self.producto.nombre}" #********
 
@@ -80,9 +77,16 @@ class Pedido(models.Model):
     ])
     estado = models.CharField(max_length=20, choices=[
         ('cancelado', 'Cancelado'),
-        ('pendiente', 'Pendiente'),
+        ('en_proceso', 'En Proceso'),
         ('finalizado', 'Finalizado'),
-    ])
+    ], default='En proceso')
+    productos = models.ManyToManyField('Producto', through='DetallePedido')
+    def __str__(self):  
+        return f"Pedido {self.id} - {self.nombre_cliente}"
+class DetallePedido(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"Pedido {self.id} - {self.nombre_cliente}"
+        return f"Detalle de Pedido {self.pedido.id} - Producto {self.producto.nombre}"

@@ -55,8 +55,14 @@ def estado (request):
         "envios":envios
     }
     return render(request, "aplicacion/estado.html",datos)
-def miscompras  (request):
-    return render(request, "aplicacion/miscompras.html")
+def miscompras(request):
+    pedidos = Pedido.objects.prefetch_related('productos').all()
+
+    datos = {
+        'pedidos': pedidos
+    }
+
+    return render(request, "aplicacion/miscompras.html", datos)
 def panelcerrarsesion (request):
     return render(request, "aplicacion/panelcerrarsesion.html")
 def panelcontrol (request):
