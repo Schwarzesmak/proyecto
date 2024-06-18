@@ -2,12 +2,16 @@ from django.shortcuts import render
 #desde el crud del profe
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages 
 from .models import Persona, Producto, Envio, Pedido,Carrito #Usuario
+from os import path, remove 
+from django.conf import settings
 #importar forms.py tambien, falta
 from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoForm, CrearCuentaForm #para formularios de persona y productos
 
 
 # Create your views here.
+#Aqui es para las paginas
 def index (request):
     return render(request, "aplicacion/index.html")
 
@@ -28,7 +32,6 @@ def pantalon (request):
 def valken (request):
     return render(request, "aplicacion/producto/valken.html")
 
-#Aqui es para las paginas
 def about (request):
     return render(request, "aplicacion/about.html")
 def admini (request):
@@ -157,6 +160,7 @@ def crearproducto(request):
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Persona Agregada')
             return redirect('productos') 
     else:
         form = ProductoForm()
@@ -167,22 +171,23 @@ def crearproducto(request):
     return render(request, 'aplicacion/crearproducto.html', datos)
 
 #MODIFICAR, VER CRUD DEL PROFE Y TERMINAR BIEN NUESTROS MODIFICAR 
-def modificarpersona(request, id): #*****
-    persona=get_object_or_404(Persona,rut=id) #***********
+def modificarpersona(request, id):
+    persona = get_object_or_404(Persona, cod_persona=id)
 
-    form=UpdatePersonaForm(instance=persona)
-    datos={
-        "form":form,
-        "persona":persona
+    form = UpdatePersonaForm(instance=persona)
+    datos = {
+        "form": form,
+        "persona": persona
     }
 
-    if request.method=="POST":
-        form=UpdatePersonaForm(data=request.POST, files=request.FILES, instance=persona)
+    if request.method == "POST":
+        form = UpdatePersonaForm(data=request.POST, files=request.FILES, instance=persona)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Persona Modificada')
             return redirect(to="personas")
-        
-    return render(request,'aplicacion/modificarpersona.html',datos)
+
+    return render(request, 'aplicacion/modificarpersona.html', datos)
 
 def modificarproducto(request, id): #******
     producto=get_object_or_404(Producto, cod_producto=id) #**********
@@ -197,6 +202,7 @@ def modificarproducto(request, id): #******
         form=UpdateProductoForm(data=request.POST, files=request.FILES, instance=producto)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Producto Modificado')
             return redirect(to="productos")
         
     return render(request,'aplicacion/modificarproducto.html',datos)
@@ -210,7 +216,10 @@ def eliminarpersona(request, id):
     }
 
     if request.method == "POST":
+        if persona.imagen:
+            remove(path.join(str(settings.MEDIA_ROOT).replace('/media','')+persona.imagen.url))
         persona.delete()
+        messages.success(request, 'Persona Eliminada')
         return redirect(to="personas")
 
     return render(request, 'aplicacion/eliminarpersona.html', datos)
@@ -220,7 +229,10 @@ def eliminarproducto(request, id):
     producto = get_object_or_404(Producto, cod_producto=id)  
 
     if request.method == "POST":
+        if producto.imagen:
+            remove(path.join(str(settings.MEDIA_ROOT).replace('/media','')+producto.imagen.url))
         producto.delete()
+        messages.success(request, 'Producto Eliminado')
         return redirect('productos')  
 
     datos = {
@@ -228,27 +240,11 @@ def eliminarproducto(request, id):
     }
 
     return render(request, 'aplicacion/eliminarproducto.html', datos)
-   
+
+#---------OTRAS VISTAS--------------------#
 def alguna_vista(request):
     persona_id = 1 
     return redirect('modificar_persona', id=persona_id)
-
-def modificarpersona(request, id):
-    persona = get_object_or_404(Persona, cod_persona=id)
-
-    form = UpdatePersonaForm(instance=persona)
-    datos = {
-        "form": form,
-        "persona": persona
-    }
-
-    if request.method == "POST":
-        form = UpdatePersonaForm(data=request.POST, files=request.FILES, instance=persona)
-        if form.is_valid():
-            form.save()
-            return redirect(to="personas")
-
-    return render(request, 'aplicacion/modificarpersona.html', datos)
 
 def modificar_persona(request, id):
     persona = get_object_or_404(Persona, cod_persona=id)

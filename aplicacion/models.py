@@ -1,8 +1,13 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from .enumeraciones import *
+from django.contrib.auth.models import User
 
 # Create your models here.
+class Perfil(models.Model):
+    usuario=models.OneToOneField(User, related_name='usuario', on_delete=models.CASCADE)
+    telefono=models.CharField(max_length=9, null=False)
+    direccion=models.CharField(max_length=250, null=False)
 
 class Producto(models.Model):
     cod_producto = models.AutoField(primary_key=True)
