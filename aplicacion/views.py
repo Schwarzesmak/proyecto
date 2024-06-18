@@ -4,7 +4,9 @@ from django.shortcuts import get_object_or_404, redirect
 from .models import Persona, Producto, Envio, Pedido,Carrito #Usuario
 #importar forms.py tambien, falta
 from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoForm #para formularios de persona y productos
-
+from django.contrib import messages
+from os import path, remove
+from django.conf import settings
 # Create your views here.
 def index (request):
     return render(request, "aplicacion/index.html")
@@ -118,6 +120,7 @@ def crearpersona(request):
         form=PersonaForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Persona agregada al registro')
             return redirect(to="personas")
     
     datos={
@@ -153,6 +156,7 @@ def modificarpersona(request, id): #*****
         form=UpdatePersonaForm(data=request.POST, files=request.FILES, instance=persona)
         if form.is_valid():
             form.save()
+            messages.warning(request, 'Pesona Modificada')
             return redirect(to="personas")
         
     return render(request,'aplicacion/modificarpersona.html',datos)
@@ -183,9 +187,12 @@ def eliminarpersona(request, id):
     }
 
     if request.method == "POST":
+        if persona.imgen:
+            remove(path.join(settings.MEDIA_ROOT + persona.imagen.url))
         persona.delete()
+       #  "remove(path.join(str(settings.MEDIA_ROOT).replace('media/') persona.imagen.url))) Esto es siempre y cuando que la imagen no sirva"
+        messages.error(request, 'Persona eliminada')
         return redirect(to="personas")
-
     return render(request, 'aplicacion/eliminarpersona.html', datos)
 
 

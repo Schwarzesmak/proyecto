@@ -70,8 +70,39 @@
 		</div>
 
 	</nav>
-	<!-- End Header/Navigation -->
-{% endblock navbar %}
+	<script>
+		Swal.fire({
+			title: 'Operacion exitosa!'
+			text: '{{message}}'
+			icon:'success'
+			confirmButtonText: 'Ok'
+		})
+	</script>
+	{% if messages %}
+    {% for message in messages %}
+        {% if message.level == 25 %}
+            <div class="alert alert-success alert-dismissible at-3">
+                <button type="button" class="btn-button" data-bs-dismiss="alert"></button>
+                <strong> Operacion realizada: </strong> {{ message }} - NIVEL {{ message.level }}
+            </div>
+        {% endif %}
+        {% if message.level == 30 %}
+            <script>
+                Swal.fire({
+                    title: 'Operacion exitosa!',
+                    text: '{{ message }}',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                });
+            </script>
+            <div class="alert alert-warning alert-dismissible at-3">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong> Alerta: </strong> {{ message }} - NIVEL {{ message.level }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
 	<!-- Start Hero Section -->
 	<div class="hero">
 		<div class="container">
