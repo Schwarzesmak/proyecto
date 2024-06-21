@@ -276,3 +276,19 @@ def panel_control(request):
     }
     
     return render(request, 'panel_control.html', context)
+
+
+def crear_producto(request):
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'El producto se ha creado exitosamente.')
+            return redirect('productos')  # Redirige a la lista de productos o a donde desees
+    else:
+        form = ProductoForm()
+
+    datos = {
+        'form': form
+    }
+    return render(request, 'aplicacion/crearproducto.html', datos)

@@ -3,296 +3,254 @@
 <html lang="es">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="author" content="Untree.co">
-	<!-- <link rel="shortcut icon" href="logo.png.png"> -->
-	<link rel="shortcut icon" href="{%static "aplicacion/img/logo.png.png" %}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="{% static 'aplicacion/img/logo.png.png' %}">
 
-	<meta name="description" content="" />
-	<meta name="keywords" content="bootstrap, bootstrap4" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
 
-	<!-- Bootstrap CSS -->
-	<!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
-	<link rel="stylesheet" href="{%static "aplicacion/css/bootstrap.min.css"%}">
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-	
-	<!-- <link href="css/tiny-slider.css" rel="stylesheet">  -->
-	<link rel="stylesheet" href="{%static "aplicacion/css/tiny-slider.css" %}" >
-	<!-- <link href="css/style.css" rel="stylesheet"> -->
-	<link rel="stylesheet" href="{%static "aplicacion/css/style.css" %}" >
-	<title>Comprobante</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'aplicacion/css/bootstrap.min.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'aplicacion/css/tiny-slider.css' %}">
+    <link rel="stylesheet" href="{% static 'aplicacion/css/style.css' %}">
+    <title>Comprobante</title>
 </head>
 
 <body>
 
-	<!-- Start Header/Navigation -->
-	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+    <!-- Start Header/Navigation -->
+    <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">Brama<span>.</span></a>
 
-		<div class="container">
-			<!-- <a class="navbar-brand" href="index.html">Brama<span>.</span></a> -->
-			<a class="navbar-brand" href="{% url "index" %}">Brama<span>.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+                aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
-				aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+            <div class="collapse navbar-collapse" id="navbarsFurni">
+                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                    <li><a class="nav-link" href="{% url 'miscompras' %}">Mis Compras</a></li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                    </li>
+                    <li><a class="nav-link" href="{% url 'shop' %}">Tienda</a></li>
+                    <li><a class="nav-link" href="{% url 'about' %}">Nosotros</a></li>
+                </ul>
 
-			<div class="collapse navbar-collapse" id="navbarsFurni">
-				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-					<!-- <li><a class="nav-link" href="miscompras.html">Mis Compras -->
-					<li><a class="nav-link" href="{% url "miscompras" %}">Mis Compras	
-						</a></li>
-					<li class="nav-item active">
-				   <!-- <a class="nav-link" href="index.html">Inicio</a> -->
-						<a class="nav-link" href="{% url "index" %}">Inicio</a>
-					</li>
-			   <!-- <li><a class="nav-link" href="shop.html">Tienda</a></li> -->
-					<li><a class="nav-link" href="{% url "shop" %}">Tienda</a></li>
-				<!--<li><a class="nav-link" href="about.html">Nosotros</a></li>  -->
-					<li><a class="nav-link" href="{% url "about" %}">Nosotros</a></li>
-				</ul>
+                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                    <li><a class="nav-link" href="{% url 'sesion' %}"><img src="{% static 'aplicacion/img/user.svg' %}"></a></li>
+                    <li><a class="nav-link" href="{% url 'cart' %}"><img src="{% static 'aplicacion/img/cart.svg' %}"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Header/Navigation -->
 
-				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-				<!--<li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li> -->
-					<li><a class="nav-link" href="{% url "sesion" %}"><img src="{% static "aplicacion/img/user.svg" %}"></a></li>
-				<!--<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li> -->
-					<li><a class="nav-link" href="{% url "cart" %}"><img src="{% static "aplicacion/img/cart.svg" %}"></a></li>
-				</ul>
-			</div>
-		</div>
+    <!-- Start Hero Section -->
+    <div class="hero">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-5">
+                    <div class="intro-excerpt">
+                        <h1>Comprobante</h1>
+                    </div>
+                </div>
+                <div class="col-lg-7"></div>
+            </div>
+        </div>
+    </div>
+    <!-- End Hero Section -->
 
-	</nav>
-	<!-- End Header/Navigation -->
+    <div class="untree_co-section">
+        <form action="{% url 'thankyou' %}" method="get" id="formulario">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col-md-12"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-5 mb-md-0">
+                        <h2 class="h3 mb-3 text-black">Detalles de factura</h2>
+                        <div class="p-3 p-lg-5 border bg-white">
+                            <div class="form-group">
+                                <label for="c_country" class="text-black">Región <span class="text-danger">*</span></label>
+                                <select id="c_country" class="form-control" name="region" required>
+                                    <option value="1">Seleccione una Región</option>
+                                    <option value="2">Región del Ñuble</option>
+                                    <option value="3">Región del Biobío</option>
+                                    <option value="4">Región de la Araucanía</option>
+                                </select>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label for="primer_nombre" class="text-black">Primer Nombre <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="primer_nombre" name="primer_nombre" required placeholder="Ingrese su primer Nombre">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="segundo_nombre" class="text-black">Segundo Nombre <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" required placeholder="Ingrese su segundo Nombre">
+                                </div>
+                            </div>
 
-	<!-- Start Hero Section -->
-	<div class="hero">
-		<div class="container">
-			<div class="row justify-content-between">
-				<div class="col-lg-5">
-					<div class="intro-excerpt">
-						<h1>Comprobante</h1>
-					</div>
-				</div>
-				<div class="col-lg-7">
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="apeliido" class="text-black">Apellidos </label>
+                                    <input type="text" class="form-control" id="apellido" name="apellido" required placeholder="Ingrese sus Apellidos">
+                                </div>
+                            </div>
 
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End Hero Section -->
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="direccion" class="text-black">Dirección <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="direccion" name="direccion" required placeholder="Dirección donde desea recibir su pedido">
+                                </div>
+                            </div>
 
-	<div class="untree_co-section">
-		<form action=" {% url "thankyou" %}" method="get" id="formulario">
+                            <div class="form-group mt-3"> 
+                                <input type="text" class="form-control" id="direccion2" placeholder="Departamento, N° Pasaje. (opcional)">
+                            </div>
 
-			<div class="container">
-				<div class="row mb-5">
-					<div class="col-md-12">
-						
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6 mb-5 mb-md-0">
-						<h2 class="h3 mb-3 text-black">Detalles de factura</h2>
-						<div class="p-3 p-lg-5 border bg-white">
+                            <div class="form-group row mb-5">
+                                <div class="col-md-6">
+                                    <label for="correo" class="text-black">Correo electrónico <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingrese su Correo electrónico" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="celular" class="text-black">Celular <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="celular" name="celular" required placeholder="Numero de celular">
+                                </div>
+                            </div>
 
-							<div class="form-group">
-								<label for="c_country" class="text-black">Región <span
-										class="text-danger">*</span></label>
-								<select id="c_country" class="form-control" name="region" required>
-									<option value="1">Seleccione una Región</option>
-									<option value="2">Región del Ñuble</option>
-									<option value="3">Región del Biobío</option>
-									<option value="4">Región de la Araucanía</option>
-								</select>
-							</div>
-							<div class="form-group row">
-								<div class="col-md-6">
-									<label for="primer_nombre" class="text-black">Primer Nombre <span
-											class="text-danger">*</span></label>
-									<input type="text" class="form-control" id="primer_nombre" name="primer_nombre" required
-										placeholder="Ingrese su primer Nombre">
-								</div>
-								<div class="col-md-6">
-									<label for="segundo_nombre" class="text-black">Segundo Nombre <span
-											class="text-danger">*</span></label>
-									<input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre" required
-										placeholder="Ingrese su segundo Nombre">
-								</div>
-							</div>
+                            <div class="form-group">
+                                <label for="adicional" class="text-black">Información adicional</label>
+                                <textarea name="adicional" id="adicional" cols="30" rows="5" class="form-control" placeholder="Escribe tu Información adicional sobre el pedido aquí..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mb-5">
+                            <div class="col-md-12">
+                                <h2 class="h3 mb-3 text-black">Cupón</h2>
+                                <div class="p-3 p-lg-5 border bg-white">
+                                    <label for="c_code" class="text-black mb-3">Ingresa un cupón si posees uno</label>
+                                    <div class="input-group w-75 couponcode-wrap">
+                                        <input type="text" class="form-control me-2" id="c_code" placeholder="Canjea un cupón aquí" aria-label="Coupon Code" aria-describedby="button-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-black btn-sm" type="button" id="button-addon2">Aplicar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-							<div class="form-group row">
-								<div class="col-md-12">
-									<label for="apeliido" class="text-black">Apellidos </label>
-									<input type="text" class="form-control" id="apellido" name="apellido" required
-										placeholder="Ingrese sus Apellidos">
-								</div>
-							</div>
+                        <div class="row mb-5">
+                            <div class="col-md-12">
+                                <h2 class="h3 mb-3 text-black">Tu orden</h2>
+                                <div class="p-3 p-lg-5 border bg-white">
+                                    <table class="table site-block-order-table mb-5">
+                                        <thead>
+                                            <th>Producto</th>
+                                            <th>Total</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Compra N° 1 <strong class="mx-2">x</strong> 1</td>
+                                                <td>$100.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Compra N° 2 <strong class="mx-2">x</strong> 3</td>
+                                                <td>$75.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-black font-weight-bold"><strong>Subtotal del carrito</strong></td>
+                                                <td class="text-black">$175.000</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-black font-weight-bold"><strong>Total del pedido</strong></td>
+                                                <td class="text-black font-weight-bold"><strong>$175.000</strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
-							<div class="form-group row">
-								<div class="col-md-12">
-									<label for="direccion" class="text-black">Dirección <span
-											class="text-danger">*</span></label>
-									<input type="text" class="form-control" id="direccion" name="direccion" required
-										placeholder="Dirección donde desea recibir su pedido">
-								</div>
-							</div>
+                                    <div class="border p-3 mb-3">
+                                        <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">Transferencia bancaria directa</a></h3>
 
-							<div class="form-group mt-3"> 
-								<input type="text" class="form-control" id="direccion2" 
-									placeholder="Departamento, N° Pasaje. (opcional)">
-							</div>
+                                        <div class="collapse" id="collapsebank">
+                                            <div class="py-2">
+                                                <p class="mb-0">Realice su pago directamente en nuestra cuenta bancaria. Utilice su ID de pedido como referencia de pago. Su pedido no se enviará hasta que los fondos se hayan liquidado en nuestra cuenta.</p>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <div class="border p-3 mb-3">
+                                        <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">Pago en Cheque</a></h3>
 
-							<div class="form-group row mb-5">
-								<div class="col-md-6">
-									<label for="correo" class="text-black">Correo electrónico <span
-											class="text-danger">*</span></label>
-									<input type="email" class="form-control" id="correo" name="correo"
-										placeholder="Ingrese su Correo electrónico" required>
-								</div>
-								<div class="col-md-6">
-									<label for="celular" class="text-black">Celular <span
-											class="text-danger">*</span></label>
-									<input type="text" class="form-control" id="celular" name="celular" required
-										placeholder="Numero de celular">
-								</div>
-							</div>
+                                        <div class="collapse" id="collapsecheque">
+                                            <div class="py-2">
+                                                <p class="mb-0">Realice su pago directamente en nuestra cuenta bancaria. Utilice su ID de pedido como referencia de pago. Su pedido no se enviará hasta que los fondos se hayan liquidado en nuestra cuenta.</p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-							<div class="form-group">
-								<label for="adicional" class="text-black">Información adicional</label>
-								<textarea name="adicional" id="adicional" cols="30" rows="5"
-									class="form-control"
-									placeholder="Escribe tu Información adicional sobre el pedido aquí..."></textarea>
-							</div>
+                                    <div class="border p-3 mb-5">
+                                        <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsepaypal" role="button" aria-expanded="false" aria-controls="collapsepaypal">Paypal</a></h3>
 
-						</div>
-					</div>
-					<div class="col-md-6">
+                                        <div class="collapse" id="collapsepaypal">
+                                            <div class="py-2">
+                                                <p class="mb-0">Realice su pago directamente en nuestra cuenta bancaria. Utilice su ID de pedido como referencia de pago. Su pedido no se enviará hasta que los fondos se hayan liquidado en nuestra cuenta.</p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-						<div class="row mb-5">
-							<div class="col-md-12">
-								<h2 class="h3 mb-3 text-black">Cupón</h2>
-								<div class="p-3 p-lg-5 border bg-white">
+                                    <div >
+                                        <input type="submit" value="Realizar pedido" class="btn btn-black btn-lg py-3 btn-block">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- </form> -->
+            </div>
+        </form>
+    </div>
 
-									<label for="c_code" class="text-black mb-3">Ingresa un cupón si posees
-										uno</label>
-									<div class="input-group w-75 couponcode-wrap">
-										<input type="text" class="form-control me-2" id="c_code"
-											placeholder="Canjea un cupón aquí" aria-label="Coupon Code"
-											aria-describedby="button-addon2">
-										<div class="input-group-append">
-											<button class="btn btn-black btn-sm" type="button"
-												id="button-addon2">Aplicar</button>
-										</div>
-									</div>
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--<script src="js/validacion.js"></script>-->
+    <script src='{% static "aplicacion/js/validacion.js" %}'></script>
+    <!--<script src="js/bootstrap.bundle.min.js"></script> -->
+    <script src='{% static "aplicacion/js/bootstrap.bundle.min.js" %}'></script>
+    <!--<script src="js/tiny-slider.js"></script>  -->
+    <script src='{% static "aplicacion/js/tiny-slider.js" %}'></script>
+    <!--<script src="js/custom.js"></script> -->
+    <script src='{% static "aplicacion/js/custom.js" %}'></script>
 
-								</div>
-							</div>
-						</div>
+    <script>
+        document.getElementById('formulario').addEventListener('submit', function(event) {
+            event.preventDefault(); 
 
-						<div class="row mb-5">
-							<div class="col-md-12">
-								<h2 class="h3 mb-3 text-black">Tu orden</h2>
-								<div class="p-3 p-lg-5 border bg-white">
-									<table class="table site-block-order-table mb-5">
-										<thead>
-											<th>Producto</th>
-											<th>Total</th>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Compra N° 1 <strong class="mx-2">x</strong> 1</td>
-												<td>$100.000</td>
-											</tr>
-											<tr>
-												<td>Compra N° 2 <strong class="mx-2">x</strong> 3</td>
-												<td>$75.000</td>
-											</tr>
-											<tr>
-												<td class="text-black font-weight-bold"><strong>Subtotal del
-														carrito</strong></td>
-												<td class="text-black">$175.000</td>
-											</tr>
-											<tr>
-												<td class="text-black font-weight-bold"><strong>Total del
-														pedido</strong>
-												</td>
-												<td class="text-black font-weight-bold"><strong>$175.000</strong></td>
-											</tr>
-										</tbody>
-									</table>
+            Swal.fire({
+                title: 'Operación exitosa',
+                text: 'Su pedido se ha realizado correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+			}).then((result) => {
+                if (result.isConfirmed) {
+                    setTimeout(() => {
 
-									<div class="border p-3 mb-3">
-										<h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse"
-												href="#collapsebank" role="button" aria-expanded="false"
-												aria-controls="collapsebank">Transferencia bancaria directa</a></h3>
-
-										<div class="collapse" id="collapsebank">
-											<div class="py-2">
-												<p class="mb-0">Realice su pago directamente en nuestra cuenta bancaria.
-													Utilice su ID de pedido como referencia de pago. Su pedido no se
-													enviará
-													hasta que los fondos se hayan liquidado en nuestra cuenta.</p>
-											</div>
-										</div>
-									</div>
-
-									<div class="border p-3 mb-3">
-										<h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse"
-												href="#collapsecheque" role="button" aria-expanded="false"
-												aria-controls="collapsecheque">Pago en Cheque</a></h3>
-
-										<div class="collapse" id="collapsecheque">
-											<div class="py-2">
-												<p class="mb-0">Realice su pago directamente en nuestra cuenta bancaria.
-													Utilice su ID de pedido como referencia de pago. Su pedido no se
-													enviará
-													hasta que los fondos se hayan liquidado en nuestra cuenta.</p>
-											</div>
-										</div>
-									</div>
-
-									<div class="border p-3 mb-5">
-										<h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse"
-												href="#collapsepaypal" role="button" aria-expanded="false"
-												aria-controls="collapsepaypal">Paypal</a></h3>
-
-										<div class="collapse" id="collapsepaypal">
-											<div class="py-2">
-												<p class="mb-0">Realice su pago directamente en nuestra cuenta bancaria.
-													Utilice su ID de pedido como referencia de pago. Su pedido no se
-													enviará
-													hasta que los fondos se hayan liquidado en nuestra cuenta.</p>
-											</div>
-										</div>
-									</div>
-
-									<div class="form-group">
-										<input type="submit" value="Realizar pedido"
-											class="btn btn-black btn-lg py-3 btn-block">
-									</div>
-
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>
-				<!-- </form> -->
-			</div>
-		</form>
-	</div>
-
-
-<!--<script src="js/validacion.js"></script>-->
-	<script src'{% static "aplicacion/js/validacion.js" %}'></script>
-	  <!--<script src="js/bootstrap.bundle.min.js"></script> -->
-	  <script src='{% static "aplicacion/js/bootstrap.bundle.min.js" %}'></script>
-	  <!--<script src="js/tiny-slider.js"></script>  -->
-		  <script src='{% static "aplicacion/js/tiny-slider.js" %}'></script>
-	  <!--<script src="js/custom.js"></script> -->
-		  <script src='{% static "aplicacion/js/custom.js" %}'></script>
+                        this.submit();
+                    }, 3000); 
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
+
+
+<script src='{% static "aplicacion/js/validacion.js" %}'></script>
