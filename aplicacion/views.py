@@ -292,3 +292,18 @@ def crear_producto(request):
         'form': form
     }
     return render(request, 'aplicacion/crearproducto.html', datos)
+
+def crear_persona(request):
+    if request.method == 'POST':
+        form = PersonaForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'La persona se ha registrado exitosamente.')
+            return redirect('personas')  # Redirige a la lista de personas o a donde desees
+    else:
+        form = PersonaForm()
+    
+    context = {
+        'form': form,
+    }
+    return render(request, 'aplicacion/crearpersonas.html', context)

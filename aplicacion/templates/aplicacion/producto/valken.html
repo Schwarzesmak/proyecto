@@ -99,19 +99,31 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="../cart.html" class="btn btn-success">Añadir al carrito</a>
+
+                <a href="#" id="add-to-cart" class="btn btn-success">Añadir al carrito</a>
             </div>
         </div>
     </div>
     <!-- <script src="script.js"></script> -->
     <script src='{% static "aplicacion/js/script.js" %}'></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const addButton = document.querySelector('.btn-success');
-        addButton.addEventListener('click', function() {
-            alert('Producto añadido al carrito!');
+        document.getElementById('add-to-cart').addEventListener('click', function(event) {
+            event.preventDefault(); 
+
+            Swal.fire({
+                title: 'Operación exitosa',
+                text: 'Su pedido se ha realizado correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setTimeout(() => {
+                        window.location.href = "{% url 'cart' %}";
+                    }, 2000); 
+                }
+            });
         });
-    });
     </script>
 </body>
 </html>
