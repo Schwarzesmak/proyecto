@@ -91,13 +91,27 @@
 
         <p>
             <a href="{% url 'index' %}" class="btn btn-sm btn-outline-black">Volver al Inicio</a>
-            <a href="{% url 'index' %}" class="btn btn-sm btn-outline-black">Descargar Comprobante</a>
+            <button id="descargar-comprobante-btn" class="btn btn-sm btn-outline-black">Descargar Comprobante</button>
         </p>
     </div>
 
     <script src='{% static "aplicacion/js/bootstrap.bundle.min.js" %}'></script>
     <script src='{% static "aplicacion/js/tiny-slider.js" %}'></script>
     <script src='{% static "aplicacion/js/custom.js" %}'></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.getElementById("descargar-comprobante-btn").addEventListener("click", function() {
+            Swal.fire({
+                title: 'Descarga Completada',
+                text: 'Su descarga ha sido realizada con éxito.',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 3000 
+            }).then(() => {
+                window.location.href = "{% url 'index' %}";
+            });
+        });
+    </script>
 </body>
 
 </html>

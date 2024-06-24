@@ -20,6 +20,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h1 class="text-center mb-4">Inicio de sesión</h1>
+
+                        {% if sesion_iniciada %}
+                        <div class="alert alert-success text-center" role="alert">
+                            Ha iniciado sesión con éxito.
+                        </div>
+                        {% endif %}
+
                         <form action="{% url 'index' %}" method="get" id="formulariosesion">
                             <div class="mb-3">
                                 {% csrf_token %}
