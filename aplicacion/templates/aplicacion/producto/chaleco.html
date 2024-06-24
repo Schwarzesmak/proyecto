@@ -12,9 +12,7 @@
 <!--<link rel="stylesheet" href="../css/style.css"> -->
     <link rel="stylesheet" href="{% static "aplicacion/css/style.css" %}">
     <title>Producto Chaleco</title>
-
 </head>
-
 <body>
 
     <!-- Start Header/Navigation -->
@@ -46,7 +44,7 @@
 
 				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
 				<!--<li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li> -->
-					<li><a class="nav-link" href="{% url "sesion" %}"><img src="{% static "aplicacion/img/user.svg" %}"></a></li>
+					<li><a class="nav-link" href="{% url "login" %}"><img src="{% static "aplicacion/img/user.svg" %}"></a></li>
 				<!--<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li> -->
 					<li><a class="nav-link" href="{% url "cart" %}"><img src="{% static "aplicacion/img/cart.svg" %}"></a></li>
 				</ul>

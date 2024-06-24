@@ -9,21 +9,14 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('aplicacion', '0005_carrito_id_alter_carrito_usuario_alter_envio_estado_and_more'),
-<<<<<<< HEAD
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-=======
->>>>>>> origin/mati13
     ]
 
     operations = [
         migrations.AlterField(
             model_name='envio',
             name='estado',
-<<<<<<< HEAD
             field=models.CharField(choices=[('CANCELADO', 'Cancelado'), ('ENTREGADO', 'Entregado'), ('PENDIENTE', 'Pendiente')], default='ENTREGADO', max_length=100),
-=======
-            field=models.CharField(choices=[('ENTREGADO', 'Entregado'), ('CANCELADO', 'Cancelado'), ('PENDIENTE', 'Pendiente')], default='ENTREGADO', max_length=100),
->>>>>>> origin/mati13
         ),
         migrations.AlterField(
             model_name='pedido',
@@ -33,34 +26,17 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='pedido',
             name='region',
-<<<<<<< HEAD
             field=models.CharField(choices=[('ARAUCANIA', 'Region de la Araucania'), ('BIOBIO', 'Region del Bio-Bio'), ('ÑUBLE', 'Region del Ñuble')], default='CONCEPCION', max_length=25),
-=======
-            field=models.CharField(choices=[('ARAUCANIA', 'Region de la Araucania'), ('ÑUBLE', 'Region del Ñuble'), ('BIOBIO', 'Region del Bio-Bio')], default='CONCEPCION', max_length=25),
->>>>>>> origin/mati13
         ),
         migrations.AlterField(
             model_name='persona',
             name='region',
-<<<<<<< HEAD
             field=models.CharField(choices=[('ARAUCANIA', 'Region de la Araucania'), ('BIOBIO', 'Region del Bio-Bio'), ('ÑUBLE', 'Region del Ñuble')], default='CONCEPCION', max_length=25),
-=======
-            field=models.CharField(choices=[('ARAUCANIA', 'Region de la Araucania'), ('ÑUBLE', 'Region del Ñuble'), ('BIOBIO', 'Region del Bio-Bio')], default='CONCEPCION', max_length=25),
->>>>>>> origin/mati13
         ),
         migrations.AlterField(
             model_name='producto',
             name='tipo_municion',
-<<<<<<< HEAD
             field=models.CharField(choices=[('POSTON', 'Poston'), ('OTRO', 'Otro'), ('AIRSOFT', 'Airsoft'), ('BALIN', 'Balin')], default='OTRO', max_length=100),
-=======
-            field=models.CharField(choices=[('AIRSOFT', 'Airsoft'), ('BALIN', 'Balin'), ('POSTON', 'Poston'), ('OTRO', 'Otro')], default='OTRO', max_length=100),
-        ),
-        migrations.AlterField(
-            model_name='producto',
-            name='tipo_producto',
-            field=models.CharField(choices=[('ROPA', 'Ropa'), ('ARMA', 'Arma'), ('CUCHILLA', 'Cuchilla')], default='OTRO PRODUCTO', max_length=10),
->>>>>>> origin/mati13
         ),
         migrations.CreateModel(
             name='DetallePedido',
@@ -76,7 +52,6 @@ class Migration(migrations.Migration):
             name='productos',
             field=models.ManyToManyField(through='aplicacion.DetallePedido', to='aplicacion.producto'),
         ),
-<<<<<<< HEAD
         migrations.CreateModel(
             name='Perfil',
             fields=[
@@ -86,6 +61,4 @@ class Migration(migrations.Migration):
                 ('usuario', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='usuario', to=settings.AUTH_USER_MODEL)),
             ],
         ),
-=======
->>>>>>> origin/mati13
     ]

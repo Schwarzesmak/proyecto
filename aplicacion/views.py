@@ -185,11 +185,7 @@ def modificarpersona(request, id):
         form = UpdatePersonaForm(data=request.POST, files=request.FILES, instance=persona)
         if form.is_valid():
             form.save()
-<<<<<<< HEAD
-            messages.success(request, 'Persona Modificada')
-=======
             messages.warning(request, 'Pesona Modificada')
->>>>>>> origin/mati13
             return redirect(to="personas")
 
     return render(request, 'aplicacion/modificarpersona.html', datos)
@@ -222,16 +218,10 @@ def eliminarpersona(request, id):
 
     if request.method == "POST":
         if persona.imagen:
-<<<<<<< HEAD
-            remove(path.join(str(settings.MEDIA_ROOT).replace('/media','')+persona.imagen.url))
-        persona.delete()
-        messages.success(request, 'Persona Eliminada')
-=======
             remove(path.join(str(settings.MEDIA_ROOT).replace('/media','') + persona.imagen.url))
         persona.delete()
        #  "remove(path.join(str(settings.MEDIA_ROOT).replace('media/') persona.imagen.url))) Esto es siempre y cuando que la imagen no sirva"
         messages.error(request, 'Persona eliminada')
->>>>>>> origin/mati13
         return redirect(to="personas")
     return render(request, 'aplicacion/eliminarpersona.html', datos)
 
@@ -244,11 +234,7 @@ def eliminarproducto(request, id):
             remove(path.join(str(settings.MEDIA_ROOT).replace('/media','')+producto.imagen.url))
         producto.delete()
         messages.success(request, 'Producto Eliminado')
-<<<<<<< HEAD
-        return redirect('productos')  
-=======
         return redirect('productos')
->>>>>>> origin/mati13
 
     datos = {
         "producto": producto
