@@ -58,7 +58,7 @@ class Carrito(models.Model):
         return self.producto.precio * self.cantidad
 
     def __str__(self):
-        return f"Carrito de {self.usuario} - Producto: {self.producto.nombre}" #********
+        return f"Carrito de {self.usuario} - Producto: {self.producto.nombre}" 
 
 class Registro(models.Model): 
      usuario = models.CharField(max_length=50, primary_key=True)
