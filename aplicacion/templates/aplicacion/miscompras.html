@@ -70,20 +70,18 @@
                             </tr>
                             </thead>
                             <tbody>
-                                {% for pedido in compras %}
-                                    {% for detalle in pedido.productos.all %}
+                                {% for pedido in pedidos %}    
                                         <tr>
-                                            <td>{{ detalle.producto.nombre }}</td>
-                                            <td>${{ detalle.producto.precio }}</td>
+                                            <td>{{ producto.nombre }}</td>
+                                            <td>{{ producto.precio }}</td>
                                             <td>
-                                                <img src="{{ detalle.producto.imagen.url }}" alt="Imagen Producto">
+                                                <img src="{{ producto.imagen.url }}" alt="Imagen Producto">
                                                 <button class="btn btn-primary btn-detalle">Detalles de boleta</button>
                                             </td>
                                             <td>{{ pedido.fecha_pedido }}</td>
                                             <td>{{ pedido.estado }}</td>
                                             <td>{{ pedido.boleta }}</td>
-                                        </tr>
-                                    {% endfor %}
+                                        </tr>    
                                 {% endfor %}
                             </tbody>
                         </table>

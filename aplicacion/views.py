@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages 
-from .models import Persona, Producto, Envio, Pedido,Carrito #Usuario
+from .models import Persona, Producto, Envio, Pedido,Carrito ,Usuario, DetallePedido
 from os import path, remove 
 from django.conf import settings
 #importar forms.py tambien, falta
@@ -38,7 +38,10 @@ def admini (request):
     return render(request, "aplicacion/admini.html")
 def cart (request):
     
-    carritos=Carrito.objects.all()
+    user= request.user
+    usr = get_object_or_404(Usuario,nombusuario = user) 
+    carritos=Carrito.objects.filter(usuario_id=usr)
+    print(carritos[0])
     productos= Producto.objects.all()
 
     datos={
@@ -60,14 +63,17 @@ def estado (request):
         "envios":envios
     }
     return render(request, "aplicacion/estado.html",datos)
-def miscompras(request):
-    pedidos = Pedido.objects.prefetch_related('productos').all()
 
+def miscompras(request):
+    pedidos = Pedido.objects.all()
+    detallepedido= DetallePedido.objects.all()
     datos = {
-        'pedidos': pedidos
+        'pedidos': pedidos,
+        'detallepedido': detallepedido,
     }
 
     return render(request, "aplicacion/miscompras.html", datos)
+
 def panelcerrarsesion (request):
     return render(request, "aplicacion/panelcerrarsesion.html")
 def panelcontrol (request):
