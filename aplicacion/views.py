@@ -1,7 +1,7 @@
 from django.shortcuts import render
 #desde el crud del profe
 from django.shortcuts import get_object_or_404, redirect
-from .models import Persona, Producto, Envio, Pedido,Carrito #Usuario
+from .models import Persona, Producto, Envio, Pedido,Carrito, DetallePedido#Usuario
 #importar forms.py tambien, falta
 from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoForm #para formularios de persona y productos
 from django.contrib import messages
@@ -187,8 +187,8 @@ def eliminarpersona(request, id):
     }
 
     if request.method == "POST":
-        if persona.imgen:
-            remove(path.join(settings.MEDIA_ROOT + persona.imagen.url))
+        if persona.imagen:
+            remove(path.join(str(settings.MEDIA_ROOT).replace('/media','') + persona.imagen.url))
         persona.delete()
        #  "remove(path.join(str(settings.MEDIA_ROOT).replace('media/') persona.imagen.url))) Esto es siempre y cuando que la imagen no sirva"
         messages.error(request, 'Persona eliminada')
@@ -197,11 +197,14 @@ def eliminarpersona(request, id):
 
 
 def eliminarproducto(request, id):
-    producto = get_object_or_404(Producto, cod_producto=id)  
+    producto = get_object_or_404(Producto, cod_producto=id)
 
     if request.method == "POST":
+        if producto.imagen:
+            remove(path.join(str(settings.MEDIA_ROOT).replace('/media','')+producto.imagen.url))
         producto.delete()
-        return redirect('productos')  
+        messages.success(request, 'Producto Eliminado')
+        return redirect('productos')
 
     datos = {
         "producto": producto
@@ -276,34 +279,3 @@ def panel_control(request):
     }
     
     return render(request, 'panel_control.html', context)
-
-
-def crear_producto(request):
-    if request.method == 'POST':
-        form = ProductoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'El producto se ha creado exitosamente.')
-            return redirect('productos')  # Redirige a la lista de productos o a donde desees
-    else:
-        form = ProductoForm()
-
-    datos = {
-        'form': form
-    }
-    return render(request, 'aplicacion/crearproducto.html', datos)
-
-def crear_persona(request):
-    if request.method == 'POST':
-        form = PersonaForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'La persona se ha registrado exitosamente.')
-            return redirect('personas')  # Redirige a la lista de personas o a donde desees
-    else:
-        form = PersonaForm()
-    
-    context = {
-        'form': form,
-    }
-    return render(request, 'aplicacion/crearpersonas.html', context)
