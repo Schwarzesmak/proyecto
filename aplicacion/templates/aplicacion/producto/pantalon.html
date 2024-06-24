@@ -127,31 +127,45 @@
     <script>
         document.getElementById('add-to-cart').addEventListener('click', function(event) {
             event.preventDefault(); 
-
-            Swal.fire({
-                title: 'Operación exitosa',
-                text: 'Su pedido se ha realizado correctamente.',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    setTimeout(() => {
-                        window.location.href = "{% url 'cart' %}";
-                    }, 2000); 
-                }
-            });
+            
+            var operationSuccessful = true; 
+    
+            if (operationSuccessful) {
+                Swal.fire({
+                    title: 'Operación exitosa',
+                    text: 'Su pedido se ha realizado correctamente.',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        setTimeout(() => {
+                            window.location.href = "{% url 'cart' %}";
+                        }, 2000); 
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Operación fallida!',
+                    text: 'No se pudo añadir el producto al carrito',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                }).then(() => {
+                    setTimeout(function() {
+                        window.location.href = "{% url 'pantalon' %}"; 
+                    }, 2000);
+                });
+            }
         });
     </script>
     <script>
         document.querySelectorAll('.btn-size').forEach(button => {
             button.addEventListener('click', function () {
-                // Remover la clase 'active' de todos los botones
+   
                 document.querySelectorAll('.btn-size').forEach(btn => btn.classList.remove('active'));
 
-                // Añadir la clase 'active' al botón clickeado
+  
                 this.classList.add('active');
 
-                // Opcional: Realizar alguna acción como actualizar el carrito
                 console.log("Tamaño seleccionado: " + this.getAttribute('data-size'));
             });
         });
