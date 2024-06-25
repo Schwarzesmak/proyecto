@@ -47,7 +47,8 @@ urlpatterns = [
        path('crearproducto/', crearproducto, name= 'crearproducto'),
        path('modificarproducto/<int:id>/', views.modificarproducto, name='modificarproducto'),
        path('panel-control/', views.panel_control, name='panel_control'),
-
+       path('api/pedidos/', views.api_pedidos, name='api_pedidos'),
+       path('actualizar_estado_pedido/<int:pedido_id>/<str:nuevo_estado>/', views.actualizar_estado_pedido, name='actualizar_estado_pedido'),
        #Esto es experimental, se puede sacar
 ]
 

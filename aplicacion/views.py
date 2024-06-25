@@ -6,6 +6,9 @@ from django.contrib import messages
 from .models import Persona, Producto, Envio, Pedido,Carrito ,Usuario, DetallePedido
 from os import path, remove 
 from django.conf import settings
+#Cosas que importe en esta rama
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 #importar forms.py tambien, falta
 from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoForm, CrearCuentaForm #para formularios de persona y productos
 
@@ -299,3 +302,29 @@ def panel_control(request):
     }
     
     return render(request, 'panel_control.html', context)
+
+def api_pedidos(request):
+    pedidos = Pedido.objects.all()
+    data = []
+    
+    for pedido in pedidos:
+        productos_pedido = pedido.productos.all()  # Suponiendo que 'productos' es un campo ManyToManyField en tu modelo Pedido
+        
+        for producto in productos_pedido:
+            data.append({
+                'id': pedido.id,
+                'nombre_cliente': pedido.nombre_cliente,
+                'fecha_pedido': pedido.fecha_pedido,
+                'estado': pedido.estado,
+                'nombre_producto': producto.nombre,  # Accedes al nombre del producto
+                'precio_producto': producto.precio,  # Ejemplo: acceder al precio del producto
+                # Agrega más campos del producto que necesites
+            })
+    return JsonResponse(data, safe=False)
+
+@csrf_exempt  
+def actualizar_estado_pedido(request, pedido_id, nuevo_estado):
+    pedido = Pedido.objects.get(id=pedido_id)
+    pedido.estado = nuevo_estado
+    pedido.save()
+    return JsonResponse({'message': 'Estado actualizado correctamente'})
