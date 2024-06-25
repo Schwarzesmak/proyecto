@@ -87,30 +87,18 @@
 		<table class="product-table">
 		<div class="container">
 			<div class="row">
-
-				<!-- Start Column 1 -->
-				<div class="col-12 col-md-4 col-lg-3 mb-5">
-                    <a class="product-item" href="{% url 'beretta' %}">
-                        <img src="{% static 'aplicacion/img/bereta-remove.png' %}" class="img-fluid product-thumbnail" alt="Beretta">
-                        <h3 class="product-title">Beretta</h3>
-                        <strong class="product-price">$144.000</strong>
-                        <span class="icon-cross">
-                            <img src="{% static 'aplicacion/img/cross.svg' %}" class="img-fluid" alt="cross">
-                        </span>
-                    </a>
-                </div>
-				<!-- End Column 1 -->
-
 				<!-- Start Column 2 -->
-				<div class="col-12 col-md-4 col-lg-3 mb-5">
-                    <a class="product-item" href="{% url 'chaleco' %}">
-                        <img src="{% static 'aplicacion/img/chaleco-remove.png' %}" class="img-fluid product-thumbnail" alt="Chaleco">
-                        <h3 class="product-title">Pin on Hunting and tactical Gear</h3>
-                        <strong class="product-price">$129.990</strong>
+				<div class="col-12 col-md-4 col-lg-3 mb-5"> 
+					{% for p in productos %}
+                    <a class="product-item" href="{% url 'comprar' p.cod_producto %}">
+						<img src="{{ p.imagen.url }}" class="img-fluid product-thumbnail"  alt="fotoproducto" height="150">
+                        <h3 class="product-title">{{ p.nombre }}</h3>
+                        <strong class="product-price">$ {{ p.precio }}</strong>
                         <span class="icon-cross">
                             <img src="{% static 'aplicacion/img/cross.svg' %}" class="img-fluid" alt="cross">
                         </span>
                     </a>
+					{% endfor %}
                 </div>
 				<!-- End Column 2 -->
 

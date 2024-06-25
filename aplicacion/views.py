@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required ##----
+from django.contrib.auth.decorators import login_required
 #desde el crud del profe
 from django.contrib.auth.models import User
 from django.contrib import messages 
@@ -11,7 +11,7 @@ from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoF
 
 
 # Create your views here.
-#Aqui es para lased   paginas
+#Aqui es para las  paginas
 def index (request):
     return render(request, "aplicacion/index.html")
 
@@ -38,6 +38,8 @@ def about (request):
     return render(request, "aplicacion/about.html")
 def admini (request):
     return render(request, "aplicacion/admini.html")
+
+@login_required
 def cart (request):
     
     user= request.user
@@ -119,7 +121,27 @@ def crearcuenta (request):
 #    return render(request, "aplicacion/sesion.html")
 
 def shop (request):
-    return render(request, "aplicacion/shop.html")
+    
+    productos=Producto.objects.all()
+
+    datos={
+
+        "productos":productos
+    }
+    
+    return render(request, "aplicacion/shop.html", datos)
+
+def comprar (request, id):
+    producto=get_object_or_404(Producto, cod_producto=id)
+    
+    productos=Producto.objects.all()
+
+    datos={
+
+        "productos":productos
+    }
+    
+    return render(request, "aplicacion/comprar.html", datos)
 
 def thankyou (request):
     return render(request, "aplicacion/thankyou.html")
@@ -273,8 +295,6 @@ def modificar_persona(request, id):
     return render(request, 'aplicacion/modificarpersona.html', datos)
 
 def productos(request):
- 
-    
     productos=Producto.objects.all()
 
     datos={
