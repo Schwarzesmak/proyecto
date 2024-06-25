@@ -1,5 +1,7 @@
 
 {% load static %}
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -60,25 +62,32 @@
     <div class="container py-5">
         <div class="row">
             <div class="col-md-6">
-            <!--<img src="../images/carpa3-remove.png" class="img-fluid"> -->
-                <img src="{% static "aplicacion/img/carpa3-remove.png" %}" class="img-fluid">
+                <img src="{{ producto.imagen.url }}" class="card-img-top img-fluid product-thumbnail" alt="Producto">
             </div>
             <div class="col-md-6">
-                <h1>Producto Increíble</h1>
-                <p class="text-muted">${{ producto.precio}}</p>
+                <h1 class="fw-bold">Producto Increíble</h1>
+                <p class="text-muted fs-5">${{ producto.precio}}</p>
                 <div class="product-description">
-                    <h4>{{ producto.nombre }}</h4>
-                    <h4>Características</h4>
-                    <ul>
-                        <li>Tipo de producto: {{producto.tipo_producto}}</li>
-                        <li>Tipo de munición: {{producto.tipo_municion}}</li>
-                        <li>Stock disponible: {{producto.stock}}</li>
+                    <h4 class="mb-3">{{ producto.nombre|capfirst }}</h4>
+                    <h4 class="mb-3">Características</h4>
+                    <ul class="list-unstyled">
+                        <li><strong>Tipo de producto:</strong> {{ producto.tipo_producto }}</li>
+                        <li><strong>Tipo de munición:</strong> {{ producto.tipo_municion }}</li>
+                        <li><strong>Stock disponible:</strong> {{ producto.stock }}</li>
                     </ul>
-
                 </div>
-                
-                <a href="#" id="add-to-cart" class="btn btn-success">Añadir al carrito</a>
+                <div class="mt-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success me-3">Añadir al carrito</button>
+                        <a href="{% url 'shop' %}" class="btn btn-outline-primary">Volver a la tienda</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+     <!-- Bootstrap Bundle JS (Bootstrap JS + Popper.js) -->
+     <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
 </body>
+
+</html>

@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone #para importar la hora , es para el carro y su envio
 from django.contrib.auth.decorators import login_required
 #desde el crud del profe
 from django.contrib.auth.models import User
@@ -13,7 +14,21 @@ from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoF
 # Create your views here.
 #Aqui es para las  paginas
 def index (request):
-    return render(request, "aplicacion/index.html")
+    
+    #obtener productos en especifico, beretta, cuchillo y carpa    
+    beretta = Producto.objects.get(nombre="Beretta")
+    cuchillo = Producto.objects.get(nombre="cuchillo")
+    carpa = Producto.objects.get(nombre="carpa")
+    
+    datos={
+
+        "cuchillo":cuchillo,
+        "beretta":beretta,
+        "carpa":carpa
+    }
+    
+    return render(request, "aplicacion/index.html", datos)
+
 
 
 def beretta(request):
@@ -131,16 +146,21 @@ def shop (request):
     
     return render(request, "aplicacion/shop.html", datos)
 
-def comprar (request, id):
-    producto=get_object_or_404(Producto, cod_producto=id)
-    
-   
+def comprar(request, id):
+    producto = get_object_or_404(Producto, cod_producto=id)
+    user = request.user
+    usr = get_object_or_404(Usuario, nombusuario=user)
 
-    datos={
+    # Crear o obtener un objeto Envio para el usuario actual
+    envio, created = Envio.objects.get_or_create(usuario=usr, estado='PENDIENTE', defaults={'fecha_compra': timezone.now()})
 
-        "producto":producto
+    # Crear un objeto Carrito asociado al producto y al envío
+    carrito = Carrito.objects.create(usuario=usr, envio=envio, producto=producto, cantidad=1)
+
+    datos = {
+        "producto": producto
     }
-    
+
     return render(request, "aplicacion/comprar.html", datos)
 
 def thankyou (request):

@@ -43,10 +43,13 @@ class Usuario (models.Model):
     
 class Envio (models.Model):
     idcompra = models.AutoField(primary_key=True)
-    fecha_compra = models.DateField(("Fecha de compra"), auto_now=False, auto_now_add=False)
-    estado = models.CharField(max_length=100, choices=ESTADOS, default="ENTREGADO")
+    fecha_compra = models.DateField(("Fecha de compra"), auto_now_add=True)
+    estado = models.CharField(max_length=100, choices=ESTADOS, default="PENDIENTE")
     usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
     imagenenvio = models.ImageField(upload_to='imagenenvios',null=True)
+    
+    def __str__(self):
+        return f"Envio {self.idcompra} - Estado: {self.estado}"
     
 class Carrito(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='usuario')
