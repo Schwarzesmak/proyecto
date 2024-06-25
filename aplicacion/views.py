@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required ##----
 #desde el crud del profe
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages 
 from .models import Persona, Producto, Envio, Pedido,Carrito ,Usuario, DetallePedido
 from os import path, remove 
@@ -11,12 +11,14 @@ from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoF
 
 
 # Create your views here.
-#Aqui es para las paginas
+#Aqui es para lased   paginas
 def index (request):
     return render(request, "aplicacion/index.html")
 
-def beretta (request):
+
+def beretta(request):
     return render(request, "aplicacion/producto/beretta.html")
+
 def camisa (request):
     return render(request, "aplicacion/producto/camisa.html")
 def carpa (request):
