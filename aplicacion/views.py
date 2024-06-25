@@ -134,11 +134,11 @@ def shop (request):
 def comprar (request, id):
     producto=get_object_or_404(Producto, cod_producto=id)
     
-    productos=Producto.objects.all()
+   
 
     datos={
 
-        "productos":productos
+        "producto":producto
     }
     
     return render(request, "aplicacion/comprar.html", datos)
