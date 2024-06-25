@@ -53,7 +53,7 @@ class Envio (models.Model):
     
 class Carrito(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='usuario')
-    envio = models.ForeignKey(Envio, on_delete=models.CASCADE, related_name='items')
+    envio = models.ForeignKey(Envio, on_delete=models.CASCADE, null=True, blank=True)  # Asegúrate de que null=True
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField(validators=[MinValueValidator(1)])
 
@@ -61,7 +61,7 @@ class Carrito(models.Model):
         return self.producto.precio * self.cantidad 
 
     def __str__(self):
-        return f"Carrito de {self.usuario} - Producto: {self.producto.nombre} {self.usuario.nombusuario}"  
+        return f"Carrito de {self.usuario} - Producto: {self.producto.nombre} {self.usuario.nombusuario}" 
 
 class Registro(models.Model): 
      usuario = models.CharField(max_length=50, primary_key=True)

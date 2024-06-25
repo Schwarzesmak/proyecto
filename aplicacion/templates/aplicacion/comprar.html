@@ -77,9 +77,9 @@
                     </ul>
                 </div>
                 <div class="mt-4">
-                    <form method="POST">
+                    <form method="post" action="{% url 'comprar' producto.cod_producto %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-success me-3">Añadir al carrito</button>
+                        <button type="submit" name="add-to-cart" class="btn btn-success me-3">Añadir al carrito</button>
                         <a href="{% url 'shop' %}" class="btn btn-outline-primary">Volver a la tienda</a>
                     </form>
                 </div>
