@@ -1,33 +1,90 @@
 {% load static %}
 <html lang="es">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="author" content="Untree.co">
-        <link rel="shortcut icon" href="{% static 'logo.png' %}">
-    
-        <meta name="description" content="" />
-        <meta name="keywords" content="bootstrap, bootstrap4" />
-    
-        <!-- Bootstrap CSS -->
-        <link href="{% static 'aplicacion/css/bootstrap.min.css' %}" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <link href="{% static 'aplicacion/css/tiny-slider.css' %}" rel="stylesheet">
-        <link href="{% static 'aplicacion/css/style.css' %}" rel="stylesheet">
-        <title>Personas</title>
-    
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="{% static 'logo.png' %}">
+    <meta name="description" content="">
+    <meta name="keywords" content="bootstrap, bootstrap4">
+
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'aplicacion/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="{% static 'aplicacion/css/tiny-slider.css' %}" rel="stylesheet">
+    <link href="{% static 'aplicacion/css/style.css' %}" rel="stylesheet">
+    <title>Personas</title>
+
+    <style>
+        body {
+            background-color: #EEEEEE;
+            color: #627254;
+        }
+        .navbar {
+            background-color: #627254;
+        }
+        .navbar-brand {
+            color: #EEEEEE !important;
+        }
+        .navbar-nav .nav-link {
+            color: #EEEEEE !important;
+        }
+        .header h1 {
+            color: #627254;
+        }
+        .table-hover table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #EEEEEE;
+            color: #627254;
+        }
+        .table-hover th, .table-hover td {
+            border: 1px solid #DDDDDD;
+            padding: 12px;
+            text-align: left;
+        }
+        .table-hover th {
+            background-color: #627254;
+            color: #EEEEEE;
+        }
+        .table-hover tr:nth-child(even) {
+            background-color: #DDDDDD;
+        }
+        .btn-secondary {
+            background-color: #627254;
+            border-color: #627254;
+        }
+        .btn-secondary:hover {
+            background-color: #76885B;
+            border-color: #76885B;
+        }
+        .modal-content {
+            background-color: #EEEEEE;
+            color: #627254;
+        }
+        .modal-header {
+            background-color: #627254;
+            color: #EEEEEE;
+        }
+        .modal-footer {
+            background-color: #627254;
+            color: #EEEEEE;
+        }
+    </style>
+</head>
+
+<body>
     <!-- Start Header/Navigation -->
     <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
         <div class="container">
-            <a class="navbar-brand" href="{% url "panelcontrol" %}">Brama Admin<span>.</span></a>
+            <a class="navbar-brand" href="{% url 'panelcontrol' %}">Brama Admin<span>.</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
                 aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarsFurni">
                 <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                    <li class="nav-item ">
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'panelcontrolestadocompra' %}">Estado de Compra</a>
                     </li>
                     <li class="nav-item">
@@ -44,135 +101,155 @@
         </div>
     </nav>
     <!-- End Header/Navigation -->
-<body>
 
-<div class="container">
-    <header class="header">
-        <h1>Panel de Control estado - Armería Brama</h1>
-    </header>
-    
-    <section class="mt-4">  
-        <div class="table table-hover">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Cliente</th>
-                        <th>Fecha de Pedido</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>   
-                        <th>Boleta </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for p in pedidos %}
-                    <tr>
-                        <td>{{ p.id }}</td>
-                        <td>{{ p.nombre_cliente }}</td>
-                        <td>{{ p.fecha_pedido }}</td>
-                        <td>
-                            <select name="estado" onchange="actualizarEstado(this, {{ p.id }})">
-                                <option value="cancelado" {% if p.estado == 'cancelado' %}selected{% endif %}>
-                                    Cancelado
-                                </option>
-                                <option value="pendiente" {% if p.estado == 'pendiente' %}selected{% endif %}>
-                                    Pendiente
-                                </option>
-                                <option value="finalizado" {% if p.estado == 'finalizado' %}selected{% endif %}>
-                                    Finalizado
-                                </option>
-                            </select>
-                        </td>
-                        <td>
-                            <button id="myBtn{{ pedido.id }}">Datos del Usuario</button>
+    <div class="container">
+        <header class="header">
+            <h1>Panel de Control estado - Armería Brama</h1>
+        </header>
+        
+        <section class="mt-4">  
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Fecha de Pedido</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>   
+                            <th>Boleta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in pedidos %}
+                        <tr>
+                            <td>{{ p.id }}</td>
+                            <td>{{ p.nombre_cliente }}</td>
+                            <td>{{ p.fecha_pedido }}</td>
+                            <td>
+                                <select class="form-select" name="estado" onchange="actualizarEstado(this, {{ p.id }})">
+                                    <option value="cancelado" {% if p.estado == 'cancelado' %}selected{% endif %}>Cancelado</option>
+                                    <option value="pendiente" {% if p.estado == 'pendiente' %}selected{% endif %}>Pendiente</option>
+                                    <option value="finalizado" {% if p.estado == 'finalizado' %}selected{% endif %}>Finalizado</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="btn-detalle" id="myBtn{{ p.id }}">Datos del Usuario</button>
 
-                            <!-- The Modal -->
-                            <div id="myModal{{ pedido.id }}" class="modal">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <span class="close">&times;</span>
-                                        <h2>Datos específicos del Usuario</h2>
-                                    </div>
-                                    <div class="modal-body">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Dirección</th>
-                                                    <th>Nombres </th>
-                                                    <th>Apellidos</th>
-                                                    <th>Correo</th>
-                                                    <th>Usuario</th>
-                                                    <th>Celular</th>
-                                                    <th>Región</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>{{ p.direccion }}</td>
-                                                    <td>{{ p.nombre_cliente }}</td>
-                                                    <td>{{ p.apellidos }}</td>
-                                                    <td>{{ p.correo }}</td>
-                                                    <td>{{ p.usuario }}</td>
-                                                    <td>{{ p.celular }}</td>
-                                                    <td>{{ p.region }}</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
+                                <!-- The Modal -->
+                                <div id="myModal{{ p.id }}" class="modal">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <span class="close">&times;</span>
+                                            <h2>Datos específicos del Usuario</h2>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Dirección</th>
+                                                        <th>Nombres</th>
+                                                        <th>Apellidos</th>
+                                                        <th>Correo</th>
+                                                        <th>Usuario</th>
+                                                        <th>Celular</th>
+                                                        <th>Región</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{{ p.direccion }}</td>
+                                                        <td>{{ p.nombre_cliente }}</td>
+                                                        <td>{{ p.apellidos }}</td>
+                                                        <td>{{ p.correo }}</td>
+                                                        <td>{{ p.usuario }}</td>
+                                                        <td>{{ p.celular }}</td>
+                                                        <td>{{ p.region }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td> 
-                            <!-- Aqui va el de boleta -->
-                            
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="back-button">
-            <a href="{% url 'panelcontrol' %}" class="btn btn-secondary">Volver atrás</a>
-        </div>
-    </section>
-</div>
-<script>
-    const csrfToken = '{{ csrf_token }}';  
-</script>
-<script>
-    function actualizarEstado(selectElement, pedidoId) {
-        const nuevoEstado = selectElement.value;
-        fetch(`/api/actualizar_estado_pedido/${pedidoId}/${nuevoEstado}/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken 
-            },
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al actualizar estado del pedido');
-            }
-        })
-        .catch(error => console.error('Error al actualizar estado:', error));
-    }
-</script>
+                            </td>
+                            <td>
+                                <select class="form-select" name="boleta" onchange="actualizarBoleta(this, {{ p.id }})">
+                                    <option value="true" {% if p.boleta %}selected{% endif %}>Sí tiene boleta</option>
+                                    <option value="false" {% if not p.boleta %}selected{% endif %}>No tiene boleta</option>
+                                </select>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="back-button">
+                <a href="{% url 'panelcontrol' %}" class="btn btn-secondary">Volver atrás</a>
+            </div>
+        </section>
+    </div>
     
+    <script>
+        const csrfToken = '{{ csrf_token }}';  
+    </script>
+    <script>
+        function actualizarEstado(selectElement, pedidoId) {
+            const nuevoEstado = selectElement.value;
+            fetch(`/api/actualizar_estado_pedido/${pedidoId}/${nuevoEstado}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken 
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error al actualizar estado del pedido');
+                }
+            })
+            .catch(error => console.error('Error al actualizar estado:', error));
+        }
 
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the modal
+            var modals = document.querySelectorAll('.modal');
+            var btns = document.querySelectorAll('.btn-detalle');
+            var spans = document.querySelectorAll('.close');
+            
+            btns.forEach(function(btn, index) {
+                btn.onclick = function() {
+                    modals[index].style.display = "block";
+                }
+            });
+
+            spans.forEach(function(span, index) {
+                span.onclick = function() {
+                    modals[index].style.display = "none";
+                }
+            });
+
+            window.onclick = function(event) {
+                modals.forEach(function(modal) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                });
+            }
+        });
+    </script>
 
     <!-- Bootstrap JS -->
-    <script src= '{% static "js/bootstrap.bundle.min.js" %}'></script>
-    <!-- Chart.js -->
-    <script src= 'https://cdn.jsdelivr.net/npm/chart.js'></script>
+    <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Archivo JavaScript separado -->
     <script src="{% static 'aplicacion/js/panelcontrol.js' %}"></script>
 
+    <!-- Footer -->
+    <footer class="footer text-center py-3 bg-dark text-white">
+        © 2024 Armería Brama. Todos los derechos reservados.
+    </footer>
 </body>
-<footer class="footer">
-    © 2024 Armería Brama. Todos los derechos reservados.
-</footer>
 </html>
