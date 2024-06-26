@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone #para importar la hora , es para el carro y su envio
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 #desde el crud del profe
 from django.contrib.auth.models import User
 from django.contrib import messages 
@@ -194,12 +195,65 @@ def comprar(request, id):
     
     return render(request, "aplicacion/comprar.html", datos)
 
-def thankyou (request):
+@require_POST
+def thankyou(request):
+    # Verificar si la solicitud es POST (idealmente, deberías manejar otros métodos también)
+    if request.method == 'POST':
+        # Recuperar los datos del formulario
+        primer_nombre = request.POST.get('primer_nombre', '')
+        segundo_nombre = request.POST.get('segundo_nombre', '')
+        apellido = request.POST.get('apellido', '')
+        direccion = request.POST.get('direccion', '')
+        correo = request.POST.get('correo', '')
+        celular = request.POST.get('celular', '')
+        region = request.POST.get('region', '')
+        adicional = request.POST.get('adicional', '')
+
+        # Concatenar nombres si es necesario
+        nombre_cliente = primer_nombre + (' ' + segundo_nombre if segundo_nombre else '') + ' ' + apellido
+
+        try:
+            # Crear el pedido en la base de datos
+            pedido = Pedido.objects.create(
+                nombre_cliente=nombre_cliente,
+                direccion=direccion,
+                correo=correo,
+                celular=celular,
+                region=region,
+                adicional=adicional,  # Incluir el campo adicional en la creación del pedido
+                fecha_pedido=timezone.now(),  # Usar la fecha y hora actual
+                estado='en_proceso'  # Estado inicial del pedido
+            )
+
+            # Ejemplo de cómo agregar detalles de pedido (puedes ajustar según tu modelo)
+            # Esto es solo un ejemplo, ajusta según tus modelos de datos y cómo manejas el carrito
+            productos_en_carrito = request.session.get('carrito', {})  # Obtener productos del carrito desde la sesión
+
+            for producto_id, cantidad in productos_en_carrito.items():
+                producto = Producto.objects.get(pk=producto_id)
+                DetallePedido.objects.create(
+                    pedido=pedido,
+                    producto=producto,
+                    cantidad=cantidad
+                )
+
+            # Limpiar carrito en la sesión después de completar el pedido
+            del request.session['carrito']
+
+            # Redirigir a una página de confirmación o de gracias
+            return redirect('confirmacion_pedido')  # Ajusta el nombre de la URL según tu configuración
+
+        except Exception as e:
+            # Manejar cualquier error que ocurra al crear el pedido o detalles de pedido
+            # Por ejemplo, puedes agregar registro de errores, mostrar un mensaje de error, etc.
+            print(f"Error al procesar pedido: {str(e)}")
+            # Redirigir a una página de error o mostrar un mensaje al usuario
+            return redirect('index')  # Ajusta el nombre de la URL según tu configuración
+
+    # Si la solicitud no es POST, manejar adecuadamente (idealmente deberías manejar otros métodos también)
     return render(request, "aplicacion/thankyou.html")
 
 #DETALLES DE PERSONA Y PRODUCTO 
-
-
 #FUNCIONES CREAR MODIFICAR Y ELIMINAR PARA PRODUCTO Y PERSONAS ##SE LE CAMBIA EL NOMBRE DE LA FUNCION POR LA PAGINA HTML , son vistas
 #CREAR 
 def personas(request):
