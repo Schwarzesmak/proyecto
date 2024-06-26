@@ -55,19 +55,21 @@ def admini (request):
     return render(request, "aplicacion/admini.html")
 
 @login_required
-def cart (request):
-    
-    user= request.user
-    usr = get_object_or_404(Usuario,nombusuario = user) 
-    carritos=Carrito.objects.filter(usuario_id=usr)
-    print(carritos[0])
-    productos= Producto.objects.all()
+def cart(request):
+    user = request.user
+    usr = get_object_or_404(Usuario, nombusuario=user) 
+    carritos = Carrito.objects.filter(usuario_id=usr)
+    productos = Producto.objects.all()
 
-    datos={
+    # Calcular subtotal del carrito
+    subtotal = sum(c.get_total_price() for c in carritos)
 
-        "carritos":carritos,
-        "productos":productos
+    datos = {
+        "carritos": carritos,
+        "productos": productos,
+        "subtotal": subtotal,  # Pasamos el subtotal al contexto
     }
+
     return render(request, "aplicacion/cart.html", datos)
 
 #vista para eliminar carro 
@@ -82,7 +84,16 @@ def eliminar_carrito(request, id):
 
 
 def checkout (request):
-    return render(request, "aplicacion/checkout.html")
+    
+    if request.method == 'POST':
+        subtotal = request.POST.get('subtotal', 0)  # Recuperar el subtotal del formulario
+
+        # Aquí puedes realizar cualquier lógica adicional, como procesar el pedido, aplicar cupones, etc.
+
+        return render(request, 'aplicacion/checkout.html', {'subtotal': subtotal})
+
+    # Si el método no es POST (por ejemplo, GET), puedes manejarlo según tu flujo de aplicación
+    return render(request, 'aplicacion/checkout.html')
 def estado (request):
     
     estados=Carrito.objects.all()

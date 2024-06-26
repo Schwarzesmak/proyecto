@@ -87,7 +87,7 @@ class Pedido(models.Model):
     correo = models.EmailField()
     usuario = models.CharField(max_length=50)
     celular = models.CharField(max_length=20)
-    region         =  models.CharField(max_length=25, choices=REGIONES, default="CONCEPCION")
+    region         =  models.CharField(max_length=25, choices=REGIONES, default="BIOBIO")
     fecha_pedido = models.DateField()
     boleta = models.CharField(max_length=15, choices=[
         ('sin_boleta', 'Sin boleta'),
