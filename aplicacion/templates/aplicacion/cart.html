@@ -15,44 +15,44 @@
     <link rel="stylesheet" href="{% static 'aplicacion/css/style.css' %}">
 </head>
 <body>
-    <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" aria-label="Furni navigation bar">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'index' %}">Brama<span>.</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
-                    aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarsFurni">
-                <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'miscompras' %}">Mis Compras</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'index' %}">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'shop' %}">Tienda</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">Nosotros</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">
-                            <img src="{% static 'aplicacion/img/user.svg' %}" alt="User">
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'cart' %}">
-                            <img src="{% static 'aplicacion/img/cart.svg' %}" alt="Carrito">
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <!-- Start Header/Navigation -->
+	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
+		<div class="container">
+			<!-- <a class="navbar-brand" href="index.html">Brama<span>.</span></a> -->
+			<a class="navbar-brand" href="{% url "index" %}">Brama<span>.</span></a>
+
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+				aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarsFurni">
+				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+					<!-- <li><a class="nav-link" href="miscompras.html">Mis Compras -->
+					<li><a class="nav-link" href="{% url "miscompras" %}">Mis Compras	
+						</a></li>
+					<li class="nav-item active">
+				   <!-- <a class="nav-link" href="index.html">Inicio</a> -->
+						<a class="nav-link" href="{% url "index" %}">Inicio</a>
+					</li>
+			   <!-- <li><a class="nav-link" href="shop.html">Tienda</a></li> -->
+					<li><a class="nav-link" href="{% url "shop" %}">Tienda</a></li>
+				<!--<li><a class="nav-link" href="about.html">Nosotros</a></li>  -->
+					<li><a class="nav-link" href="{% url "about" %}">Nosotros</a></li>
+				</ul>
+
+				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+				<!--<li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li> -->
+					<li><a class="nav-link" href="{% url "login" %}"><img src="{% static "aplicacion/img/user.svg" %}"></a></li>
+				<!--<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li> -->
+					<li><a class="nav-link" href="{% url "cart" %}"><img src="{% static "aplicacion/img/cart.svg" %}"></a></li>
+				</ul>
+			</div>
+		</div>
+
+	</nav>
+	<!-- End Header/Navigation -->
     <div class="hero">
         <div class="container">
             <div class="row justify-content-between">
@@ -96,11 +96,11 @@
                                     <td>
                                         <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
                                             <div class="input-group-prepend">
-                                                <button class="btn btn-outline-black decrease" type="button">&minus;</button>
+                                                <button class="btn btn-outline-black decrease" type="button">-</button>
                                             </div>
-                                            <input type="text" class="form-control text-center quantity-amount" value="{{ c.cantidad }}" placeholder="" aria-label="Cantidad" aria-describedby="button-addon1" disabled>
+                                            <input type="number" class="form-control text-center quantity-amount" value="{{ c.cantidad }}" placeholder="" aria-label="Cantidad" aria-describedby="button-addon1" min="1" step="1" disabled>
                                             <div class="input-group-append">
-                                                <button class="btn btn-outline-black increase" type="button">&plus;</button>
+                                                <button class="btn btn-outline-black increase" type="button">+</button>
                                             </div>
                                         </div>
                                     </td>
@@ -171,5 +171,6 @@
     <script src="{% static 'aplicacion/js/tiny-slider.js' %}"></script>
     <script src="{% static 'aplicacion/js/custom.js' %}"></script>
     <script src="{% static 'aplicacion/js/cart.js' %}"></script>
+
 </body>
 </html>
