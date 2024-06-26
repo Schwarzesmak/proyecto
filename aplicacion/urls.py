@@ -1,7 +1,7 @@
 
 from django.urls import path, include
 from .views import index, beretta, camisa, carpa, casco, chaleco, cuchillo, pantalon, valken, about, admini, cart, checkout, estado
-from .views import miscompras, panelcerrarsesion, panelcontrol, panelcontrolestadocompra
+from .views import miscompras, panelcerrarsesion, panelcontrol, panelcontrolestadocompra, comprar
 from .views import  punitario, crearcuenta, shop, thankyou, personas, crearpersona, modificarpersona, modificarproducto, eliminarpersona, productos, eliminarproducto, crearproducto #sesion
 from . import views
 
@@ -47,6 +47,9 @@ urlpatterns = [
        path('crearproducto/', crearproducto, name= 'crearproducto'),
        path('modificarproducto/<int:id>/', views.modificarproducto, name='modificarproducto'),
        path('panel-control/', views.panel_control, name='panel_control'),
+       path('comprar/<int:id>/', views.comprar, name='comprar'), #para comprar
+       path('eliminar-carrito/<int:id>/', views.eliminar_carrito, name='eliminar_carrito'), #para eliminar del carro carrito en especifico
+       
 
        #Esto es experimental, se puede sacar
 ]

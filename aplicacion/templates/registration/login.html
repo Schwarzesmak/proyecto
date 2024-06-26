@@ -27,7 +27,7 @@
                         </div>
                         {% endif %}
 
-                        <form action="{% url 'index' %}" method="get" id="formulariosesion">
+                        <form action="" method="post" id="formulariosesion">
                             <div class="mb-3">
                                 {% csrf_token %}
                                 {{form | crispy }}

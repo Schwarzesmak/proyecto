@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from django.utils import timezone #para importar la hora , es para el carro y su envio
+from django.contrib.auth.decorators import login_required
 #desde el crud del profe
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages 
 from .models import Persona, Producto, Envio, Pedido,Carrito ,Usuario, DetallePedido
 from os import path, remove 
@@ -11,12 +12,28 @@ from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoF
 
 
 # Create your views here.
-#Aqui es para las paginas
+#Aqui es para las  paginas
 def index (request):
-    return render(request, "aplicacion/index.html")
+    
+    #obtener productos en especifico, beretta, cuchillo y carpa    
+    beretta = Producto.objects.get(nombre="Beretta")
+    cuchillo = Producto.objects.get(nombre="cuchillo")
+    carpa = Producto.objects.get(nombre="carpa")
+    
+    datos={
 
-def beretta (request):
+        "cuchillo":cuchillo,
+        "beretta":beretta,
+        "carpa":carpa
+    }
+    
+    return render(request, "aplicacion/index.html", datos)
+
+
+
+def beretta(request):
     return render(request, "aplicacion/producto/beretta.html")
+
 def camisa (request):
     return render(request, "aplicacion/producto/camisa.html")
 def carpa (request):
@@ -36,6 +53,8 @@ def about (request):
     return render(request, "aplicacion/about.html")
 def admini (request):
     return render(request, "aplicacion/admini.html")
+
+@login_required
 def cart (request):
     
     user= request.user
@@ -50,6 +69,18 @@ def cart (request):
         "productos":productos
     }
     return render(request, "aplicacion/cart.html", datos)
+
+#vista para eliminar carro 
+def eliminar_carrito(request, id):
+    carrito = get_object_or_404(Carrito, id=id)
+    
+    if request.method == 'POST':
+        carrito.delete()
+        return redirect('cart')  # Redirigir a la página del carrito después de eliminar
+    
+    return redirect('cart')  # Manejar casos donde no sea un POST (opcional dependiendo de la lógica de tu aplicación)
+
+
 def checkout (request):
     return render(request, "aplicacion/checkout.html")
 def estado (request):
@@ -117,7 +148,40 @@ def crearcuenta (request):
 #    return render(request, "aplicacion/sesion.html")
 
 def shop (request):
-    return render(request, "aplicacion/shop.html")
+    
+    productos=Producto.objects.all()
+
+    datos={
+
+        "productos":productos
+    }
+    
+    return render(request, "aplicacion/shop.html", datos)
+
+@login_required
+def comprar(request, id):
+    producto = get_object_or_404(Producto, cod_producto=id)
+    
+    if request.method == 'POST' and 'add-to-cart' in request.POST:
+        # Recuperar el usuario actual
+        usuario = Usuario.objects.get(nombusuario=request.user.username)
+        
+        # Aquí asume que tienes algún método para obtener el envío correspondiente
+        # Puedes ajustar esto según cómo manejas los envíos en tu sistema
+        envio = Envio.objects.first()  # Ajusta esta lógica según corresponda
+
+        # Crear un nuevo objeto Carrito y guardarlo en la base de datos
+        carrito = Carrito(usuario=usuario, envio=envio, producto=producto, cantidad=1)
+        carrito.save()
+        
+        # Redirigir a la página del carrito o a donde desees después de añadir al carrito
+        return redirect('cart')
+    
+    datos = {
+        "producto": producto
+    }
+    
+    return render(request, "aplicacion/comprar.html", datos)
 
 def thankyou (request):
     return render(request, "aplicacion/thankyou.html")
@@ -271,8 +335,6 @@ def modificar_persona(request, id):
     return render(request, 'aplicacion/modificarpersona.html', datos)
 
 def productos(request):
- 
-    
     productos=Producto.objects.all()
 
     datos={
