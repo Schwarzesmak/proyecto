@@ -47,7 +47,8 @@ urlpatterns = [
        path('crearproducto/', crearproducto, name= 'crearproducto'),
        path('modificarproducto/<int:id>/', views.modificarproducto, name='modificarproducto'),
        path('panel-control/', views.panel_control, name='panel_control'),
-       path('comprar/<int:id>/', views.comprar, name='comprar'), #para comprar, no funciona
+       path('comprar/<int:id>/', views.comprar, name='comprar'), #para comprar
+       path('eliminar-carrito/<int:id>/', views.eliminar_carrito, name='eliminar_carrito'), #para eliminar del carro carrito en especifico
        
 
        #Esto es experimental, se puede sacar
