@@ -5,7 +5,6 @@
 <!-- #EEEEEE blanco -->
 <!doctype html>
 <html lang="es">
-
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +14,6 @@
 
 	<meta name="description" content="" />
 	<meta name="keywords" content="bootstrap, bootstrap4" />
-
 	<!-- Bootstrap CSS -->
 	<!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
 	<link rel="stylesheet" href="{% static "aplicacion/css/bootstrap.min.css"%}">
@@ -27,72 +25,72 @@
 	<link rel="stylesheet" href="{% static "aplicacion/css/style.css" %}" >
 	<title>Inicio </title>
 </head>
-
 <body>
+	 <!-- Start Header/Navigation -->
+	 <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">Brama<span>.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+                aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-	<!-- Start Header/Navigation -->
-	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+            <div class="collapse navbar-collapse" id="navbarsFurni">
+                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                    <li><a class="nav-link" href="{% url 'miscompras' %}">Mis Compras</a></li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                    </li>
+                    <li><a class="nav-link" href="{% url 'shop' %}">Tienda</a></li>
+                    <li><a class="nav-link" href="{% url 'about' %}">Nosotros</a></li>
+                </ul>
 
-		<div class="container">
-			<!-- <a class="navbar-brand" href="index.html">Brama<span>.</span></a> -->
-			<a class="navbar-brand" href="{% url "index" %}">Brama<span>.</span></a>
+                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                    <li><a class="nav-link" href="{% url 'login' %}"><img src="{% static 'aplicacion/img/user.svg' %}"></a></li>
+                    <li><a class="nav-link" href="{% url 'cart' %}"><img src="{% static 'aplicacion/img/cart.svg' %}"></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Header/Navigation -->
 
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
-				aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+<!-- Start Welcome Message Section -->
+<div id="welcomeMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+    {% if request.user.is_authenticated %}
+        Bienvenido, <span id="usernamePlaceholder">{{ request.user.username }}</span>
+    {% else %}
+        Bienvenido, por favor, inicia sesiòn
+    {% endif %}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<!-- End Welcome Message Section -->
 
-			<div class="collapse navbar-collapse" id="navbarsFurni">
-				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-					<!-- <li><a class="nav-link" href="miscompras.html">Mis Compras -->
-					<li><a class="nav-link" href="{% url "miscompras" %}">Mis Compras	
-						</a></li>
-					<li class="nav-item active">
-				   <!-- <a class="nav-link" href="index.html">Inicio</a> -->
-						<a class="nav-link" href="{% url "index" %}">Inicio</a>
-					</li>
-			   <!-- <li><a class="nav-link" href="shop.html">Tienda</a></li> -->
-					<li><a class="nav-link" href="{% url "shop" %}">Tienda</a></li>
-				<!--<li><a class="nav-link" href="about.html">Nosotros</a></li>  -->
-					<li><a class="nav-link" href="{% url "about" %}">Nosotros</a></li>
-				</ul>
-
-				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-				<!--<li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li> -->
-					<li><a class="nav-link" href="{% url "login" %}"><img src="{% static "aplicacion/img/user.svg" %}"></a></li>
-				<!--<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li> -->
-					<li><a class="nav-link" href="{% url "cart" %}"><img src="{% static "aplicacion/img/cart.svg" %}"></a></li>
-				</ul>
-			</div>
-		</div>
-
-	</nav>
-	<!-- End Header/Navigation -->
-
-	<!-- Start Hero Section -->
-	<div class="hero">
-		<div class="container">
-			<div class="row justify-content-between">
-				<div class="col-lg-5">
-					<div class="intro-excerpt">
-						<h1>Apuntando a la calidad<span class="d-block"> y seguridad</span></h1>
-						<p class="mb-4">Brindamos la mejor experiencia para cualquier situación descabellada, te
-							protegemos y aportamos con nuestro equipo de primera clase, tal como nuestra arma destacada
-							de la semana. </p>
-					<!--<p><a href="shop.html" class="btn btn-secondary me-2">Tienda</a></p> -->
-						<p><a href="{% url "shop" %}" class="btn btn-secondary me-2">Tienda</a></p>
-					</div>
-				</div>
-				<div class="col-lg-7">
-					<div class="hero-img-wrap">
-					<!--<img responsive src="images/ak74.jpg" class="img-fluid"> -->
-						<img responsive src="{%static "aplicacion/img/ak74.jpg" %}" class="img-fluid">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End Hero Section -->
+    <!-- Start Hero Section -->
+    <div class="hero">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-5">
+                    <div class="intro-excerpt">
+                        {% if username %}
+                        <h1>Bienvenido, {{ username }}</h1>
+                        {% else %}
+                        <h1>Bienvenido</h1>
+                        {% endif %}
+                        <p class="mb-4">Apuntando a la calidad y seguridad. Brindamos la mejor experiencia para
+                            cualquier situación descabellada, te protegemos y aportamos con nuestro equipo de primera
+                            clase, tal como nuestra arma destacada de la semana.</p>
+                        <p><a href="{% url 'shop' %}" class="btn btn-secondary me-2">Tienda</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="hero-img-wrap">
+                        <img responsive src="{% static 'aplicacion/img/ak74.jpg' %}" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Hero Section -->
 
 
 	<!-- Start Product Section -->
@@ -245,5 +243,13 @@
 <!--<script src="js/custom.js"></script> -->
 	<script src='{% static "aplicacion/js/custom.js" %}'></script>
 </body>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		// Obtenemos el nombre de usuario desde el placeholder
+		var username = document.getElementById("usernamePlaceholder").innerText.trim();
 
+		// Actualizamos el contenido del span con el nombre de usuario
+		document.getElementById("usernamePlaceholder").innerText = username;
+	});
+</script
 </html>

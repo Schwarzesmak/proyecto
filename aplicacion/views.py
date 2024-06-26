@@ -1,6 +1,8 @@
 from django.shortcuts import render
 #desde el crud del profe
 from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages 
 from .models import Persona, Producto, Envio, Pedido,Carrito ,Usuario, DetallePedido
@@ -328,3 +330,21 @@ def actualizar_estado_pedido(request, pedido_id, nuevo_estado):
     pedido.estado = nuevo_estado
     pedido.save()
     return JsonResponse({'message': 'Estado actualizado correctamente'})
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            # Redirigir al usuario a la página de inicio (index)
+            return redirect('index')
+        else:
+            # Manejar el caso de inicio de sesión inválido
+            # Puedes agregar lógica para mostrar un mensaje de error en el template login.html
+            pass
+    
+    return render(request, 'login.html')
