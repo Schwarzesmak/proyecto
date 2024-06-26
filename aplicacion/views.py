@@ -224,22 +224,7 @@ def thankyou(request):
                 fecha_pedido=timezone.now(),  # Usar la fecha y hora actual
                 estado='en_proceso'  # Estado inicial del pedido
             )
-
-            # Ejemplo de cómo agregar detalles de pedido (puedes ajustar según tu modelo)
-            # Esto es solo un ejemplo, ajusta según tus modelos de datos y cómo manejas el carrito
-            productos_en_carrito = request.session.get('carrito', {})  # Obtener productos del carrito desde la sesión
-
-            for producto_id, cantidad in productos_en_carrito.items():
-                producto = Producto.objects.get(pk=producto_id)
-                DetallePedido.objects.create(
-                    pedido=pedido,
-                    producto=producto,
-                    cantidad=cantidad
-                )
-
-            # Limpiar carrito en la sesión después de completar el pedido
-            del request.session['carrito']
-
+           
             # Redirigir a una página de confirmación o de gracias
             return redirect('confirmacion_pedido')  # Ajusta el nombre de la URL según tu configuración
 
