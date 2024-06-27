@@ -31,25 +31,6 @@ def index (request):
     return render(request, "aplicacion/index.html", datos)
 
 
-
-def beretta(request):
-    return render(request, "aplicacion/producto/beretta.html")
-
-def camisa (request):
-    return render(request, "aplicacion/producto/camisa.html")
-def carpa (request):
-    return render(request, "aplicacion/producto/carpa.html")
-def casco (request):
-    return render(request, "aplicacion/producto/casco.html")
-def chaleco (request):
-    return render(request, "aplicacion/producto/chaleco.html")
-def cuchillo (request):
-    return render(request, "aplicacion/producto/cuchillo.html")
-def pantalon (request):
-    return render(request, "aplicacion/producto/pantalon.html")
-def valken (request):
-    return render(request, "aplicacion/producto/valken.html")
-
 def about (request):
     return render(request, "aplicacion/about.html")
 def admini (request):
