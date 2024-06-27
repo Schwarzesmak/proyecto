@@ -4,10 +4,16 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 #desde el crud del profe
 from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages 
 from .models import Persona, Producto, Envio, Pedido,Carrito ,Usuario, DetallePedido
 from os import path, remove 
 from django.conf import settings
+#Cosas que importe en esta rama
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 #importar forms.py tambien, falta
 from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoForm, CrearCuentaForm #para formularios de persona y productos
 
@@ -392,3 +398,64 @@ def panel_control(request):
     }
     
     return render(request, 'panel_control.html', context)
+
+def api_pedidos(request):
+    pedidos = Pedido.objects.all()
+    data = []
+    
+    for pedido in pedidos:
+        productos_pedido = pedido.productos.all()  # Suponiendo que 'productos' es un campo ManyToManyField en tu modelo Pedido
+        
+        for producto in productos_pedido:
+            data.append({
+                'id': pedido.id,
+                'nombre_cliente': pedido.nombre_cliente,
+                'fecha_pedido': pedido.fecha_pedido,
+                'estado': pedido.estado,
+                'nombre_producto': producto.nombre,  # Accedes al nombre del producto
+                'precio_producto': producto.precio,  # Ejemplo: acceder al precio del producto
+                # Agrega más campos del producto que necesites
+            })
+    return JsonResponse(data, safe=False)
+
+@csrf_exempt
+def actualizar_estado_pedido(request, pedido_id, nuevo_estado):
+    if request.method == 'POST':
+        try:
+            pedido = Pedido.objects.get(id=pedido_id)
+            pedido.estado = nuevo_estado
+            pedido.save()
+            return JsonResponse({'status': 'success'}, status=200)
+        except Pedido.DoesNotExist:
+            return JsonResponse({'error': 'Pedido no encontrado'}, status=404)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+@csrf_exempt
+def actualizar_boleta_pedido(request, pedido_id, nueva_boleta):
+    if request.method == 'POST':
+        try:
+            pedido = Pedido.objects.get(id=pedido_id)
+            pedido.boleta = nueva_boleta == 'true'
+            pedido.save()
+            return JsonResponse({'status': 'success'}, status=200)
+        except Pedido.DoesNotExist:
+            return JsonResponse({'error': 'Pedido no encontrado'}, status=404)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            # Redirigir al usuario a la página de inicio (index)
+            return redirect('index')
+        else:
+            # Manejar el caso de inicio de sesión inválido
+            # Puedes agregar lógica para mostrar un mensaje de error en el template login.html
+            pass
+    
+    return render(request, 'login.html')

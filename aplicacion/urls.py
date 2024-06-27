@@ -3,6 +3,7 @@ from django.urls import path, include
 from .views import index, about, admini, cart, checkout, estado
 from .views import miscompras, panelcerrarsesion, panelcontrol, panelcontrolestadocompra, comprar
 from .views import  punitario, crearcuenta, shop, thankyou, personas, crearpersona, modificarpersona, modificarproducto, eliminarpersona, productos, eliminarproducto, crearproducto #sesion
+from .views import actualizar_estado_pedido, actualizar_boleta_pedido
 from . import views
 
 #PARA TRABAJAR CON IMAGENES
@@ -43,6 +44,10 @@ urlpatterns = [
        path('eliminar-carrito/<int:id>/', views.eliminar_carrito, name='eliminar_carrito'), #para eliminar del carro carrito en especifico
        
 
+       path('api/pedidos/', views.api_pedidos, name='api_pedidos'),
+       path('actualizar_estado_pedido/<int:pedido_id>/<str:nuevo_estado>/', views.actualizar_estado_pedido, name='actualizar_estado_pedido'),
+       path('api/actualizar_estado_pedido/<int:pedido_id>/<str:nuevo_estado>/', actualizar_estado_pedido, name='actualizar_estado_pedido'),
+       path('api/actualizar_boleta_pedido/<int:pedido_id>/<str:nueva_boleta>/', actualizar_boleta_pedido, name='actualizar_boleta_pedido'),
        #Esto es experimental, se puede sacar
 ]
 

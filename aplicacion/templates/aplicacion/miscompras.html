@@ -70,20 +70,32 @@
                             </tr>
                             </thead>
                             <tbody>
-                                {% for pedido in pedidos %}    
-                                        <tr>
-                                            <td>{{ producto.nombre }}</td>
-                                            <td>{{ producto.precio }}</td>
-                                            <td>
-                                                <img src="{{ producto.imagen.url }}" alt="Imagen Producto">
-                                                <button class="btn btn-primary btn-detalle">Detalles de boleta</button>
-                                            </td>
-                                            <td>{{ pedido.fecha_pedido }}</td>
-                                            <td>{{ pedido.estado }}</td>
-                                            <td>{{ pedido.boleta }}</td>
-                                        </tr>    
+                                {% for pedido in pedidos %}
+                                    <tr>
+                                        <td>{{ pedido.producto.nombre }}</td>
+                                        <td>{{ pedido.producto.precio }}</td>
+                                        <td>
+                                            <img src="{{ pedido.producto.imagen.url }}" alt="Imagen Producto">
+                                            {% if pedido.boleta %}
+                                                <button class="btn btn-primary btn-detalle-boleta" data-boleta="{{ pedido.boleta }}">Detalles de boleta</button>
+                                            {% else %}
+                                                <span>No hay boleta</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ pedido.fecha_pedido }}</td>
+                                        <td id="estado-pedido-{{ pedido.id }}">{{ pedido.estado }}</td>
+                                        <td>
+                                            {% if pedido.boleta %}
+                                                {{ pedido.boleta }}
+                                            {% else %}
+                                                <!-- Aquí puedes mostrar algún mensaje o enlace adicional si no hay boleta -->
+                                                <span>No disponible</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
                                 {% endfor %}
                             </tbody>
+                                    
                         </table>
                     </div>
                 </div>
@@ -98,6 +110,42 @@
             window.location.href = "{% url 'estado' %}";
         });
     });
+</script>
+<script>
+$(document).ready(function() {
+    $('.btn-detalle-boleta').click(function() {
+        const boleta = $(this).data('boleta');
+        alert(`Detalles de Boleta:\n${boleta}`);
+        // Aquí puedes abrir una modal o hacer cualquier otra acción para mostrar los detalles de la boleta
+    });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+    $('.btn-detalle').click(function() {
+    });
+});
+
+function actualizarEstado(selectElement, pedid  oId) {
+    const nuevoEstado = selectElement.value;
+    fetch(`/api/actualizar_estado_pedido/${pedidoId}/${nuevoEstado}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error al actualizar estado del pedido');
+        }
+        // Actualización exitosa, actualiza la interfaz de usuario
+        $(`#estado-pedido-${pedidoId}`).text(nuevoEstado); 
+    })
+    .catch(error => console.error('Error al actualizar estado:', error));
+}
+
 </script>
 <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
 </body>
