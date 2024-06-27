@@ -59,11 +59,12 @@
     {% if request.user.is_authenticated %}
         Bienvenido, <span id="usernamePlaceholder">{{ request.user.username }}</span>
     {% else %}
-        Bienvenido, por favor, inicia sesiòn
+        Bienvenido, por favor, inicia sesión
     {% endif %}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <!-- End Welcome Message Section -->
+
 
     <!-- Start Hero Section -->
     <div class="hero">
@@ -159,8 +160,8 @@
 				<!-- End Column 4 -->
 
 			</div>
-		</div>
-	</div>
+		 </div>
+	 </div>
 	<!-- End Product Section -->
 
 	<!-- Start Why Choose Us Section -->
@@ -242,6 +243,7 @@
 	<script src='{% static "aplicacion/js/tiny-slider.js" %}'></script>
 <!--<script src="js/custom.js"></script> -->
 	<script src='{% static "aplicacion/js/custom.js" %}'></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 <script>
 	document.addEventListener("DOMContentLoaded", function() {
@@ -250,6 +252,25 @@
 
 		// Actualizamos el contenido del span con el nombre de usuario
 		document.getElementById("usernamePlaceholder").innerText = username;
+		Swal.fire({
+			title: "¿Cuántos años tienes?",
+			icon: "question",
+			input: "range",
+			inputLabel: "Tu edad",
+			inputAttributes: {
+				min: "8",
+				max: "120",
+				step: "1"
+			},
+			inputValue: 25
+		}).then((result) => {
+			if (result.value) {
+				var age = result.value;
+				if (age < 18) {
+					window.location.href = "https://www.google.com"; 
+				}
+			}
+		});
 	});
-</script
+</script>
 </html>

@@ -3,6 +3,7 @@ from django.urls import path, include
 from .views import index, beretta, camisa, carpa, casco, chaleco, cuchillo, pantalon, valken, about, admini, cart, checkout, estado
 from .views import miscompras, panelcerrarsesion, panelcontrol, panelcontrolestadocompra
 from .views import  punitario, crearcuenta, shop, thankyou, personas, crearpersona, modificarpersona, modificarproducto, eliminarpersona, productos, eliminarproducto, crearproducto #sesion
+from .views import actualizar_estado_pedido, actualizar_boleta_pedido
 from . import views
 
 #PARA TRABAJAR CON IMAGENES
@@ -49,6 +50,8 @@ urlpatterns = [
        path('panel-control/', views.panel_control, name='panel_control'),
        path('api/pedidos/', views.api_pedidos, name='api_pedidos'),
        path('actualizar_estado_pedido/<int:pedido_id>/<str:nuevo_estado>/', views.actualizar_estado_pedido, name='actualizar_estado_pedido'),
+       path('api/actualizar_estado_pedido/<int:pedido_id>/<str:nuevo_estado>/', actualizar_estado_pedido, name='actualizar_estado_pedido'),
+       path('api/actualizar_boleta_pedido/<int:pedido_id>/<str:nueva_boleta>/', actualizar_boleta_pedido, name='actualizar_boleta_pedido'),
        #Esto es experimental, se puede sacar
 ]
 

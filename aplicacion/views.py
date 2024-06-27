@@ -324,12 +324,29 @@ def api_pedidos(request):
             })
     return JsonResponse(data, safe=False)
 
-@csrf_exempt  
+@csrf_exempt
 def actualizar_estado_pedido(request, pedido_id, nuevo_estado):
-    pedido = Pedido.objects.get(id=pedido_id)
-    pedido.estado = nuevo_estado
-    pedido.save()
-    return JsonResponse({'message': 'Estado actualizado correctamente'})
+    if request.method == 'POST':
+        try:
+            pedido = Pedido.objects.get(id=pedido_id)
+            pedido.estado = nuevo_estado
+            pedido.save()
+            return JsonResponse({'status': 'success'}, status=200)
+        except Pedido.DoesNotExist:
+            return JsonResponse({'error': 'Pedido no encontrado'}, status=404)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+@csrf_exempt
+def actualizar_boleta_pedido(request, pedido_id, nueva_boleta):
+    if request.method == 'POST':
+        try:
+            pedido = Pedido.objects.get(id=pedido_id)
+            pedido.boleta = nueva_boleta == 'true'
+            pedido.save()
+            return JsonResponse({'status': 'success'}, status=200)
+        except Pedido.DoesNotExist:
+            return JsonResponse({'error': 'Pedido no encontrado'}, status=404)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 def login_view(request):
     if request.method == 'POST':

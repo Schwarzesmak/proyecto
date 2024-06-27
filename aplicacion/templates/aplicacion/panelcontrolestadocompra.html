@@ -1,10 +1,10 @@
-{% load static %}
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Untree.co">
-    <link rel="shortcut icon" href="{% static 'logo.png' %}">
+    <link rel="shortcut icon" href="{% load static %}{% static 'logo.png' %}">
     <meta name="description" content="">
     <meta name="keywords" content="bootstrap, bootstrap4">
 
@@ -18,7 +18,7 @@
     <style>
         body {
             background-color: #EEEEEE;
-            color: #627254;
+            color: #627254; 
         }
         .navbar {
             background-color: #627254;
@@ -211,7 +211,7 @@
             })
             .catch(error => console.error('Error al actualizar estado:', error));
         }
-
+    
         document.addEventListener('DOMContentLoaded', function() {
             // Get the modal
             var modals = document.querySelectorAll('.modal');
@@ -223,13 +223,13 @@
                     modals[index].style.display = "block";
                 }
             });
-
+    
             spans.forEach(function(span, index) {
                 span.onclick = function() {
                     modals[index].style.display = "none";
                 }
             });
-
+    
             window.onclick = function(event) {
                 modals.forEach(function(modal) {
                     if (event.target == modal) {
@@ -239,17 +239,18 @@
             }
         });
     </script>
-
+    
     <!-- Bootstrap JS -->
     <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Archivo JavaScript separado -->
     <script src="{% static 'aplicacion/js/panelcontrol.js' %}"></script>
-
+    
     <!-- Footer -->
     <footer class="footer text-center py-3 bg-dark text-white">
         © 2024 Armería Brama. Todos los derechos reservados.
     </footer>
-</body>
-</html>
+    </body>
+    </html>
+    
