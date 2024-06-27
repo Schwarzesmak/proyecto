@@ -85,10 +85,9 @@ class Pedido(models.Model):
     nombre_cliente = models.CharField(max_length=100)
     direccion = models.CharField(max_length=200)
     correo = models.EmailField()
-    usuario = models.CharField(max_length=50)
     celular = models.CharField(max_length=20)
-    region         =  models.CharField(max_length=25, choices=REGIONES, default="CONCEPCION")
-    fecha_pedido = models.DateField()
+    region = models.CharField(max_length=25, choices=REGIONES, default='CONCEPCION')
+    fecha_pedido = models.DateField(auto_now_add=True)
     boleta = models.CharField(max_length=15, choices=[
         ('sin_boleta', 'Sin boleta'),
         ('con_boleta', 'Con boleta'),
@@ -97,9 +96,10 @@ class Pedido(models.Model):
         ('cancelado', 'Cancelado'),
         ('en_proceso', 'En Proceso'),
         ('finalizado', 'Finalizado'),
-    ], default='En proceso')
-    productos = models.ManyToManyField('Producto', through='DetallePedido')
-    def __str__(self):  
+    ], default='en_proceso')
+    adicional = models.TextField(blank=True, null=True)  # Añadimos el campo adicional
+
+    def __str__(self):
         return f"Pedido {self.id} - {self.nombre_cliente}"
     
 class DetallePedido(models.Model):

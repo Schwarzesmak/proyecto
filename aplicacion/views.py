@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone #para importar la hora , es para el carro y su envio
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 #desde el crud del profe
 from django.contrib.auth.models import User
 from django.contrib import messages 
@@ -30,44 +31,27 @@ def index (request):
     return render(request, "aplicacion/index.html", datos)
 
 
-
-def beretta(request):
-    return render(request, "aplicacion/producto/beretta.html")
-
-def camisa (request):
-    return render(request, "aplicacion/producto/camisa.html")
-def carpa (request):
-    return render(request, "aplicacion/producto/carpa.html")
-def casco (request):
-    return render(request, "aplicacion/producto/casco.html")
-def chaleco (request):
-    return render(request, "aplicacion/producto/chaleco.html")
-def cuchillo (request):
-    return render(request, "aplicacion/producto/cuchillo.html")
-def pantalon (request):
-    return render(request, "aplicacion/producto/pantalon.html")
-def valken (request):
-    return render(request, "aplicacion/producto/valken.html")
-
 def about (request):
     return render(request, "aplicacion/about.html")
 def admini (request):
     return render(request, "aplicacion/admini.html")
 
 @login_required
-def cart (request):
-    
-    user= request.user
-    usr = get_object_or_404(Usuario,nombusuario = user) 
-    carritos=Carrito.objects.filter(usuario_id=usr)
-    print(carritos[0])
-    productos= Producto.objects.all()
+def cart(request):
+    user = request.user
+    usr = get_object_or_404(Usuario, nombusuario=user) 
+    carritos = Carrito.objects.filter(usuario_id=usr)
+    productos = Producto.objects.all()
 
-    datos={
+    # Calcular subtotal del carrito
+    subtotal = sum(c.get_total_price() for c in carritos)
 
-        "carritos":carritos,
-        "productos":productos
+    datos = {
+        "carritos": carritos,
+        "productos": productos,
+        "subtotal": subtotal,  # Pasamos el subtotal al contexto
     }
+
     return render(request, "aplicacion/cart.html", datos)
 
 #vista para eliminar carro 
@@ -82,7 +66,16 @@ def eliminar_carrito(request, id):
 
 
 def checkout (request):
-    return render(request, "aplicacion/checkout.html")
+    
+    if request.method == 'POST':
+        subtotal = request.POST.get('subtotal', 0)  # Recuperar el subtotal del formulario
+
+        # Aquí puedes realizar cualquier lógica adicional, como procesar el pedido, aplicar cupones, etc.
+
+        return render(request, 'aplicacion/checkout.html', {'subtotal': subtotal})
+
+    # Si el método no es POST (por ejemplo, GET), puedes manejarlo según tu flujo de aplicación
+    return render(request, 'aplicacion/checkout.html')
 def estado (request):
     
     estados=Carrito.objects.all()
@@ -183,12 +176,50 @@ def comprar(request, id):
     
     return render(request, "aplicacion/comprar.html", datos)
 
-def thankyou (request):
+@require_POST
+def thankyou(request):
+    # Verificar si la solicitud es POST (idealmente, deberías manejar otros métodos también)
+    if request.method == 'POST':
+        # Recuperar los datos del formulario
+        primer_nombre = request.POST.get('primer_nombre', '')
+        segundo_nombre = request.POST.get('segundo_nombre', '')
+        apellido = request.POST.get('apellido', '')
+        direccion = request.POST.get('direccion', '')
+        correo = request.POST.get('correo', '')
+        celular = request.POST.get('celular', '')
+        region = request.POST.get('region', '')
+        adicional = request.POST.get('adicional', '')
+
+        # Concatenar nombres si es necesario
+        nombre_cliente = primer_nombre + (' ' + segundo_nombre if segundo_nombre else '') + ' ' + apellido
+
+        try:
+            # Crear el pedido en la base de datos
+            pedido = Pedido.objects.create(
+                nombre_cliente=nombre_cliente,
+                direccion=direccion,
+                correo=correo,
+                celular=celular,
+                region=region,
+                adicional=adicional,  # Incluir el campo adicional en la creación del pedido
+                fecha_pedido=timezone.now(),  # Usar la fecha y hora actual
+                estado='en_proceso'  # Estado inicial del pedido
+            )
+           
+            # Redirigir a una página de confirmación o de gracias
+            return redirect('confirmacion_pedido')  # Ajusta el nombre de la URL según tu configuración
+
+        except Exception as e:
+            # Manejar cualquier error que ocurra al crear el pedido o detalles de pedido
+            # Por ejemplo, puedes agregar registro de errores, mostrar un mensaje de error, etc.
+            print(f"Error al procesar pedido: {str(e)}")
+            # Redirigir a una página de error o mostrar un mensaje al usuario
+            return redirect('index')  # Ajusta el nombre de la URL según tu configuración
+
+    # Si la solicitud no es POST, manejar adecuadamente (idealmente deberías manejar otros métodos también)
     return render(request, "aplicacion/thankyou.html")
 
 #DETALLES DE PERSONA Y PRODUCTO 
-
-
 #FUNCIONES CREAR MODIFICAR Y ELIMINAR PARA PRODUCTO Y PERSONAS ##SE LE CAMBIA EL NOMBRE DE LA FUNCION POR LA PAGINA HTML , son vistas
 #CREAR 
 def personas(request):

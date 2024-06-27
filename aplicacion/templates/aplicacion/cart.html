@@ -138,27 +138,22 @@
                                     <h3 class="text-black h4 text-uppercase">Total en Carro de compras</h3>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <span class="text-black">Subtotal</span>
-                                </div>
-                                <div class="col-md-6 text-right">
-                                    <strong class="text-black" id="subtotal">$0</strong>
-                                </div>
-                            </div>
+                            <!-- Mostrar subtotal en la tabla -->
                             <div class="row mb-5">
                                 <div class="col-md-6">
-                                    <span class="text-black">Total</span>
-                                </div>
-                                <div class="col-md-6 text-right">
-                                    <strong class="text-black" id="total">$0</strong>
-                                </div>
+                                        <span class="text-black">Subtotal</span>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <strong class="text-black">${{ subtotal }}</strong>
+                                    </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <a href="{% url 'checkout' %}" role="button" class="btn text-uppercase">Ir al Comprobante</a>
-                                </div>
+                            <!-- Formulario de checkout con el botón "Ir al Comprobante" -->
+                            <form action="{% url 'checkout' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="subtotal" value="{{ subtotal }}">
+                                <button type="submit" class="btn btn-black btn-lg py-3 btn-block">Ir al Comprobante</button>
+                            </form>
+                            </div>
                             </div>
                         </div>
                     </div>

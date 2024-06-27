@@ -27,15 +27,17 @@ class AdmCarrito(admin.ModelAdmin):
     list_filter = ['usuario', 'producto', 'cantidad']
     
 class AdmPedido(admin.ModelAdmin):
-    list_display = ['id', 'nombre_cliente', 'direccion', 'correo', 'usuario', 'celular', 'region', 'fecha_pedido', 'boleta','estado']
-    list_editable =['nombre_cliente', 'direccion', 'correo', 'usuario', 'celular', 'region', 'fecha_pedido', 'boleta','estado']
-    list_filter = ['id', 'nombre_cliente', 'direccion', 'correo', 'usuario', 'celular', 'region', 'fecha_pedido', 'boleta','estado']
+    list_display = ['id', 'nombre_cliente', 'direccion', 'correo', 'celular', 'region', 'fecha_pedido', 'estado']
+    list_filter = ['region', 'estado']
+    list_editable = ['nombre_cliente', 'direccion', 'correo', 'celular', 'estado']
+    readonly_fields = ['id', 'fecha_pedido']
+
+admin.site.register(Pedido, AdmPedido)
     
 admin.site.register(Persona,AdmPersona)
 admin.site.register(Usuario,AdmUsuario)
 admin.site.register(Envio,AdmEnvio)
 admin.site.register(Producto,AdmProducto)
-admin.site.register(Pedido,AdmPedido)
 admin.site.register(Carrito,AdmCarrito)
 admin.site.register(Perfil)
 
