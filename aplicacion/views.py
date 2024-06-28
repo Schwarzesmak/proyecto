@@ -66,7 +66,7 @@ def cart(request):
 
     return render(request, "aplicacion/cart.html", datos)
 
-#vista para eliminar carro 
+#vista para eliminar carro , esta mala, arreglar
 def eliminar_carrito(request, id):
     carrito = get_object_or_404(Carrito, id=id)
     
@@ -89,8 +89,9 @@ def checkout (request):
     # Si el método no es POST (por ejemplo, GET), puedes manejarlo según tu flujo de aplicación
     return render(request, 'aplicacion/checkout.html')
 
+@login_required
 def estado (request):
-    
+    user  = request.user
     estados=Carrito.objects.all()
     envios = Envio.objects.all()
 
@@ -101,9 +102,14 @@ def estado (request):
     }
     return render(request, "aplicacion/estado.html",datos)
 
-
+@login_required
 def miscompras(request):
-    pedidos = Pedido.objects.all()
+    #obtener el carro del usuario en especifico ##terminar 
+    user = request.user
+    usr = get_object_or_404(Usuario, nombusuario=user) 
+    pedidos_usuario = Pedido.objects.filter(usuario_id=usr)
+    print(pedidos_usuario)
+    pedidos = Pedido.objects.filter()
     detallepedido= DetallePedido.objects.all()
     datos = {
         'pedidos': pedidos,
@@ -212,9 +218,13 @@ def thankyou(request):
         # Concatenar nombres si es necesario
         nombre_cliente = primer_nombre + (' ' + segundo_nombre if segundo_nombre else '') + ' ' + apellido
 
+        
         try:
+            user = request.user
+            usr = get_object_or_404(Usuario, nombusuario=user) 
             # Crear el pedido en la base de datos
             Pedido.objects.create(
+                usuario = usr,
                 nombre_cliente=nombre_cliente,
                 direccion=direccion,
                 correo=correo,
@@ -243,7 +253,7 @@ def thankyou(request):
                         producto=carrito.producto,
                         cantidad=carrito.cantidad
                     )
-                    #carrito.delete()
+                    carrito.delete()
 
         except Exception as e:
             # Manejar cualquier error que ocurra al crear el pedido o detalles de pedido
