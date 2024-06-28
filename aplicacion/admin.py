@@ -27,7 +27,7 @@ class AdmCarrito(admin.ModelAdmin):
     list_filter = ['usuario', 'producto', 'cantidad']
     
 class AdmPedido(admin.ModelAdmin):
-    list_display = ['id', 'nombre_cliente', 'direccion', 'correo', 'celular', 'region', 'fecha_pedido', 'estado']
+    list_display = ['usuario','id', 'nombre_cliente', 'direccion', 'correo', 'celular', 'region', 'fecha_pedido', 'estado']
     list_filter = ['region', 'estado']
     list_editable = ['nombre_cliente', 'direccion', 'correo', 'celular', 'estado']
     readonly_fields = ['id', 'fecha_pedido']

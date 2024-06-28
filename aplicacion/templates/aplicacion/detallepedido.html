@@ -15,7 +15,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'aplicacion/css/tiny-slider.css' %}">
     <link rel="stylesheet" href="{% static 'aplicacion/css/style.css' %}">
-    <title>Estado de Pedido</title>
+    <title>Detalle de pedido</title>
     <link rel="stylesheet" href="{% static 'aplicacion/css/styleestadopedido.css' %}">
 </head>
 
@@ -66,30 +66,18 @@
         {% endif %}
 
         <div class="details">
-            <h2>Detalles de su Compra</h2>
+            <h2>Detalles de Pedido de su Compra</h2>
             <table>
                 <tr>
-                    <th>Usuario</th>
-                    <th>N° Pedido</th>
-                    <th>Cliente</th>
-                    <th>Dirección</th>
-                    <th>Correo</th>
-                    <th>Celular</th>
-                    <th>Región</th>
-                    <th>Fecha Pedido</th>
-                    <th>Acciones</th>
+                    <th>Pedido</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
                 </tr>
-                {% for pedido in pedidos %}
+                {% for detallepedido in detallepedidos %}
                 <tr>
-                    <td>{{ pedido.usuario }}</td>
-                    <td>{{ pedido.id }}</td>
-                    <td>{{ pedido.direccion }}</td>
-                    <td>{{ pedido.nombre_cliente }}</td>
-                    <td>{{ pedido.correo }}</td>
-                    <td>{{ pedido.celular }}</td>
-                    <td>{{ pedido.region }}</td>
-                    <td>{{ pedido.fecha_pedido }}</td>
-                    <td><a href="{% url 'detallepedido' pedido.id %}">Detalle Pedido</a></td> 
+                    <td>{{ detallepedido.pedido }}</td>
+                    <td>{{ detallepedido.producto }}</td>
+                    <td>{{ detallepedido.cantidad }}</td>
                 </tr>
                 {% endfor %}
                 

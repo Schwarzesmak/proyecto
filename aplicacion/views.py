@@ -67,8 +67,11 @@ def cart(request):
     return render(request, "aplicacion/cart.html", datos)
 
 #vista para eliminar carro , esta mala, arreglar
-def eliminar_carrito(request, id):
-    carrito = get_object_or_404(Carrito, id=id)
+def eliminar_carrito(request):
+    #obtener el carro del usuario en especifico ##terminar 
+    user = request.user
+    usr = get_object_or_404(Usuario, nombusuario=user)
+    carrito = get_object_or_404(Carrito, usuario_id=usr)
     
     if request.method == 'POST':
         carrito.delete()
@@ -91,14 +94,22 @@ def checkout (request):
 
 @login_required
 def estado (request):
-    user  = request.user
-    estados=Carrito.objects.all()
-    envios = Envio.objects.all()
+    #obtener el carro del usuario en especifico ##terminar 
+    user = request.user
+    usr = get_object_or_404(Usuario, nombusuario=user) 
+    pedidos_usuario = Pedido.objects.filter(usuario_id=usr)
+    pedidos = Pedido.objects.all()
+    detallepedido= DetallePedido.objects.all()
+    datos = {
+        'pedidos': pedidos,
+        'detallepedido': detallepedido,
+    }
+    return render(request, "aplicacion/estado.html",datos)
 
-    datos={
-
-        "estados":estados,
-        "envios":envios
+def detallepedido(request,id):
+    detallepedido = get_object_or_404(DetallePedido, pedido_id=id)
+    datos = {
+        'detallepedido':detallepedido
     }
     return render(request, "aplicacion/estado.html",datos)
 
@@ -107,10 +118,7 @@ def miscompras(request):
     #obtener el carro del usuario en especifico ##terminar 
     user = request.user
     usr = get_object_or_404(Usuario, nombusuario=user) 
-    pedidos_usuario = Pedido.objects.filter(usuario_id=usr)
-    print(pedidos_usuario)
-    pedidos = Pedido.objects.filter()
-    detallepedido= DetallePedido.objects.all()
+    pedidos = Pedido.objects.filter(usuario_id=usr)
     datos = {
         'pedidos': pedidos,
         'detallepedido': detallepedido,
