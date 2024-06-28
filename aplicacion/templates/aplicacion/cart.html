@@ -109,7 +109,7 @@
                                     <td>
                                         <form action="{% url 'eliminar_carrito' c.id %}" method="post">
                                             {% csrf_token %}
-                                            <button type="submit" class="btn btn-black btn-sm btn-remove">Eliminar</button>
+                                            <input type="submit" class="btn btn-black btn-sm btn-remove" value="Eliminar">
                                         </form>
                                     </td>
                                 </tr>

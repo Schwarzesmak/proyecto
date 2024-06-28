@@ -67,10 +67,11 @@ def cart(request):
     return render(request, "aplicacion/cart.html", datos)
 
 def eliminar_carrito(request, id):
+    
     carrito = get_object_or_404(Carrito, id=id)
     if request.method == 'POST':
         carrito.delete()
-        return redirect('cart') 
+        return redirect('index') 
     else:
         print('No se recibió una solicitud POST para eliminar el carrito con ID:', id)
     
