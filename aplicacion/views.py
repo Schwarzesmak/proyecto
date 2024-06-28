@@ -122,8 +122,6 @@ def panelcontrolestadocompra (request):
         "pedidos":pedidos
     }
     return render(request, "aplicacion/panelcontrolestadocompra.html", datos)
-def punitario (request):
-    return render(request, "aplicacion/punitario.html")
 
 def crearcuenta (request):
     form=CrearCuentaForm()
@@ -133,7 +131,7 @@ def crearcuenta (request):
     if request.method=="POST":
         form=CrearCuentaForm(data=request.POST)
         usr=request.POST["username"]
-        existe=User.objects.filter(username=usr).exists()
+        existe=User.objects.filter(username=usr).exists() 
         if existe:
             alerta="El usuario ya existe"
             datos={
@@ -142,10 +140,16 @@ def crearcuenta (request):
             }
         else:
             if form.is_valid():
-                form.save()
+                # Guardar el usuario en la tabla User de Django
+                usuario_django = form.save()
+                
+                # Crear la instancia de Usuario y guardarla en la tabla Usuario
+                usuario_personalizado = Usuario(nombusuario=usuario_django.username, pwd=usuario_django.password)
+                usuario_personalizado.save()
+                
                 return redirect(to="login")
-            datos={
-                "form":form
+            datos = {
+                "form": form
             }
     return render(request, "registration/crearcuenta.html", datos)
 
