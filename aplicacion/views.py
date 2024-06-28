@@ -100,15 +100,10 @@ def estado (request):
     }
     return render(request, "aplicacion/estado.html",datos)
 
-def miscompras(request):
-    pedidos = Pedido.objects.all()
-    detallepedido= DetallePedido.objects.all()
-    datos = {
-        'pedidos': pedidos,
-        'detallepedido': detallepedido,
-    }
 
-    return render(request, "aplicacion/miscompras.html", datos)
+def miscompras(request):
+
+    return render(request, "aplicacion/miscompras.html")
 
 def panelcerrarsesion (request):
     return render(request, "aplicacion/panelcerrarsesion.html")
@@ -131,7 +126,7 @@ def crearcuenta (request):
     if request.method=="POST":
         form=CrearCuentaForm(data=request.POST)
         usr=request.POST["username"]
-        existe=User.objects.filter(username=usr).exists() 
+        existe=User.objects.filter(username=usr).exists()  
         if existe:
             alerta="El usuario ya existe"
             datos={
@@ -223,7 +218,7 @@ def thankyou(request):
             )
            
             # Redirigir a una página de confirmación o de gracias
-            return redirect('confirmacion_pedido')  # Ajusta el nombre de la URL según tu configuración
+            return redirect('estado')  # Ajusta el nombre de la URL según tu configuración
 
         except Exception as e:
             # Manejar cualquier error que ocurra al crear el pedido o detalles de pedido
