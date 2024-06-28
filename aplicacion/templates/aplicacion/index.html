@@ -232,32 +232,30 @@
 	<script src='{% static "aplicacion/js/custom.js" %}'></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+{% if not request.user.is_authenticated %}
 <script>
-	document.addEventListener("DOMContentLoaded", function() {
-		// Obtenemos el nombre de usuario desde el placeholder
-		var username = document.getElementById("usernamePlaceholder").innerText.trim();
-
-		// Actualizamos el contenido del span con el nombre de usuario
-		document.getElementById("usernamePlaceholder").innerText = username;
-		Swal.fire({
-			title: "¿Cuántos años tienes?",
-			icon: "question",
-			input: "range",
-			inputLabel: "Tu edad",
-			inputAttributes: {
-				min: "8",
-				max: "120",
-				step: "1"
-			},
-			inputValue: 25
-		}).then((result) => {
-			if (result.value) {
-				var age = result.value;
-				if (age < 18) {
-					window.location.href = "https://www.google.com"; 
-				}
-			}
-		});
-	});
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            title: "¿Cuántos años tienes?",
+            icon: "question",
+            input: "range",
+            inputLabel: "Tu edad",
+            inputAttributes: {
+                min: "8",
+                max: "120",
+                step: "1"
+            },
+            inputValue: 25
+        }).then((result) => {
+            if (result.value) {
+                var age = result.value;
+                if (age < 18) {
+                    window.location.href = "https://www.google.com"; 
+                }
+            }
+        });
+    });
 </script>
+{% endif %}
+
 </html>
