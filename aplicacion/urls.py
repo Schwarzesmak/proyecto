@@ -1,6 +1,6 @@
 
 from django.urls import path, include
-from .views import index, about, admini, cart, checkout, estado
+from .views import index, about, admini, cart, checkout, estado, salir
 from .views import miscompras, panelcerrarsesion, panelcontrol, panelcontrolestadocompra, comprar
 from .views import  punitario, crearcuenta, shop, thankyou, personas, crearpersona, modificarpersona, modificarproducto, eliminarpersona, productos, eliminarproducto, crearproducto #sesion
 from .views import actualizar_estado_pedido, actualizar_boleta_pedido
@@ -13,6 +13,7 @@ from django.conf.urls.static import static
 #URLS DE APLICACION
 urlpatterns = [
        path('', index, name='index'),
+       path('salir/',salir,name='salir'),
        path('about/', about, name='about'),
        path('admini/', admini, name='admini'),
        path('cart/', cart, name='cart'),

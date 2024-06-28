@@ -3,6 +3,7 @@ from django.utils import timezone #para importar la hora , es para el carro y su
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 #desde el crud del profe
+from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
@@ -35,6 +36,11 @@ def index (request):
     }
     
     return render(request, "aplicacion/index.html", datos)
+
+#Funcion de logout
+def salir(request):
+    logout(request)
+    return redirect(to='index')
 
 
 def about (request):
