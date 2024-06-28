@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Persona, Usuario, Envio, Producto, Carrito, Pedido, Perfil
+from .models import Persona, Usuario, Envio, Producto, Carrito, Pedido, Perfil, DetallePedido
 # Register your models here.
 
 class AdmPersona(admin.ModelAdmin):
@@ -31,9 +31,12 @@ class AdmPedido(admin.ModelAdmin):
     list_filter = ['region', 'estado']
     list_editable = ['nombre_cliente', 'direccion', 'correo', 'celular', 'estado']
     readonly_fields = ['id', 'fecha_pedido']
+    
+class AdmDetallePedido(admin.ModelAdmin):
+    list_display    = ['pedido','producto','cantidad']
 
 admin.site.register(Pedido, AdmPedido)
-    
+admin.site.register(DetallePedido)
 admin.site.register(Persona,AdmPersona)
 admin.site.register(Usuario,AdmUsuario)
 admin.site.register(Envio,AdmEnvio)
