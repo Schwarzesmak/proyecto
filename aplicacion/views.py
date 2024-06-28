@@ -66,20 +66,14 @@ def cart(request):
 
     return render(request, "aplicacion/cart.html", datos)
 
-#vista para eliminar carro , esta mala, arreglar
-def eliminar_carrito(request):
-    #obtener el carro del usuario en especifico ##terminar 
-    user = request.user
-    usr = get_object_or_404(Usuario, nombusuario=user)
-    carrito = get_object_or_404(Carrito, usuario_id=usr)
-    
+def eliminar_carrito(request, id):
+    carrito = get_object_or_404(Carrito, id=id)
     if request.method == 'POST':
         carrito.delete()
-        return redirect('cart')  # Redirigir a la página del carrito después de eliminar
+        return redirect('cart') 
+    else:
+        print('No se recibió una solicitud POST para eliminar el carrito con ID:', id)
     
-    return redirect('cart')  # Manejar casos donde no sea un POST (opcional dependiendo de la lógica de tu aplicación)
-
-
 def checkout (request):
     
     if request.method == 'POST':

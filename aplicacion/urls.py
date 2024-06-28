@@ -41,7 +41,7 @@ urlpatterns = [
        path('modificarproducto/<int:id>/', views.modificarproducto, name='modificarproducto'),
        path('panel-control/', views.panel_control, name='panel_control'),
        path('comprar/<int:id>/', views.comprar, name='comprar'), #para comprar
-       path('eliminar-carrito/<int:id>/', views.eliminar_carrito, name='eliminar_carrito'), #para eliminar del carro carrito en especifico
+       path('eliminar_carrito/<int:id>/', views.eliminar_carrito, name='eliminar_carrito'), #para eliminar del carro carrito en especifico
        path('detallepedido/<int:id>', detallepedido, name='detallepedido'),
 
        path('api/pedidos/', views.api_pedidos, name='api_pedidos'),
