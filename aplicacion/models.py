@@ -81,6 +81,7 @@ class Registro(models.Model):
 
 # Esto es experimental, si se requiere se saca 
 class Pedido(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
     id = models.AutoField(primary_key=True)
     nombre_cliente = models.CharField(max_length=100)
     direccion = models.CharField(max_length=200)

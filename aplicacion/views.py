@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_list_or_404, render, get_object_or_404, redirect
 from django.utils import timezone #para importar la hora , es para el carro y su envio
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
@@ -66,17 +66,14 @@ def cart(request):
 
     return render(request, "aplicacion/cart.html", datos)
 
-#vista para eliminar carro 
 def eliminar_carrito(request, id):
     carrito = get_object_or_404(Carrito, id=id)
-    
     if request.method == 'POST':
         carrito.delete()
-        return redirect('cart')  # Redirigir a la página del carrito después de eliminar
+        return redirect('cart') 
+    else:
+        print('No se recibió una solicitud POST para eliminar el carrito con ID:', id)
     
-    return redirect('cart')  # Manejar casos donde no sea un POST (opcional dependiendo de la lógica de tu aplicación)
-
-
 def checkout (request):
     
     if request.method == 'POST':
@@ -88,22 +85,40 @@ def checkout (request):
 
     # Si el método no es POST (por ejemplo, GET), puedes manejarlo según tu flujo de aplicación
     return render(request, 'aplicacion/checkout.html')
+
+@login_required
 def estado (request):
-    
-    estados=Carrito.objects.all()
-    envios = Envio.objects.all()
-
-    datos={
-
-        "estados":estados,
-        "envios":envios
+    #obtener el carro del usuario en especifico ##terminar 
+    user = request.user
+    usr = get_object_or_404(Usuario, nombusuario=user) 
+    pedidos_usuario = Pedido.objects.filter(usuario_id=usr)
+    pedidos = Pedido.objects.all()
+    detallepedido= DetallePedido.objects.all()
+    datos = {
+        'pedidos': pedidos,
+        'detallepedido': detallepedido,
     }
     return render(request, "aplicacion/estado.html",datos)
 
+def detallepedido(request,id):
+    detallepedido = get_list_or_404(DetallePedido, pedido_id=id)
+    datos = {
+        'detallepedido':detallepedido   
+    }
+    return render(request, "aplicacion/detallepedido.html",datos)
 
+@login_required
 def miscompras(request):
+    #obtener el carro del usuario en especifico ##terminar 
+    user = request.user
+    usr = get_object_or_404(Usuario, nombusuario=user) 
+    pedidos = Pedido.objects.filter(usuario_id=usr)
+    datos = {
+        'pedidos': pedidos,
+        'detallepedido': detallepedido,
+    }
 
-    return render(request, "aplicacion/miscompras.html")
+    return render(request, "aplicacion/miscompras.html", datos)
 
 def panelcerrarsesion (request):
     return render(request, "aplicacion/panelcerrarsesion.html")
@@ -187,6 +202,7 @@ def comprar(request, id):
     
     return render(request, "aplicacion/comprar.html", datos)
 
+@login_required
 @require_POST
 def thankyou(request):
     # Verificar si la solicitud es POST (idealmente, deberías manejar otros métodos también)
@@ -204,9 +220,13 @@ def thankyou(request):
         # Concatenar nombres si es necesario
         nombre_cliente = primer_nombre + (' ' + segundo_nombre if segundo_nombre else '') + ' ' + apellido
 
+        
         try:
+            user = request.user
+            usr = get_object_or_404(Usuario, nombusuario=user) 
             # Crear el pedido en la base de datos
-            pedido = Pedido.objects.create(
+            Pedido.objects.create(
+                usuario = usr,
                 nombre_cliente=nombre_cliente,
                 direccion=direccion,
                 correo=correo,
@@ -216,9 +236,26 @@ def thankyou(request):
                 fecha_pedido=timezone.now(),  # Usar la fecha y hora actual
                 estado='en_proceso'  # Estado inicial del pedido
             )
-           
-            # Redirigir a una página de confirmación o de gracias
-            return redirect('estado')  # Ajusta el nombre de la URL según tu configuración
+            #obtener el carro del usuario en especifico
+            user = request.user
+            usr = get_object_or_404(Usuario, nombusuario=user) 
+            carritos_usuario = Carrito.objects.filter(usuario_id=usr)
+            print(carritos_usuario)
+            
+            #obtener el ultimo id
+            ultimo_pedido = Pedido.objects.latest('id')
+            ultimo_id_pedido = ultimo_pedido.id
+            ##** Suponiendo que tienes un producto específico que quieres agregar al detalle de pedido
+            #productos = get_object_or_404 (Producto, id=ultimo_id_pedido) ##** Obtén el producto que deseas agregar al detalle
+            #crear el detalle con el ultimo id de pedido mas todos los item del usuario logeado
+            
+            for carrito in carritos_usuario:
+                    detalle_pedido = DetallePedido.objects.create(
+                        pedido= ultimo_pedido,
+                        producto=carrito.producto,
+                        cantidad=carrito.cantidad
+                    )
+                    carrito.delete()
 
         except Exception as e:
             # Manejar cualquier error que ocurra al crear el pedido o detalles de pedido
