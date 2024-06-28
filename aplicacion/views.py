@@ -225,21 +225,25 @@ def thankyou(request):
                 estado='en_proceso'  # Estado inicial del pedido
             )
             #obtener el carro del usuario en especifico
-            carritos_usuario = get_object_or_404()
+            user = request.user
+            usr = get_object_or_404(Usuario, nombusuario=user) 
+            carritos_usuario = Carrito.objects.filter(usuario_id=usr)
+            print(carritos_usuario)
+            
             #obtener el ultimo id
             ultimo_pedido = Pedido.objects.latest('id')
             ultimo_id_pedido = ultimo_pedido.id
             ##** Suponiendo que tienes un producto específico que quieres agregar al detalle de pedido
-            producto = get_object_or_404 () ##** Obtén el producto que deseas agregar al detalle
+            #productos = get_object_or_404 (Producto, id=ultimo_id_pedido) ##** Obtén el producto que deseas agregar al detalle
             #crear el detalle con el ultimo id de pedido mas todos los item del usuario logeado
             
             for carrito in carritos_usuario:
                     detalle_pedido = DetallePedido.objects.create(
-                        pedido=ultimo_pedido,
-                        producto=producto,
-                        cantidad=1
+                        pedido= ultimo_pedido,
+                        producto=carrito.producto,
+                        cantidad=carrito.cantidad
                     )
-                    carritos_usuario.delete()
+                    #carrito.delete()
 
         except Exception as e:
             # Manejar cualquier error que ocurra al crear el pedido o detalles de pedido
