@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_list_or_404, render, get_object_or_404, redirect
 from django.utils import timezone #para importar la hora , es para el carro y su envio
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
@@ -107,11 +107,11 @@ def estado (request):
     return render(request, "aplicacion/estado.html",datos)
 
 def detallepedido(request,id):
-    detallepedido = get_object_or_404(DetallePedido, pedido_id=id)
+    detallepedido = get_list_or_404(DetallePedido, pedido_id=id)
     datos = {
-        'detallepedido':detallepedido
+        'detallepedido':detallepedido   
     }
-    return render(request, "aplicacion/estado.html",datos)
+    return render(request, "aplicacion/detallepedido.html",datos)
 
 @login_required
 def miscompras(request):
