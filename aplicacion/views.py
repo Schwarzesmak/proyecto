@@ -88,6 +88,7 @@ def checkout (request):
 
     # Si el método no es POST (por ejemplo, GET), puedes manejarlo según tu flujo de aplicación
     return render(request, 'aplicacion/checkout.html')
+
 def estado (request):
     
     estados=Carrito.objects.all()
@@ -102,8 +103,14 @@ def estado (request):
 
 
 def miscompras(request):
+    pedidos = Pedido.objects.all()
+    detallepedido= DetallePedido.objects.all()
+    datos = {
+        'pedidos': pedidos,
+        'detallepedido': detallepedido,
+    }
 
-    return render(request, "aplicacion/miscompras.html")
+    return render(request, "aplicacion/miscompras.html", datos)
 
 def panelcerrarsesion (request):
     return render(request, "aplicacion/panelcerrarsesion.html")
@@ -187,6 +194,7 @@ def comprar(request, id):
     
     return render(request, "aplicacion/comprar.html", datos)
 
+@login_required
 @require_POST
 def thankyou(request):
     # Verificar si la solicitud es POST (idealmente, deberías manejar otros métodos también)
@@ -206,7 +214,7 @@ def thankyou(request):
 
         try:
             # Crear el pedido en la base de datos
-            pedido = Pedido.objects.create(
+            Pedido.objects.create(
                 nombre_cliente=nombre_cliente,
                 direccion=direccion,
                 correo=correo,
@@ -216,9 +224,22 @@ def thankyou(request):
                 fecha_pedido=timezone.now(),  # Usar la fecha y hora actual
                 estado='en_proceso'  # Estado inicial del pedido
             )
-           
-            # Redirigir a una página de confirmación o de gracias
-            return redirect('estado')  # Ajusta el nombre de la URL según tu configuración
+            #obtener el carro del usuario en especifico
+            carritos_usuario = get_object_or_404()
+            #obtener el ultimo id
+            ultimo_pedido = Pedido.objects.latest('id')
+            ultimo_id_pedido = ultimo_pedido.id
+            ##** Suponiendo que tienes un producto específico que quieres agregar al detalle de pedido
+            producto = get_object_or_404 () ##** Obtén el producto que deseas agregar al detalle
+            #crear el detalle con el ultimo id de pedido mas todos los item del usuario logeado
+            
+            for carrito in carritos_usuario:
+                    detalle_pedido = DetallePedido.objects.create(
+                        pedido=ultimo_pedido,
+                        producto=producto,
+                        cantidad=1
+                    )
+                    carritos_usuario.delete()
 
         except Exception as e:
             # Manejar cualquier error que ocurra al crear el pedido o detalles de pedido
