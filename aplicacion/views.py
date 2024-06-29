@@ -54,34 +54,54 @@ from .models import Carrito, Usuario
 @login_required
 def cart(request):
     user = request.user
-    usr = get_object_or_404(Usuario, nombusuario=user) 
+    usr = get_object_or_404(Usuario, nombusuario=user)
     carritos = Carrito.objects.filter(usuario_id=usr)
     productos = Producto.objects.all()
-
-    # Calcular subtotal del carrito
     subtotal = sum(c.get_total_price() for c in carritos)
 
     datos = {
         "carritos": carritos,
         "productos": productos,
-        "subtotal": subtotal,  # Pasamos el subtotal al contexto
+        "subtotal": subtotal,
     }
 
+    print("Y aqui")  # Confirmar que se accede a la vista
+
     if request.method == 'POST':
-        carrito_id = request.POST.get('carrito_id')  # Obtener el ID del carrito a eliminar
-        carrito = get_object_or_404(Carrito, id=carrito_id, usuario=usr)
+        print("Pasa por aca?")  # Confirmar que se recibe una solicitud POST
+        id = request.POST.get('id')  # Obtener el ID del carrito a eliminar
+        print(f"Carrito ID: {id}")  # Confirmar el ID del carrito
+        
+        carrito = get_object_or_404(Carrito, id=id, usuario=usr)
         carrito.delete()  # Eliminar el carrito
 
         # Recalcular subtotal después de eliminar el producto
-        carritos = Carrito.objects.filter(usuario_id=usr)
-        subtotal = sum(c.get_total_price() for c in carritos)
-        datos['carritos'] = carritos
-        datos['subtotal'] = subtotal
+       # carritos = Carrito.objects.filter(usuario=usr)
+        #subtotal = sum(c.get_total_price() for c in carritos)
+        #datos['carritos'] = carritos
+        #datos['subtotal'] = subtotal
 
         # Redirigir nuevamente a la página de carrito después de eliminar
         return redirect('cart')
 
     return render(request, "aplicacion/cart.html", datos)
+####################################################################
+def eliminarproducto(request, id):
+    producto = get_object_or_404(Producto, cod_producto=id)
+
+    if request.method == "POST":
+        if producto.imagen:
+            remove(path.join(str(settings.MEDIA_ROOT).replace('/media','')+producto.imagen.url))
+        producto.delete()
+        messages.success(request, 'Producto Eliminado')
+        return redirect('productos')
+
+    datos = {
+        "producto": producto
+    }
+
+    return render(request, 'aplicacion/eliminarproducto.html', datos)
+####################################################################
 
 @login_required
 def eliminar_carrito(request, id):
@@ -108,6 +128,9 @@ def checkout (request):
         # Aquí puedes realizar cualquier lógica adicional, como procesar el pedido, aplicar cupones, etc.
 
         return render(request, 'aplicacion/checkout.html', {'subtotal': subtotal})
+
+
+
 
     # Si el método no es POST (por ejemplo, GET), puedes manejarlo según tu flujo de aplicación
     

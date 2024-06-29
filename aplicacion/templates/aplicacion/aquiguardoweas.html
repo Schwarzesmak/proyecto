@@ -121,49 +121,13 @@
                     </div>
                 </form>
             </div>
-            </div>
+    </div>
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row mb-4">
-                            <div class="col-md-6 mb-3 mb-md-0">
-                                <button class="btn btn-black btn-sm btn-block" id="updateCartButton">Actualizar carro de compra</button>
-                            </div>
-                            <div class="col-md-6">
-                                <a href="{% url 'shop' %}" class="btn btn-black btn-sm btn-block">Continuar comprando</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="text-center">
-                            <h3 class="text-black h4 text-uppercase mb-4">Total en Carro de compras</h3>
-                            <!-- Mostrar subtotal en la tabla -->
-                            <div class="row mb-4">
-                                <div class="col-md-6 text-left">
-                                    <span class="text-black">Subtotal</span>
-                                </div>
-                                <div class="col-md-6 text-right">
-                                    <strong class="text-black">${{ subtotal }}</strong>
-                                </div>
-                            </div>
-                            <!-- Formulario de checkout con el botón "Ir al Comprobante" -->
-                            <form action="{% url 'checkout' %}" method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="subtotal" value="{{ subtotal }}">
-                                <button type="submit" class="btn btn-black btn-lg py-3 btn-block">Ir al Comprobante</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            
-            
     <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'aplicacion/js/tiny-slider.js' %}"></script>
     <script src="{% static 'aplicacion/js/custom.js' %}"></script>
     <script src="{% static 'aplicacion/js/cart.js' %}"></script>
-
+ 
+        
 </body>
 </html>
