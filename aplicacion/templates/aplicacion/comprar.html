@@ -80,7 +80,7 @@
                 <div class="mt-4">
                     <form  method="post" action="{% url 'comprar' producto.cod_producto %}">
                         {% csrf_token %}
-                        <button type="submit" id="add-to-cart-form" name="add-to-cart" class="btn btn-success">Añadir al carrito</button>
+                        <button type="submit" name="add-to-cart" class="btn btn-success">Añadir al carrito</button>
                     </form>
                 </div>
             </div>
@@ -94,7 +94,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script>
-        document.getElementById('add-to-cart').addEventListener('click', function(event) {
+        document.querySelector('[name="add-to-cart"]').addEventListener('click', function(event) {
             event.preventDefault(); 
             
             Swal.fire({
@@ -110,7 +110,7 @@
                 }
             });
         });
-    </script>
+    </script>   
 
 </body>
 </html>
