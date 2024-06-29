@@ -75,11 +75,11 @@ def cart(request):
         carrito = get_object_or_404(Carrito, id=id, usuario=usr)
         carrito.delete()  # Eliminar el carrito
 
-        # Recalcular subtotal después de eliminar el producto
-       # carritos = Carrito.objects.filter(usuario=usr)
-        #subtotal = sum(c.get_total_price() for c in carritos)
-        #datos['carritos'] = carritos
-        #datos['subtotal'] = subtotal
+        #Recalcular subtotal después de eliminar el producto
+        carritos = Carrito.objects.filter(usuario=usr)
+        subtotal = sum(c.get_total_price() for c in carritos)
+        datos['carritos'] = carritos
+        datos['subtotal'] = subtotal
 
         # Redirigir nuevamente a la página de carrito después de eliminar
         return redirect('cart')
