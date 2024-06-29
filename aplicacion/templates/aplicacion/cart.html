@@ -16,11 +16,11 @@
 </head>
 <body>
     <!-- Start Header/Navigation -->
-	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+	<nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
 		<div class="container">
 			<!-- <a class="navbar-brand" href="index.html">Brama<span>.</span></a> -->
-			<a class="navbar-brand" href="{% url "index" %}">Brama<span>.</span></a>
+			<a class="navbar-brand" href="{% url 'index' %}">Brama<span>.</span></a>
 
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
 				aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,23 +30,23 @@
 			<div class="collapse navbar-collapse" id="navbarsFurni">
 				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
 					<!-- <li><a class="nav-link" href="miscompras.html">Mis Compras -->
-					<li><a class="nav-link" href="{% url "miscompras" %}">Mis Compras	
+					<li><a class="nav-link" href="{% url 'miscompras' %}">Mis Compras	
 						</a></li>
 					<li class="nav-item active">
 				   <!-- <a class="nav-link" href="index.html">Inicio</a> -->
-						<a class="nav-link" href="{% url "index" %}">Inicio</a>
+						<a class="nav-link" href="{% url 'index' %}">Inicio</a>
 					</li>
 			   <!-- <li><a class="nav-link" href="shop.html">Tienda</a></li> -->
-					<li><a class="nav-link" href="{% url "shop" %}">Tienda</a></li>
+					<li><a class="nav-link" href="{% url 'shop' %}">Tienda</a></li>
 				<!--<li><a class="nav-link" href="about.html">Nosotros</a></li>  -->
-					<li><a class="nav-link" href="{% url "about" %}">Nosotros</a></li>
+					<li><a class="nav-link" href="{% url 'about' %}">Nosotros</a></li>
 				</ul>
 
 				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
 				<!--<li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li> -->
-					<li><a class="nav-link" href="{% url "login" %}"><img src="{% static "aplicacion/img/user.svg" %}"></a></li>
+					<li><a class="nav-link" href="{% url 'login' %}"><img src="{% static 'aplicacion/img/user.svg' %}"></a></li>
 				<!--<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li> -->
-					<li><a class="nav-link" href="{% url "cart" %}"><img src="{% static "aplicacion/img/cart.svg" %}"></a></li>
+					<li><a class="nav-link" href="{% url 'cart' %}"><img src="{% static 'aplicacion/img/cart.svg' %}"></a></li>
                     <li><a class="nav-link" href="{% url 'salir' %}">Cerrar Sesión</a></li>
 				</ul>
 			</div>
@@ -107,8 +107,9 @@
                                     </td>
                                     <td class="product-total"> ${{ c.get_total_price }}</td>
                                     <td>
-                                        <form action="{% url 'eliminar_carrito' c.id %}" method="post">
+                                        <form action="{% url 'cart' %}" method="post">
                                             {% csrf_token %}
+                                            <input type="hidden" name="carrito_id" value="{{ c.id }}">
                                             <button type="submit" class="btn btn-black btn-sm btn-remove">Eliminar</button>
                                         </form>
                                     </td>
