@@ -49,6 +49,7 @@ urlpatterns = [
        path('api/actualizar_estado_pedido/<int:pedido_id>/<str:nuevo_estado>/', actualizar_estado_pedido, name='actualizar_estado_pedido'),
        path('api/actualizar_boleta_pedido/<int:pedido_id>/<str:nueva_boleta>/', actualizar_boleta_pedido, name='actualizar_boleta_pedido'),
        #Esto es experimental, se puede sacar
+       
 ]
 
 #si, no me acuerdo pq va esto pero si.

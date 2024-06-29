@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -77,18 +76,41 @@
                         <li><strong>Stock disponible:</strong> {{ producto.stock }}</li>
                     </ul>
                 </div>
+                <!-- AQUI CUANDO SACO EL ID FUNCIONA EL CODIGO, PERO SI LO PONGO NO, TENGO QUE VER POR QUE -->
                 <div class="mt-4">
-                    <form method="post" action="{% url 'comprar' producto.cod_producto %}">
+                    <form  method="post" action="{% url 'comprar' producto.cod_producto %}">
                         {% csrf_token %}
-                        <button type="submit" name="add-to-cart" class="btn btn-success me-3">Añadir al carrito</button>
-                        <a href="{% url 'shop' %}" class="btn btn-outline-primary">Volver a la tienda</a>
+                        <button type="submit" id="add-to-cart-form" name="add-to-cart" class="btn btn-success">Añadir al carrito</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-     <!-- Bootstrap Bundle JS (Bootstrap JS + Popper.js) -->
-     <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
-</body>
+    
+    <!-- Bootstrap Bundle JS (Bootstrap JS + Popper.js) -->
+    <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
+    
+    <script src="{% static 'aplicacion/js/script.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+    <script>
+        document.getElementById('add-to-cart').addEventListener('click', function(event) {
+            event.preventDefault(); 
+            
+            Swal.fire({
+                title: 'Compra exitosa',
+                text: 'Su pedido se ha añadido al carrito correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    setTimeout(() => {
+                        window.location.href = "{% url 'cart' %}";
+                    }, 1000); 
+                }
+            });
+        });
+    </script>
+
+</body>
 </html>

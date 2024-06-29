@@ -179,21 +179,15 @@ def shop (request):
 
 @login_required
 def comprar(request, id):
+    print("Request method:", request.method)
     producto = get_object_or_404(Producto, cod_producto=id)
     
     if request.method == 'POST' and 'add-to-cart' in request.POST:
-        # Recuperar el usuario actual
+        print("Form submitted")
         usuario = Usuario.objects.get(nombusuario=request.user.username)
-        
-        # Aquí asume que tienes algún método para obtener el envío correspondiente
-        # Puedes ajustar esto según cómo manejas los envíos en tu sistema
-        envio = Envio.objects.first()  # Ajusta esta lógica según corresponda
-
-        # Crear un nuevo objeto Carrito y guardarlo en la base de datos
+        envio = Envio.objects.first()
         carrito = Carrito(usuario=usuario, envio=envio, producto=producto, cantidad=1)
         carrito.save()
-        
-        # Redirigir a la página del carrito o a donde desees después de añadir al carrito
         return redirect('cart')
     
     datos = {
@@ -201,6 +195,8 @@ def comprar(request, id):
     }
     
     return render(request, "aplicacion/comprar.html", datos)
+
+
 
 @login_required
 @require_POST
