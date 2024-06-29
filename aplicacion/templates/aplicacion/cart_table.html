@@ -1,0 +1,26 @@
+{% for c in carritos %}
+<tr>
+    <td class="product-thumbnail">
+        <img src="{{ c.producto.imagen.url }}" alt="{{ c.producto.nombre }}" class="img-fluid">
+    </td>
+    <td class="product-name">
+        <h2 class="h5 text-black">{{ c.producto.nombre }}</h2>
+    </td>
+    <td class="product-price"> ${{ c.producto.precio }}</td>
+    <td>
+        <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-black decrease" type="button">-</button>
+            </div>
+            <input type="number" class="form-control text-center quantity-amount" value="{{ c.cantidad }}" placeholder="" aria-label="Cantidad" aria-describedby="button-addon1" min="1" step="1" disabled>
+            <div class="input-group-append">
+                <button class="btn btn-outline-black increase" type="button">+</button>
+            </div>
+        </div>
+    </td>
+    <td class="product-total"> ${{ c.get_total_price }}</td>
+    <td>
+        <button type="button" class="btn btn-black btn-sm btn-remove" data-id="{{ c.id }}">Eliminar</button>
+    </td>
+</tr>
+{% endfor %}
