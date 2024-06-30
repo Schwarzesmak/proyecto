@@ -1,33 +1,47 @@
+// Asegúrate de que el script no se ejecute más de una vez
 if (!window.hasRunCartRemovalScript) {
     document.addEventListener("DOMContentLoaded", function() {
-        const cartTableBody = document.querySelector('.site-blocks-table tbody');
-
-        function updateTotal() {
-            let total = 0;
-            document.querySelectorAll('.product-total').forEach(function(element) {
-                total += parseFloat(element.textContent.replace('$', '').replace('.', '') || 0);
-            });
-            document.querySelector('#subtotal').textContent = '$' + total.toLocaleString();
-            document.querySelector('#total').textContent = '$' + total.toLocaleString();
-        }
-
-        function setupRemoveButtonListeners() {
-            document.querySelectorAll('.btn-remove').forEach(button => {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const row = button.closest('tr');
-                    row.parentNode.removeChild(row);
-                    updateTotal();
-                });
-            });
-        }
-
-        // Inicializa los listeners y actualiza el total al cargar la página.
+        // Aquí va tu función setupRemoveButtonListeners()
         setupRemoveButtonListeners();
-        updateTotal();
     });
     window.hasRunCartRemovalScript = true;
 }
+
+function setupRemoveButtonListeners() {
+    const removeButtons = document.querySelectorAll('.btn-remove');
+    if (removeButtons.length > 0) {
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const row = button.closest('tr');
+                if (row) {
+                    row.parentNode.removeChild(row);
+                    updateTotal();
+                } else {
+                    console.error('No se pudo encontrar el elemento padre <tr> para el botón de eliminar.');
+                }
+            });
+        });
+    } else {
+        console.error('No se encontraron botones .btn-remove para agregar listeners.');
+    }
+}
+
+// Función para actualizar el total del carrito
+function updateTotal() {
+    let total = 0;
+    const elements = document.querySelectorAll('.product-total');
+    if (elements.length > 0) {
+        elements.forEach(function(element) {
+            total += parseFloat(element.textContent.replace('$', '').replace('.', '') || 0);
+        });
+        document.querySelector('#subtotal')?.textContent = '$' + total.toLocaleString();
+        document.querySelector('#total')?.textContent = '$' + total.toLocaleString();
+    } else {
+        console.error('No se encontraron elementos .product-total para actualizar.');
+    }
+}
+
 
 if (!window.hasDOMContentLoadedListener) {
     document.addEventListener("DOMContentLoaded", function() {

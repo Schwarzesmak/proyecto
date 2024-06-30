@@ -17,6 +17,7 @@ urlpatterns = [
        path('about/', about, name='about'),
        path('admini/', admini, name='admini'),
        path('cart/', cart, name='cart'),
+       path('cart/', views.cart, name='cart'),
        path('checkout/', checkout, name='checkout'),
        path('estado/', estado, name='estado'),
        path('miscompras/', miscompras, name='miscompras'),
@@ -49,6 +50,7 @@ urlpatterns = [
        path('api/actualizar_estado_pedido/<int:pedido_id>/<str:nuevo_estado>/', actualizar_estado_pedido, name='actualizar_estado_pedido'),
        path('api/actualizar_boleta_pedido/<int:pedido_id>/<str:nueva_boleta>/', actualizar_boleta_pedido, name='actualizar_boleta_pedido'),
        #Esto es experimental, se puede sacar
+       
 ]
 
 #si, no me acuerdo pq va esto pero si.

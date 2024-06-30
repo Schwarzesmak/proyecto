@@ -16,11 +16,11 @@
 </head>
 <body>
     <!-- Start Header/Navigation -->
-	<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+	<nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
 		<div class="container">
 			<!-- <a class="navbar-brand" href="index.html">Brama<span>.</span></a> -->
-			<a class="navbar-brand" href="{% url "index" %}">Brama<span>.</span></a>
+			<a class="navbar-brand" href="{% url 'index' %}">Brama<span>.</span></a>
 
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
 				aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,23 +30,23 @@
 			<div class="collapse navbar-collapse" id="navbarsFurni">
 				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
 					<!-- <li><a class="nav-link" href="miscompras.html">Mis Compras -->
-					<li><a class="nav-link" href="{% url "miscompras" %}">Mis Compras	
+					<li><a class="nav-link" href="{% url 'miscompras' %}">Mis Compras	
 						</a></li>
 					<li class="nav-item active">
 				   <!-- <a class="nav-link" href="index.html">Inicio</a> -->
-						<a class="nav-link" href="{% url "index" %}">Inicio</a>
+						<a class="nav-link" href="{% url 'index' %}">Inicio</a>
 					</li>
 			   <!-- <li><a class="nav-link" href="shop.html">Tienda</a></li> -->
-					<li><a class="nav-link" href="{% url "shop" %}">Tienda</a></li>
+					<li><a class="nav-link" href="{% url 'shop' %}">Tienda</a></li>
 				<!--<li><a class="nav-link" href="about.html">Nosotros</a></li>  -->
-					<li><a class="nav-link" href="{% url "about" %}">Nosotros</a></li>
+					<li><a class="nav-link" href="{% url 'about' %}">Nosotros</a></li>
 				</ul>
 
 				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
 				<!--<li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li> -->
-					<li><a class="nav-link" href="{% url "login" %}"><img src="{% static "aplicacion/img/user.svg" %}"></a></li>
+					<li><a class="nav-link" href="{% url 'login' %}"><img src="{% static 'aplicacion/img/user.svg' %}"></a></li>
 				<!--<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li> -->
-					<li><a class="nav-link" href="{% url "cart" %}"><img src="{% static "aplicacion/img/cart.svg" %}"></a></li>
+					<li><a class="nav-link" href="{% url 'cart' %}"><img src="{% static 'aplicacion/img/cart.svg' %}"></a></li>
                     <li><a class="nav-link" href="{% url 'salir' %}">Cerrar Sesión</a></li>
 				</ul>
 			</div>
@@ -71,7 +71,8 @@
     <div class="untree_co-section before-footer-section">
         <div class="container">
             <div class="row mb-5">
-                <form class="col-md-12" method="post">
+                <form class="col-md-12" method="post" action="{% url 'cart' %}">
+                    {% csrf_token %}
                     <div class="site-blocks-table">
                         <table class="table">
                             <thead>
@@ -107,8 +108,9 @@
                                     </td>
                                     <td class="product-total"> ${{ c.get_total_price }}</td>
                                     <td>
-                                        <form action="{% url 'eliminar_carrito' c.id %}" method="post">
+                                        <form method="post" action="{% url 'cart' %}">
                                             {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ c.id }}">
                                             <button type="submit" class="btn btn-black btn-sm btn-remove">Eliminar</button>
                                         </form>
                                     </td>
@@ -119,34 +121,31 @@
                     </div>
                 </form>
             </div>
+            </div>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="row mb-5">
-                        <div class="col-md-6 mb-3 mb-md-0">
-                            <button class="btn btn-black btn-sm btn-block" id="updateCartButton">Actualizar carro de compra</button>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="{% url 'shop' %}" class="btn btn-black btn-sm btn-block">Continuar comprando</a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <button class="btn btn-black btn-sm btn-block" id="updateCartButton">Actualizar carro de compra</button>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="{% url 'shop' %}" class="btn btn-black btn-sm btn-block">Continuar comprando</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 pl-5">
-                    <div class="row justify-content-end">
-                        <div class="col-md-7">
-                            <div class="row">
-                                <div class="col-md-12 text-right border-bottom mb-5">
-                                    <h3 class="text-black h4 text-uppercase">Total en Carro de compras</h3>
-                                </div>
-                            </div>
+                    <div class="col-md-6">
+                        <div class="text-center">
+                            <h3 class="text-black h4 text-uppercase mb-4">Total en Carro de compras</h3>
                             <!-- Mostrar subtotal en la tabla -->
-                            <div class="row mb-5">
-                                <div class="col-md-6">
-                                        <span class="text-black">Subtotal</span>
-                                    </div>
-                                    <div class="col-md-6 text-right">
-                                        <strong class="text-black">${{ subtotal }}</strong>
-                                    </div>
+                            <div class="row mb-4">
+                                <div class="col-md-6 text-left">
+                                    <span class="text-black">Subtotal</span>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <strong class="text-black">${{ subtotal }}</strong>
+                                </div>
                             </div>
                             <!-- Formulario de checkout con el botón "Ir al Comprobante" -->
                             <form action="{% url 'checkout' %}" method="post">
@@ -154,15 +153,13 @@
                                 <input type="hidden" name="subtotal" value="{{ subtotal }}">
                                 <button type="submit" class="btn btn-black btn-lg py-3 btn-block">Ir al Comprobante</button>
                             </form>
-                            </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
+            
+            
+            
     <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'aplicacion/js/tiny-slider.js' %}"></script>
     <script src="{% static 'aplicacion/js/custom.js' %}"></script>

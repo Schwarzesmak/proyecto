@@ -48,42 +48,92 @@ def about (request):
 def admini (request):
     return render(request, "aplicacion/admini.html")
 
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Carrito, Usuario
+
 @login_required
 def cart(request):
     user = request.user
-    usr = get_object_or_404(Usuario, nombusuario=user) 
+    usr = get_object_or_404(Usuario, nombusuario=user)
     carritos = Carrito.objects.filter(usuario_id=usr)
     productos = Producto.objects.all()
-
-    # Calcular subtotal del carrito
     subtotal = sum(c.get_total_price() for c in carritos)
 
     datos = {
         "carritos": carritos,
         "productos": productos,
-        "subtotal": subtotal,  # Pasamos el subtotal al contexto
+        "subtotal": subtotal,
     }
 
-    return render(request, "aplicacion/cart.html", datos)
+    print("Y aqui")  # Confirmar que se accede a la vista
 
-def eliminar_carrito(request, id):
-    carrito = get_object_or_404(Carrito, id=id)
     if request.method == 'POST':
+        print("Pasa por aca?")  # Confirmar que se recibe una solicitud POST
+        id = request.POST.get('id')  # Obtener el ID del carrito a eliminar
+        print(f"Carrito ID: {id}")  # Confirmar el ID del carrito
+        
+        carrito = get_object_or_404(Carrito, id=id, usuario=usr)
+        carrito.delete()  # Eliminar el carrito
+
+        #Recalcular subtotal después de eliminar el producto
+        carritos = Carrito.objects.filter(usuario=usr)
+        subtotal = sum(c.get_total_price() for c in carritos)
+        datos['carritos'] = carritos
+        datos['subtotal'] = subtotal
+
+        # Redirigir nuevamente a la página de carrito después de eliminar
+        return redirect('cart')
+
+    return render(request, "aplicacion/cart.html", datos)
+####################################################################
+def eliminarproducto(request, id):
+    producto = get_object_or_404(Producto, cod_producto=id)
+
+    if request.method == "POST":
+        if producto.imagen:
+            remove(path.join(str(settings.MEDIA_ROOT).replace('/media','')+producto.imagen.url))
+        producto.delete()
+        messages.success(request, 'Producto Eliminado')
+        return redirect('productos')
+
+    datos = {
+        "producto": producto
+    }
+
+    return render(request, 'aplicacion/eliminarproducto.html', datos)
+####################################################################
+
+@login_required
+def eliminar_carrito(request, id):
+    if request.method == 'POST':
+        carrito_id = id
+        carrito = get_object_or_404(Carrito, id=carrito_id, usuario=request.user.usuario)
+        # Delete the cart item
         carrito.delete()
-        return redirect('cart') 
+        # Optionally, you can print or log a message to confirm deletion
+        print(f'Carrito eliminado correctamente: {carrito_id}')
+        # Redirect back to the cart page or any other desired page
+        return redirect('cart')
     else:
-        print('No se recibió una solicitud POST para eliminar el carrito con ID:', id)
+        # Handle the case where the request method is not POST (optional)
+        print(f'No se recibió una solicitud POST para eliminar el carrito con ID: {id}')
+        return redirect('cart')  # Redirect to the cart page in case of any issue
     
 def checkout (request):
     
     if request.method == 'POST':
+        print(f'Solicitud POST recibida para eliminar el carrito con ID: {id}')
         subtotal = request.POST.get('subtotal', 0)  # Recuperar el subtotal del formulario
-
+        print(f'Carrito con ID {id} eliminado exitosamente.')
         # Aquí puedes realizar cualquier lógica adicional, como procesar el pedido, aplicar cupones, etc.
 
         return render(request, 'aplicacion/checkout.html', {'subtotal': subtotal})
 
+
+
+
     # Si el método no es POST (por ejemplo, GET), puedes manejarlo según tu flujo de aplicación
+    
     return render(request, 'aplicacion/checkout.html')
 
 @login_required
@@ -92,13 +142,18 @@ def estado (request):
     user = request.user
     usr = get_object_or_404(Usuario, nombusuario=user) 
     pedidos_usuario = Pedido.objects.filter(usuario_id=usr)
-    pedidos = Pedido.objects.all()
+    pedidos = Pedido.objects.filter(usuario_id=usr)
     detallepedido= DetallePedido.objects.all()
     datos = {
         'pedidos': pedidos,
         'detallepedido': detallepedido,
     }
     return render(request, "aplicacion/estado.html",datos)
+
+
+#############################################
+
+##############################################
 
 def detallepedido(request,id):
     detallepedido = get_list_or_404(DetallePedido, pedido_id=id)
@@ -179,21 +234,15 @@ def shop (request):
 
 @login_required
 def comprar(request, id):
+    print("Request method:", request.method)
     producto = get_object_or_404(Producto, cod_producto=id)
     
     if request.method == 'POST' and 'add-to-cart' in request.POST:
-        # Recuperar el usuario actual
+        print("Form submitted")
         usuario = Usuario.objects.get(nombusuario=request.user.username)
-        
-        # Aquí asume que tienes algún método para obtener el envío correspondiente
-        # Puedes ajustar esto según cómo manejas los envíos en tu sistema
-        envio = Envio.objects.first()  # Ajusta esta lógica según corresponda
-
-        # Crear un nuevo objeto Carrito y guardarlo en la base de datos
+        envio = Envio.objects.first()
         carrito = Carrito(usuario=usuario, envio=envio, producto=producto, cantidad=1)
         carrito.save()
-        
-        # Redirigir a la página del carrito o a donde desees después de añadir al carrito
         return redirect('cart')
     
     datos = {
@@ -201,6 +250,8 @@ def comprar(request, id):
     }
     
     return render(request, "aplicacion/comprar.html", datos)
+
+
 
 @login_required
 @require_POST

@@ -117,7 +117,6 @@
                             <th>Fecha de Pedido</th>
                             <th>Estado</th>
                             <th>Acciones</th>   
-                            <th>Boleta</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -172,12 +171,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </td>
-                            <td>
-                                <select class="form-select" name="boleta" onchange="actualizarBoleta(this, {{ p.id }})">
-                                    <option value="true" {% if p.boleta %}selected{% endif %}>Sí tiene boleta</option>
-                                    <option value="false" {% if not p.boleta %}selected{% endif %}>No tiene boleta</option>
-                                </select>
                             </td>
                         </tr>
                         {% endfor %}
