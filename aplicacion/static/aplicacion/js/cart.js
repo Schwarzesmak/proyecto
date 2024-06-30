@@ -1,8 +1,7 @@
 // Asegúrate de que el script no se ejecute más de una vez
 if (!window.hasRunCartRemovalScript) {
     document.addEventListener("DOMContentLoaded", function() {
-        const updateCartButton = document.getElementById('updateCartButton');
-        // Aquí va tu función setupRemoveButtonListeners()
+                // Aquí va tu función setupRemoveButtonListeners()
         setupRemoveButtonListeners();
     });
     window.hasRunCartRemovalScript = true;
@@ -36,12 +35,25 @@ function updateTotal() {
         elements.forEach(function(element) {
             total += parseFloat(element.textContent.replace('$', '').replace('.', '') || 0);
         });
-        document.querySelector('#subtotal')?.textContent = '$' + total.toLocaleString();
-        document.querySelector('#total')?.textContent = '$' + total.toLocaleString();
+        const subtotalElement = document.querySelector('#subtotal');
+        const totalElement = document.querySelector('#total');
+
+        if (subtotalElement) {
+            subtotalElement.textContent = '$' + total.toLocaleString();
+        } else {
+            console.error('El elemento #subtotal no se encontró.');
+        }
+
+        if (totalElement) {
+            totalElement.textContent = '$' + total.toLocaleString();
+        } else {
+            console.error('El elemento #total no se encontró.');
+        }
     } else {
         console.error('No se encontraron elementos .product-total para actualizar.');
     }
 }
+
 
 
 if (!window.hasDOMContentLoadedListener) {
@@ -50,10 +62,13 @@ if (!window.hasDOMContentLoadedListener) {
         const subtotalDisplay = document.querySelector('#subtotal');
         const totalDisplay = document.querySelector('#total');
 
-        updateCartButton.addEventListener('click', function(event) {
-            event.preventDefault();
-            updateQuantities();
-        });
+        // Añade el event listener al botón de actualizar carrito
+        if (updateCartButton) {
+            updateCartButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                updateQuantities();
+            });
+        }
 
         function updateQuantities() {
             let subtotal = 0;
@@ -78,7 +93,7 @@ if (!window.hasDOMContentLoadedListener) {
             document.querySelectorAll('.decrease, .increase').forEach(button => {
                 button.addEventListener('click', function() {
                     const isIncreasing = button.classList.contains('increase');
-                    const input = button.closest('.input-group').querySelector('.quantity-amount');
+                    const input = button.closest('.quantity-container').querySelector('.quantity-amount');
                     let quantity = parseInt(input.value);
                     quantity = isIncreasing ? quantity + 1 : (quantity > 1 ? quantity - 1 : quantity);
                     input.value = quantity;
@@ -86,16 +101,49 @@ if (!window.hasDOMContentLoadedListener) {
                 });
             });
         }
-        updateCartButton.addEventListener('click', function(event) {
-        event.preventDefault();
-            updateQuantities();
-        });
+
+        function setupRemoveButtonListeners() {
+            const removeButtons = document.querySelectorAll('.btn-remove');
+            if (removeButtons.length > 0) {
+                removeButtons.forEach(button => {
+                    button.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        const row = button.closest('tr');
+                        if (row) {
+                            row.parentNode.removeChild(row);
+                            updateTotal();
+                        } else {
+                            console.error('No se pudo encontrar el elemento padre <tr> para el botón de eliminar.');
+                        }
+                    });
+                });
+            } else {
+                console.error('No se encontraron botones .btn-remove para agregar listeners.');
+            }
+        }
+
+        function updateTotal() {
+            let total = 0;
+            const elements = document.querySelectorAll('.product-total');
+            if (elements.length > 0) {
+                elements.forEach(function(element) {
+                    total += parseFloat(element.textContent.replace('$', '').replace('.', '') || 0);
+                });
+                document.querySelector('#subtotal')?.textContent = '$' + total.toLocaleString();
+                document.querySelector('#total')?.textContent = '$' + total.toLocaleString();
+            } else {
+                console.error('No se encontraron elementos .product-total para actualizar.');
+            }
+        }
+
+        // Inicializa los listeners y actualiza las cantidades al cargar la página
         setupRemoveButtonListeners();
         setupQuantityButtonListeners();
         updateQuantities(); // Calculate the initial total when the page loads
     });
     window.hasDOMContentLoadedListener = true;
 }
+
 
 if (!window.hasDOMContentLoadedListener) {
     document.addEventListener("DOMContentLoaded", function() {

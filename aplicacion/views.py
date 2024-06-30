@@ -86,21 +86,7 @@ def cart(request):
 
     return render(request, "aplicacion/cart.html", datos)
 ####################################################################
-def eliminarproducto(request, id):
-    producto = get_object_or_404(Producto, cod_producto=id)
 
-    if request.method == "POST":
-        if producto.imagen:
-            remove(path.join(str(settings.MEDIA_ROOT).replace('/media','')+producto.imagen.url))
-        producto.delete()
-        messages.success(request, 'Producto Eliminado')
-        return redirect('productos')
-
-    datos = {
-        "producto": producto
-    }
-
-    return render(request, 'aplicacion/eliminarproducto.html', datos)
 ####################################################################
 
 @login_required
