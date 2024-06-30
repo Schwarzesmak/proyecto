@@ -117,7 +117,7 @@
                 <div class="col-md-6">
                     <div class="row mb-4">
                         <div class="col-md-6 mb-3 mb-md-0">
-                            <button class="btn btn-black btn-sm btn-block" >Actualizar carro de compra</button>
+                            <button class="btn btn-black btn-sm btn-block" onclick="updateCart()">Actualizar carro de compra</button>
                         </div>
                         <div class="col-md-6">
                             <a href="{% url 'shop' %}" class="btn btn-black btn-sm btn-block">Continuar comprando</a>
@@ -132,7 +132,7 @@
                             <div class="col-md-6 text-left">
                                 <span class="text-black">Subtotal</span>
                             </div>
-                            <div class="col-md-6 text-right">
+                            <div class="col-md-6 text-right" id="subtotal">
                                 <strong class="text-black">${{ subtotal }}</strong>
                             </div>
                         </div>
@@ -180,7 +180,25 @@
             });
         });
     </script>
-    
+    <script>
+        function updateCart() {
+            const quantityInputs = document.querySelectorAll('.quantity-amount');
+            let newSubtotal = 0;
+
+            quantityInputs.forEach(input => {
+                const quantity = parseInt(input.value);
+                const price = parseFloat(input.closest('tr').querySelector('.product-price').innerText.replace('$', '').trim());
+                const total = quantity * price;
+                newSubtotal += total;
+            });
+
+            document.getElementById('subtotal').innerHTML = `<strong class="text-black">$${newSubtotal.toFixed(2)}</strong>`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateCart(); // Actualiza el subtotal al cargar la página  
+        });
+    </script>
     <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'aplicacion/js/tiny-slider.js' %}"></script>
     <script src="{% static 'aplicacion/js/custom.js' %}"></script>
