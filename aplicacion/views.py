@@ -85,6 +85,52 @@ def cart(request):
         return redirect('cart')
 
     return render(request, "aplicacion/cart.html", datos)
+
+
+
+
+
+@login_required
+def update_cart(request):
+    user = request.user
+    usr = get_object_or_404(Usuario, nombusuario=user)
+    carritos = Carrito.objects.filter(usuario=usr)
+    subtotal = sum(c.get_total_price() for c in carritos)
+
+    if request.method == 'POST':
+        carrito_id = request.POST.get('id')
+        cantidad = int(request.POST.get('cantidad'))
+
+        try:
+            carrito = Carrito.objects.get(id=carrito_id, usuario=usr)
+            if cantidad > 0:
+                carrito.cantidad = cantidad
+                carrito.save()
+            else:
+                carrito.delete()
+
+            # Recalcular subtotal después de actualizar el carrito
+            carritos = Carrito.objects.filter(usuario=usr)
+            subtotal = sum(c.get_total_price() for c in carritos)
+
+            # Actualizar los datos para la renderización del template
+            datos = {
+                "carritos": carritos,
+                "subtotal": subtotal,
+            }
+
+            return render(request, "aplicacion/cart.html", datos)
+
+        except Carrito.DoesNotExist:
+            # Manejo de caso donde el carrito no existe
+            messages.error(request, 'El carrito seleccionado no existe.')
+            return redirect('cart')
+
+    else:
+        # Manejo para el caso de solicitud GET
+        messages.error(request, 'La solicitud no fue válida.')
+        return redirect('cart')
+
 ####################################################################
 def eliminarproducto(request, id):
     producto = get_object_or_404(Producto, cod_producto=id)
