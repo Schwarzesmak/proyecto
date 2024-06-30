@@ -1,6 +1,7 @@
 // Asegúrate de que el script no se ejecute más de una vez
 if (!window.hasRunCartRemovalScript) {
     document.addEventListener("DOMContentLoaded", function() {
+        const updateCartButton = document.getElementById('updateCartButton');
         // Aquí va tu función setupRemoveButtonListeners()
         setupRemoveButtonListeners();
     });
@@ -58,7 +59,7 @@ if (!window.hasDOMContentLoadedListener) {
             let subtotal = 0;
             document.querySelectorAll('.quantity-amount').forEach(input => {
                 const quantity = parseInt(input.value);
-                const price = parseFloat(input.closest('tr').querySelector('.product-price').textContent.replace('$', '').replace('.', ''));
+                const price = parseFloat(input.closest('tr').querySelector('.product-price').textContent.replace('$', '').replace(',', ''));
                 const totalElement = input.closest('tr').querySelector('.product-total');
                 const rowTotal = price * quantity;
                 totalElement.textContent = '$' + rowTotal.toLocaleString();
@@ -68,9 +69,9 @@ if (!window.hasDOMContentLoadedListener) {
         }
 
         function updateTotals(subtotal) {
-            const total = subtotal; // You can add taxes, discounts, etc. here if needed
-            subtotalDisplay.textContent = '$' + subtotal.toLocaleString();
-            totalDisplay.textContent = '$' + total.toLocaleString();
+            const total = subtotal; // Puedes agregar impuestos, descuentos, etc. aquí si es necesario
+            if (subtotalDisplay) subtotalDisplay.textContent = '$' + subtotal.toLocaleString();
+            if (totalDisplay) totalDisplay.textContent = '$' + total.toLocaleString();
         }
 
         function setupQuantityButtonListeners() {
@@ -85,7 +86,11 @@ if (!window.hasDOMContentLoadedListener) {
                 });
             });
         }
-
+        updateCartButton.addEventListener('click', function(event) {
+        event.preventDefault();
+            updateQuantities();
+        });
+        setupRemoveButtonListeners();
         setupQuantityButtonListeners();
         updateQuantities(); // Calculate the initial total when the page loads
     });
