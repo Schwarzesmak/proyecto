@@ -70,6 +70,7 @@
                                     <th>Celular</th>
                                     <th>Región</th>
                                     <th>Fecha Pedido</th>
+                                    <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -84,6 +85,7 @@
                                     <td>{{ pedido.celular }}</td>
                                     <td>{{ pedido.region }}</td>
                                     <td>{{ pedido.fecha_pedido }}</td>
+                                    <td><p class="success">¡Pedido {{pedido.estado}}!</p></td>
                                     <td><a href="{% url 'detallepedido' pedido.id %}">Detalle Pedido</a></td> 
                                 </tr>
                                 {% endfor %}

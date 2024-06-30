@@ -142,13 +142,18 @@ def estado (request):
     user = request.user
     usr = get_object_or_404(Usuario, nombusuario=user) 
     pedidos_usuario = Pedido.objects.filter(usuario_id=usr)
-    pedidos = Pedido.objects.all()
+    pedidos = Pedido.objects.filter(usuario_id=usr)
     detallepedido= DetallePedido.objects.all()
     datos = {
         'pedidos': pedidos,
         'detallepedido': detallepedido,
     }
     return render(request, "aplicacion/estado.html",datos)
+
+
+#############################################
+
+##############################################
 
 def detallepedido(request,id):
     detallepedido = get_list_or_404(DetallePedido, pedido_id=id)

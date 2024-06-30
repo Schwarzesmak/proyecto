@@ -57,14 +57,6 @@
     </div>
 
     <div class="container">
-        <h1>Estado de Pedido</h1>
-        {% if envio.estado != 'Completado' %}
-        <p>Su pedido está en proceso.</p>
-        {% else %}
-        <p>Su pedido ha sido {{ envio.estado }}.</p>
-        <p class="success">¡Pedido Completado!</p>
-        {% endif %}
-
         <div class="details">
             <h2>Detalles de su Compra</h2>
             <table>
@@ -77,7 +69,9 @@
                     <th>Celular</th>
                     <th>Región</th>
                     <th>Fecha Pedido</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
+                    
                 </tr>
                 {% for pedido in pedidos %}
                 <tr>
@@ -89,6 +83,7 @@
                     <td>{{ pedido.celular }}</td>
                     <td>{{ pedido.region }}</td>
                     <td>{{ pedido.fecha_pedido }}</td>
+                    <td><p class="success">¡Pedido {{pedido.estado}}!</p></td>
                     <td><a href="{% url 'detallepedido' pedido.id %}">Detalle Pedido</a></td> 
                 </tr>
                 {% endfor %}
