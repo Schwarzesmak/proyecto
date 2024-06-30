@@ -13,47 +13,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{% static 'aplicacion/css/tiny-slider.css' %}">
     <link rel="stylesheet" href="{% static 'aplicacion/css/style.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
     <!-- Start Header/Navigation -->
-	<nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
-
-		<div class="container">
-			<!-- <a class="navbar-brand" href="index.html">Brama<span>.</span></a> -->
-			<a class="navbar-brand" href="{% url 'index' %}">Brama<span>.</span></a>
-
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
-				aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-			<div class="collapse navbar-collapse" id="navbarsFurni">
-				<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-					<!-- <li><a class="nav-link" href="miscompras.html">Mis Compras -->
-					<li><a class="nav-link" href="{% url 'miscompras' %}">Mis Compras	
-						</a></li>
-					<li class="nav-item active">
-				   <!-- <a class="nav-link" href="index.html">Inicio</a> -->
-						<a class="nav-link" href="{% url 'index' %}">Inicio</a>
-					</li>
-			   <!-- <li><a class="nav-link" href="shop.html">Tienda</a></li> -->
-					<li><a class="nav-link" href="{% url 'shop' %}">Tienda</a></li>
-				<!--<li><a class="nav-link" href="about.html">Nosotros</a></li>  -->
-					<li><a class="nav-link" href="{% url 'about' %}">Nosotros</a></li>
-				</ul>
-
-				<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-				<!--<li><a class="nav-link" href="sesion.html"><img src="images/user.svg"></a></li> -->
-					<li><a class="nav-link" href="{% url 'login' %}"><img src="{% static 'aplicacion/img/user.svg' %}"></a></li>
-				<!--<li><a class="nav-link" href="cart.html"><img src="images/cart.svg"></a></li> -->
-					<li><a class="nav-link" href="{% url 'cart' %}"><img src="{% static 'aplicacion/img/cart.svg' %}"></a></li>
+    <nav class="custom-navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">Brama<span>.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+                    aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsFurni">
+                <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                    <li><a class="nav-link" href="{% url 'miscompras' %}">Mis Compras</a></li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+                    </li>
+                    <li><a class="nav-link" href="{% url 'shop' %}">Tienda</a></li>
+                    <li><a class="nav-link" href="{% url 'about' %}">Nosotros</a></li>
+                </ul>
+                <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                    <li><a class="nav-link" href="{% url 'login' %}"><img src="{% static 'aplicacion/img/user.svg' %}"></a></li>
+                    <li><a class="nav-link" href="{% url 'cart' %}"><img src="{% static 'aplicacion/img/cart.svg' %}"></a></li>
                     <li><a class="nav-link" href="{% url 'salir' %}">Cerrar Sesión</a></li>
-				</ul>
-			</div>
-		</div>
-
-	</nav>
-	<!-- End Header/Navigation -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Header/Navigation -->
+    
     <div class="hero">
         <div class="container">
             <div class="row justify-content-between">
@@ -121,45 +110,77 @@
                     </div>
                 </form>
             </div>
-            </div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row mb-4">
-                            <div class="col-md-6 mb-3 mb-md-0">
-                                <button class="btn btn-black btn-sm btn-block" id="updateCartButton">Actualizar carro de compra</button>
-                            </div>
-                            <div class="col-md-6">
-                                <a href="{% url 'shop' %}" class="btn btn-black btn-sm btn-block">Continuar comprando</a>
-                            </div>
+        </div>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row mb-4">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <button class="btn btn-black btn-sm btn-block" >Actualizar carro de compra</button>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="text-center">
-                            <h3 class="text-black h4 text-uppercase mb-4">Total en Carro de compras</h3>
-                            <!-- Mostrar subtotal en la tabla -->
-                            <div class="row mb-4">
-                                <div class="col-md-6 text-left">
-                                    <span class="text-black">Subtotal</span>
-                                </div>
-                                <div class="col-md-6 text-right">
-                                    <strong class="text-black">${{ subtotal }}</strong>
-                                </div>
-                            </div>
-                            <!-- Formulario de checkout con el botón "Ir al Comprobante" -->
-                            <form action="{% url 'checkout' %}" method="post">
-                                {% csrf_token %}
-                                <input type="hidden" name="subtotal" value="{{ subtotal }}">
-                                <button type="submit" class="btn btn-black btn-lg py-3 btn-block">Ir al Comprobante</button>
-                            </form>
+                        <div class="col-md-6">
+                            <a href="{% url 'shop' %}" class="btn btn-black btn-sm btn-block">Continuar comprando</a>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <h3 class="text-black h4 text-uppercase mb-4">Total en Carro de compras</h3>
+                        <!-- Mostrar subtotal en la tabla -->
+                        <div class="row mb-4">
+                            <div class="col-md-6 text-left">
+                                <span class="text-black">Subtotal</span>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <strong class="text-black">${{ subtotal }}</strong>
+                            </div>
+                        </div>
+                        <!-- Formulario de checkout con el botón "Ir al Comprobante" -->
+                        <form id="checkout-form" action="{% url 'checkout' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="subtotal" value="{{ subtotal }}">
+                            <button type="submit" class="btn btn-black btn-lg py-3 btn-block">Ir al Comprobante</button>
+                        </form>
+                            
+                    </div>
+                </div>
             </div>
-            
-            
-            
+        </div>
+    </div>
+
+    <script>
+        function checkCart(event) {
+            event.preventDefault(); // Evita el envío automático del formulario
+    
+            const quantities = document.querySelectorAll('.quantity-amount');
+            if (quantities.length === 0 || [...quantities].every(input => parseInt(input.value) === 0)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Carro vacío',
+                    text: 'Por favor, agregue productos al carro de compras.',
+                    showConfirmButton: true,
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // No hagas nada o puedes redirigir al usuario a la tienda, por ejemplo
+                        // window.location.href = "{% url 'shop' %}";
+                    }
+                });
+            } else {
+                // Si el carro no está vacío, puedes enviar el formulario
+                document.querySelector('#checkout-form').submit();
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkoutForm = document.querySelector('#checkout-form');
+            checkoutForm.addEventListener('submit', function (event) {
+                checkCart(event); // Llama a checkCart() cuando se intente enviar el formulario de checkout
+            });
+        });
+    </script>
+    
     <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'aplicacion/js/tiny-slider.js' %}"></script>
     <script src="{% static 'aplicacion/js/custom.js' %}"></script>
