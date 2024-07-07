@@ -1,7 +1,6 @@
-// Asegúrate de que el script no se ejecute más de una vez
+// Asegúrate de que el script no se ejecute más de una vez para remover elementos del carrito
 if (!window.hasRunCartRemovalScript) {
     document.addEventListener("DOMContentLoaded", function() {
-        // Aquí va tu función setupRemoveButtonListeners()
         setupRemoveButtonListeners();
     });
     window.hasRunCartRemovalScript = true;
@@ -42,7 +41,7 @@ function updateTotal() {
     }
 }
 
-
+// Script para actualizar cantidades y totales del carrito
 if (!window.hasDOMContentLoadedListener) {
     document.addEventListener("DOMContentLoaded", function() {
         const updateCartButton = document.getElementById('updateCartButton');
@@ -68,7 +67,7 @@ if (!window.hasDOMContentLoadedListener) {
         }
 
         function updateTotals(subtotal) {
-            const total = subtotal; // You can add taxes, discounts, etc. here if needed
+            const total = subtotal; // Puedes agregar impuestos, descuentos, etc. aquí si es necesario
             subtotalDisplay.textContent = '$' + subtotal.toLocaleString();
             totalDisplay.textContent = '$' + total.toLocaleString();
         }
@@ -87,75 +86,13 @@ if (!window.hasDOMContentLoadedListener) {
         }
 
         setupQuantityButtonListeners();
-        updateQuantities(); // Calculate the initial total when the page loads
+        updateQuantities(); // Calcular el total inicial cuando se carga la página
     });
     window.hasDOMContentLoadedListener = true;
 }
 
-if (!window.hasDOMContentLoadedListener) {
-    document.addEventListener("DOMContentLoaded", function() {
-        const decreaseButtons = document.querySelectorAll('.decrease');
-        const increaseButtons = document.querySelectorAll('.increase');
-        const totalDisplay = document.querySelector('.text-black strong');
-
-        function updateTotal() {
-            let total = 0;
-            document.querySelectorAll('.product-total').forEach(function(element) {
-                total += parseFloat(element.textContent.replace('$', '').replace('.', ''));
-            });
-            totalDisplay.textContent = '$' + total.toLocaleString();
-        }
-
-        function setupButtonListeners() {
-            decreaseButtons.forEach(button => {
-                button.removeEventListener('click', handleDecrease);
-                button.addEventListener('click', handleDecrease);
-            });
-
-            increaseButtons.forEach(button => {
-                button.removeEventListener('click', handleIncrease);
-                button.addEventListener('click', handleIncrease);
-            });
-        }
-
-        function handleDecrease(event) {
-            const input = this.parentNode.parentNode.querySelector('.quantity-amount');
-            let quantity = parseInt(input.value);
-            if (quantity > 1) {
-                quantity--;
-                input.value = quantity;
-                const price = parseFloat(this.closest('tr').querySelector('.product-price').textContent.replace('$', '').replace('.', ''));
-                this.closest('tr').querySelector('.product-total').textContent = '$' + (price * quantity).toLocaleString();
-                updateTotal();
-            } else if (quantity === 1) {
-                alert("La cantidad mínima permitida es 1. No puedes disminuir la cantidad más.");
-                // Aquí puedes agregar cualquier otra acción que desees tomar cuando la cantidad es 1
-            } else {
-                // Si la cantidad es menor que 1, establecemos la cantidad a 1
-                quantity = 1;
-                input.value = quantity;
-                const price = parseFloat(this.closest('tr').querySelector('.product-price').textContent.replace('$', '').replace('.', ''));
-                this.closest('tr').querySelector('.product-total').textContent = '$' + (price * quantity).toLocaleString();
-                updateTotal();
-            }
-        }
-
-        function handleIncrease(event) {
-            const input = this.parentNode.parentNode.querySelector('.quantity-amount');
-            let quantity = parseInt(input.value);
-            quantity++;
-            input.value = quantity;
-            const price = parseFloat(this.closest('tr').querySelector('.product-price').textContent.replace('$', '').replace('.', ''));
-            this.closest('tr').querySelector('.product-total').textContent = '$' + (price * quantity).toLocaleString();
-            updateTotal();
-        }
-
-        setupButtonListeners();
-    });
-    window.hasDOMContentLoadedListener = true;
-}
-
-if (!window.hasDOMContentLoadedListener) {
+// Script para manejar productos en el carrito desde localStorage
+if (!window.hasCartLocalStorageListener) {
     document.addEventListener('DOMContentLoaded', () => {
         let cartItemsContainer = document.getElementById('cart-items');
         let products = JSON.parse(localStorage.getItem('cart')) || [];
@@ -174,5 +111,5 @@ if (!window.hasDOMContentLoadedListener) {
             });
         }
     });
-    window.hasDOMContentLoadedListener = true;
+    window.hasCartLocalStorageListener = true;
 }

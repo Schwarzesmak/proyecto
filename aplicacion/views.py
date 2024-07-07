@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages 
 from .models import Persona, Producto, Envio, Pedido,Carrito ,Usuario, DetallePedido
 from os import path, remove 
@@ -45,8 +46,11 @@ def salir(request):
 
 def about (request):
     return render(request, "aplicacion/about.html")
+
 def admini (request):
     return render(request, "aplicacion/admini.html")
+def is_admin(user):
+    return user.is_authenticated and user.is_staff
 
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Carrito, Usuario
@@ -86,6 +90,7 @@ def cart(request):
 
     return render(request, "aplicacion/cart.html", datos)
 ####################################################################
+@user_passes_test(is_admin)
 def eliminarproducto(request, id):
     producto = get_object_or_404(Producto, cod_producto=id)
 
@@ -177,9 +182,18 @@ def miscompras(request):
 
 def panelcerrarsesion (request):
     return render(request, "aplicacion/panelcerrarsesion.html")
-def panelcontrol (request):
+
+@user_passes_test(is_admin)
+def panelcontrol(request):
+    print("Holis")
+    if not request.user.is_staff:
+        print("pasa por aqui??")
+        messages.error(request, 'Acceso denegado. Debes ser administrador para acceder a esta página.')
+        return redirect('index')  # Ajusta la redirección según tu configuración
+
     return render(request, "aplicacion/panelcontrol.html")
-#para que se vean los pedidos en panel control estado 
+#para que se vean los pedidos en panel control 
+@user_passes_test(is_admin) 
 def panelcontrolestadocompra (request):
     pedidos=Pedido.objects.all()
     datos={
@@ -188,6 +202,19 @@ def panelcontrolestadocompra (request):
     }
     return render(request, "aplicacion/panelcontrolestadocompra.html", datos)
 
+
+@user_passes_test(is_admin) 
+def panelcontrolestadocompra(request):
+    if not request.user.is_staff:
+        messages.error(request, 'Acceso denegado. Debes ser administrador para acceder a esta página.')
+        return redirect('index')  # Puedes ajustar la redirección según tu estructura de URLs
+
+    pedidos = Pedido.objects.all()
+    datos = {
+        "pedidos": pedidos
+    }
+
+    return render(request, "aplicacion/panelcontrolestadocompra.html", datos)
 def crearcuenta (request):
     form=CrearCuentaForm()
     datos={
@@ -321,6 +348,7 @@ def thankyou(request):
 #DETALLES DE PERSONA Y PRODUCTO 
 #FUNCIONES CREAR MODIFICAR Y ELIMINAR PARA PRODUCTO Y PERSONAS ##SE LE CAMBIA EL NOMBRE DE LA FUNCION POR LA PAGINA HTML , son vistas
 #CREAR 
+@user_passes_test(is_admin)
 def personas(request):
  
     
@@ -341,6 +369,7 @@ def personas(request):
 #     }
 #     return render(request,'appcrud/detallepersona.html', datos)
  
+@user_passes_test(is_admin)
 def crearpersona(request):
     form=UsuarioForm()
     
@@ -367,6 +396,8 @@ def crearpersona(request):
     }
     return render(request, 'aplicacion/crearpersona.html', datos)
 
+
+@user_passes_test(is_admin)
 def crearproducto(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
@@ -401,6 +432,7 @@ def modificarpersona(request, id):
 
     return render(request, 'aplicacion/modificarpersona.html', datos)
 
+@user_passes_test(is_admin)
 def modificarproducto(request, id): #******
     producto=get_object_or_404(Producto, cod_producto=id) #**********
 
@@ -478,6 +510,7 @@ def modificar_persona(request, id):
 
     return render(request, 'aplicacion/modificarpersona.html', datos)
 
+@user_passes_test(is_admin)
 def productos(request):
     productos=Producto.objects.all()
 
@@ -495,7 +528,7 @@ def orden_estado(request, idcompra):
     }
      return render(request, 'aplicacion/estado.html', datos)
  
- #Esto es experimental, si se requiere se saca
+@user_passes_test(is_admin)
 def panel_control(request):
     # Obtener todos los pedidos ordenados por fecha de pedido descendente
     pedidos = pedidos.objects.all().order_by('-fecha_pedido')
