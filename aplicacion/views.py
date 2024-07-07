@@ -420,20 +420,25 @@ def modificarproducto(request, id): #******
     return render(request,'aplicacion/modificarproducto.html',datos)
 
 #ELIMINAR , VER EL CRUD DEL PROFE Y ADAPTARLO A NUESTRA PAGINA
+
 def eliminarpersona(request, id):
-    usuario = get_object_or_404(Usuario, nombusuario=id) 
+    usuario = get_object_or_404(Usuario, nombusuario=id)
 
     datos = {
         "usuario": usuario
     }
 
     if request.method == "POST":
-        usuario.delete()
-       #  "remove(path.join(str(settings.MEDIA_ROOT).replace('media/') persona.imagen.url))) Esto es siempre y cuando que la imagen no sirva"
-        messages.error(request, 'Persona eliminada')
-        return redirect(to="personas")
-    return render(request, 'aplicacion/eliminarpersona.html', datos)
+        # Eliminar el usuario de auth.User
+        user_to_delete = User.objects.get(username=usuario.nombusuario)
+        user_to_delete.delete()
 
+        # Eliminar el usuario de tu modelo Usuario
+        usuario.delete()
+        messages.success(request, 'Usuario eliminado exitosamente')
+        return redirect('personas')
+
+    return render(request, 'aplicacion/eliminarpersona.html', datos)
 
 def eliminarproducto(request, id):
     producto = get_object_or_404(Producto, cod_producto=id)
