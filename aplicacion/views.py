@@ -16,7 +16,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 #importar forms.py tambien, falta
-from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoForm, CrearCuentaForm #para formularios de persona y productos
+from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoForm, CrearCuentaForm, UsuarioForm #para formularios de persona y productos
 
 
 # Create your views here.
@@ -342,12 +342,23 @@ def personas(request):
 #     return render(request,'appcrud/detallepersona.html', datos)
  
 def crearpersona(request):
-    form=PersonaForm()
+    form=UsuarioForm()
     
     if request.method=="POST":
-        form=PersonaForm(data=request.POST, files=request.FILES)
+        form=UsuarioForm(data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
+
+            # Crea un usuario de Django usando los mismos datos
+            nombusuario = form.cleaned_data['nombusuario'] 
+            pwd = form.cleaned_data['pwd'] 
+            
+            # Crea el usuario de Django
+            user_django = User.objects.create_user(username=nombusuario, password=pwd)
+            
+            # Guarda el usuario de Django
+            user_django.save()
+
             messages.success(request, 'Persona agregada al registro')
             return redirect(to="personas")
     
