@@ -1,5 +1,5 @@
 from django import forms
-from .models import Persona, Producto
+from .models import Persona, Producto, Usuario
 from .enumeraciones import *
 from django.contrib.auth.forms import UserCreationForm
 
@@ -60,7 +60,8 @@ class UpdatePersonaForm(forms.ModelForm):
                   'apellidop','apellidom', 'correo',
                   'direccion', 'celular', 'region', 
                   'info_adicional', 'imagen']
-        
+   
+#PARA CRUD DE USUARIO        
 class UsuarioForm(forms.ModelForm):
     nombusuario =forms.CharField(max_length=18,
                         error_messages={"required":"Ingrese nombre de usuario"}, 
@@ -69,7 +70,7 @@ class UsuarioForm(forms.ModelForm):
                         error_messages={"required":"Ingrese su contraseña"}, 
                         help_text="Contraseña no valida o vacia")
     class Meta:
-        model = Persona
+        model = Usuario
         fields = ['nombusuario', 'pwd']
 
 class UpdateUsuarioForm(forms.ModelForm):
@@ -80,9 +81,9 @@ class UpdateUsuarioForm(forms.ModelForm):
                         error_messages={"required":"Ingrese su contraseña"}, 
                         help_text="Contraseña no valida o vacia")
     class Meta:
-        model = Persona
+        model = Usuario
         fields = ['nombusuario', 'pwd']
-
+#FIN CRUD DE USUARIO
 class EnvioForm(forms.ModelForm):
     fecha_compra = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     usuario      = forms.CharField(max_length=18, error_messages={"required":"Ingrese nombre de usuario"}, 

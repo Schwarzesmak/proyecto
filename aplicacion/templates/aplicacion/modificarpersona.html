@@ -55,7 +55,7 @@
             <div class="col-lg-6">
                 <div class="p-5 border rounded">
                     <h3>Editar Persona</h3> 
-                    <h5>nombre - {{persona.pnombre}}</h5>
+                    <h5>nombre - {{usuario.nombusuario}}</h5>
                     <form action="" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{form | crispy}}
