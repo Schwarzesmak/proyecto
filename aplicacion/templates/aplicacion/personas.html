@@ -47,44 +47,24 @@
 
     <div class="container">
         <div class="mt-4">
-            <h3>Lista de Personas</h3>
+            <h3>Lista de Usuarios</h3>
             <a href="{% url 'crearpersona' %}" role="button" class="btn text-primary">+ Agregar Persona</a>
         </div>
-        <p>{{ fecha }}</p>
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Imagen</th>
-                    <th>Identificador</th>
-                    <th>Primer nombre</th>
-                    <th>Segundo nombre</th>
-                    <th>Primer apellido</th>
-                    <th>Segundo apellido</th>
-                    <th>Correo</th>
-                    <th>Direccion</th>
-                    <th>Celular</th>
-                    <th>Región</th>
-                    <th>Información</th>
-                    <th>Acciones</th>
+                    <th>Nombre del Usuario</th>
+                    <th>Contraseña Usuario</th>
                 </tr>
             </thead>
             <tbody>
-                {% for p in personas %}
+                {% for p in usuarios %}
                 <tr>
-                    <td><img src="{{ p.imagen.url }}" alt="foto" height="150"></td>
-                    <td>{{ p.cod_persona }}</td>
-                    <td>{{ p.pnombre }}</td>
-                    <td>{{ p.snombre }}</td>
-                    <td>{{ p.apellidop }}</td>
-                    <td>{{ p.apellidom }}</td>
-                    <td>{{ p.correo }}</td>
-                    <td>{{ p.direccion }}</td>
-                    <td>{{ p.celular }}</td>
-                    <td>{{ p.region }}</td>
-                    <td>{{ p.info_adicional }}</td>
+                    <td>{{ p.nombusuario }}</td>
+                    <td>{{ p.pwd }}</td>
                     <td>
-                        <a href="{% url 'modificar_persona' p.cod_persona %}">Editar</a>
-                        <a href="{% url 'eliminarpersona' p.cod_persona %}">Eliminar</a>
+                        <a href="{% url 'modificar_persona' p.nombusuario %}">Editar</a>
+                        <a href="{% url 'eliminarpersona' p.nombusuario %}">Eliminar</a>
                     </td>
                 </tr>
                 {% endfor %}
