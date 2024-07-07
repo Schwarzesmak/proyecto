@@ -23,6 +23,7 @@ urlpatterns = [
        path('miscompras/', miscompras, name='miscompras'),
        path('panelcerrarsesion/', panelcerrarsesion, name='panelcerrarsesion'),
        path('panelcontrol/', panelcontrol, name='panelcontrol'),
+       path('panelcontrol/', views.panel_control, name='panelcontrol'),
        path('panelcontrolestadocompra/', panelcontrolestadocompra, name='panelcontrolestadocompra'),
        path('crearcuenta/', crearcuenta, name='crearcuenta'),
        #path('sesion/', sesion, name='sesion'),
