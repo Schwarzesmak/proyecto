@@ -183,8 +183,14 @@ def miscompras(request):
 def panelcerrarsesion (request):
     return render(request, "aplicacion/panelcerrarsesion.html")
 
-@user_passes_test(is_admin) 
-def panelcontrol (request):
+@user_passes_test(is_admin)
+def panelcontrol(request):
+    print("Holis")
+    if not request.user.is_staff:
+        print("pasa por aqui??")
+        messages.error(request, 'Acceso denegado. Debes ser administrador para acceder a esta página.')
+        return redirect('index')  # Ajusta la redirección según tu configuración
+
     return render(request, "aplicacion/panelcontrol.html")
 #para que se vean los pedidos en panel control 
 @user_passes_test(is_admin) 
@@ -196,6 +202,19 @@ def panelcontrolestadocompra (request):
     }
     return render(request, "aplicacion/panelcontrolestadocompra.html", datos)
 
+
+@user_passes_test(is_admin) 
+def panelcontrolestadocompra(request):
+    if not request.user.is_staff:
+        messages.error(request, 'Acceso denegado. Debes ser administrador para acceder a esta página.')
+        return redirect('index')  # Puedes ajustar la redirección según tu estructura de URLs
+
+    pedidos = Pedido.objects.all()
+    datos = {
+        "pedidos": pedidos
+    }
+
+    return render(request, "aplicacion/panelcontrolestadocompra.html", datos)
 def crearcuenta (request):
     form=CrearCuentaForm()
     datos={
