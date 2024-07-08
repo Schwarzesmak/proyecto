@@ -47,8 +47,18 @@ def salir(request):
 def about (request):
     return render(request, "aplicacion/about.html")
 
-def admini (request):
+def admini(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None and user.is_staff:
+            login(request, user)
+            return redirect('panelcontrol')
+        else:
+            messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
     return render(request, "aplicacion/admini.html")
+
 def is_admin(user):
     return user.is_authenticated and user.is_staff
 
@@ -597,5 +607,3 @@ def login_view(request):
             # Manejar el caso de inicio de sesión inválido
             # Puedes agregar lógica para mostrar un mensaje de error en el template login.html
             pass
-    
-    return render(request, 'login.html')
