@@ -70,7 +70,7 @@
                                     <th class="product-name">Producto</th>
                                     <th class="product-price">Precio</th>
                                     <th class="product-quantity">Cantidad</th>
-                                    <th class="product-total">Precio Unitario</th>
+                                    <th class="product-total">Precio Compra</th>
                                     <th class="product-remove">Eliminar</th>
                                 </tr>
                             </thead>
@@ -87,11 +87,11 @@
                                     <td>
                                         <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
                                             <div class="input-group-prepend">
-                                                <button class="btn btn-outline-black decrease" type="button">-</button>
+                                                <button class="btn btn-outline-black decrease" type="button" onclick="updateQuantity('{{ c.id }}', 'decrease')">-</button>
                                             </div>
                                             <input type="number" class="form-control text-center quantity-amount" value="{{ c.cantidad }}" placeholder="" aria-label="Cantidad" aria-describedby="button-addon1" min="1" step="1" disabled>
                                             <div class="input-group-append">
-                                                <button class="btn btn-outline-black increase" type="button">+</button>
+                                                <button class="btn btn-outline-black increase" type="button" onclick="updateQuantity('{{ c.id }}', 'increase')">+</button>
                                             </div>
                                         </div>
                                     </td>
@@ -117,7 +117,7 @@
                 <div class="col-md-6">
                     <div class="row mb-4">
                         <div class="col-md-6 mb-3 mb-md-0">
-                            <button class="btn btn-black btn-sm btn-block" onclick="updateCart()">Actualizar carro de compra</button>
+                            <a href="{% url 'cart' %}" onclick="updateCart();" class="btn btn-black btn-sm btn-block">Actualizar carro de compra</a>
                         </div>
                         <div class="col-md-6">
                             <a href="{% url 'shop' %}" class="btn btn-black btn-sm btn-block">Continuar comprando</a>
@@ -149,6 +149,37 @@
         </div>
     </div>
    <!-- Scripts para la funcionalidad de la página -->
+   <script>
+    function updateQuantity(cartId, action) {
+        const formData = new FormData();
+        formData.append('cart_id', cartId);
+        formData.append('action', action);
+
+        fetch("{% url 'update_cart' %}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Actualiza la cantidad mostrada en el front-end
+                const quantityInput = document.querySelector(`input[data-cart-id="${cartId}"]`);
+                quantityInput.value = data.new_quantity;
+
+                // Actualiza el subtotal
+                updateCart();
+            } else {
+                console.error('Error al actualizar la cantidad');
+            }
+        })
+        .catch(error => {
+            console.error('Error en la solicitud:', error);
+        });
+    }
+</script>
     <script>
         function checkCart(event) {
             event.preventDefault(); // Evita el envío automático del formulario
@@ -197,6 +228,8 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             updateCart(); // Actualiza el subtotal al cargar la página  
+        
+        
         });
     </script>
     <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>

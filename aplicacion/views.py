@@ -607,3 +607,23 @@ def login_view(request):
             # Manejar el caso de inicio de sesión inválido
             # Puedes agregar lógica para mostrar un mensaje de error en el template login.html
             pass
+
+@require_POST
+def update_cart(request):
+    cart_id = request.POST.get('cart_id')
+    action = request.POST.get('action')
+
+    if cart_id and action:
+        try:
+            cart_item = Carrito.objects.get(id=cart_id)
+            if action == 'increase':
+                cart_item.cantidad += 1
+            elif action == 'decrease' and cart_item.cantidad > 1:
+                cart_item.cantidad -= 1
+            cart_item.save()
+            new_quantity = cart_item.cantidad
+            return JsonResponse({'success': True, 'new_quantity': new_quantity})
+        except Carrito.DoesNotExist:
+            return JsonResponse({'success': False})
+    else:
+        return JsonResponse({'success': False})
