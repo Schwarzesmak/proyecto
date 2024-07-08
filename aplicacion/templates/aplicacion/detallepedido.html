@@ -65,14 +65,14 @@
                     <th>Pedido</th>
                     <th>Producto</th>
                     <th>Cantidad</th>
-                    <th>Precio</th>
+                    <th>Precio Unitario</th>
                 </tr>
                 {% for detallepedido in detallepedido %}
                 <tr>
                     <td>{{ detallepedido.pedido }}</td>
                     <td>{{ detallepedido.producto }}</td>
                     <td>{{ detallepedido.cantidad }}</td>
-                    <td>${{ detallepedido.producto.precio }}</td>
+                    <td>${{ detallepedido.producto.precio }}</td> 
                 </tr>
                 {% endfor %}
                 

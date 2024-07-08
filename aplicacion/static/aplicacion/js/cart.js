@@ -6,6 +6,8 @@ if (!window.hasRunCartRemovalScript) {
     window.hasRunCartRemovalScript = true;
 }
 
+
+// boton eliminar
 function setupRemoveButtonListeners() {
     const removeButtons = document.querySelectorAll('.btn-remove');
     if (removeButtons.length > 0) {
@@ -112,4 +114,35 @@ if (!window.hasCartLocalStorageListener) {
         }
     });
     window.hasCartLocalStorageListener = true;
+}
+
+// para sumar y eliminar cantidad 
+function updateQuantity(cartId, action) {
+    const formData = new FormData();
+    formData.append('cart_id', cartId);
+    formData.append('action', action);
+
+    fetch("{% url 'update_cart' %}", {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Actualiza la cantidad mostrada en el front-end
+            const quantityInput = document.querySelector(`input[data-cart-id="${cartId}"]`);
+            quantityInput.value = data.new_quantity;
+
+            // Actualiza el subtotal
+            updateCart();
+        } else {
+            console.error('Error al actualizar la cantidad');
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+    });
 }
