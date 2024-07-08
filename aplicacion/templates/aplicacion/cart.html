@@ -75,31 +75,31 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for c in carritos %}
+                                {% for item in carrito_items %}
                                 <tr>
                                     <td class="product-thumbnail">
-                                        <img src="{{ c.producto.imagen.url }}" alt="{{ c.producto.nombre }}" class="img-fluid">
+                                        <img src="{{ item.producto.imagen.url }}" alt="{{ item.producto.nombre }}" class="img-fluid">
                                     </td>
                                     <td class="product-name">
-                                        <h2 class="h5 text-black">{{ c.producto.nombre }}</h2>
+                                        <h2 class="h5 text-black">{{ item.producto.nombre }}</h2>
                                     </td>
-                                    <td class="product-price"> ${{ c.producto.precio }}</td>
+                                    <td class="product-price"> ${{ item.producto.precio }}</td>
                                     <td>
                                         <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
                                             <div class="input-group-prepend">
-                                                <button class="btn btn-outline-black decrease" type="button">-</button>
+                                                <button class="btn btn-outline-black decrease" type="button" onclick="updateQuantity({{ item.id }}, -1)">-</button>
                                             </div>
-                                            <input type="number" class="form-control text-center quantity-amount" value="{{ c.cantidad }}" placeholder="" aria-label="Cantidad" aria-describedby="button-addon1" min="1" step="1" disabled>
+                                            <input type="number" class="form-control text-center quantity-amount" name="cantidad_{{ item.id }}" value="{{ item.cantidad }}" placeholder="" aria-label="Cantidad" aria-describedby="button-addon1" min="1" step="1">
                                             <div class="input-group-append">
-                                                <button class="btn btn-outline-black increase" type="button">+</button>
+                                                <button class="btn btn-outline-black increase" type="button" onclick="updateQuantity({{ item.id }}, 1)">+</button>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="product-total"> ${{ c.get_total_price }}</td>
+                                    <td class="product-total"> ${{ item.get_total_price }}</td>
                                     <td>
                                         <form method="post" action="{% url 'cart' %}">
                                             {% csrf_token %}
-                                            <input type="hidden" name="id" value="{{ c.id }}">
+                                            <input type="hidden" name="id" value="{{ item.id }}">
                                             <button type="submit" class="btn btn-black btn-sm btn-remove">Eliminar</button>
                                         </form>
                                     </td>
@@ -108,6 +108,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <button type="submit" class="btn btn-black btn-sm btn-block">Actualizar Carro</button>
                 </form>
             </div>
         </div>
@@ -173,36 +174,16 @@
             }
         }
     
-        document.addEventListener('DOMContentLoaded', function () {
-            const checkoutForm = document.querySelector('#checkout-form');
-            checkoutForm.addEventListener('submit', function (event) {
-                checkCart(event); // Llama a checkCart() cuando se intente enviar el formulario de checkout
-            });
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('#checkout-form').addEventListener('submit', checkCart);
         });
-    </script>
-    <script>
-        function updateCart() {
-            const quantityInputs = document.querySelectorAll('.quantity-amount');
-            let newSubtotal = 0;
 
-            quantityInputs.forEach(input => {
-                const quantity = parseInt(input.value);
-                const price = parseFloat(input.closest('tr').querySelector('.product-price').innerText.replace('$', '').trim());
-                const total = quantity * price;
-                newSubtotal += total;
-            });
-
-            document.getElementById('subtotal').innerHTML = `<strong class="text-black">$${newSubtotal.toFixed(2)}</strong>`;
+        function updateQuantity(itemId, change) {
+            const input = document.querySelector(`input[name="cantidad_${itemId}"]`);
+            let newValue = parseInt(input.value) + change;
+            if (newValue < 1) newValue = 1;
+            input.value = newValue;
         }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            updateCart(); // Actualiza el subtotal al cargar la página  
-        });
     </script>
-    <script src="{% static 'aplicacion/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'aplicacion/js/tiny-slider.js' %}"></script>
-    <script src="{% static 'aplicacion/js/custom.js' %}"></script>
-    <script src="{% static 'aplicacion/js/cart.js' %}"></script>
-
 </body>
 </html>

@@ -58,6 +58,7 @@ class Carrito(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField(validators=[MinValueValidator(1)])
 
+
     def __str__(self):
         return f"Carrito {self.id} - Usuario: {self.usuario}, Producto: {self.producto}"
 
@@ -72,7 +73,18 @@ class Carrito(models.Model):
     
     class Meta:
         verbose_name_plural = 'Carritos'
+class CarritoItem(models.Model):
+    carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE, related_name='items')
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.IntegerField(validators=[MinValueValidator(1)])
+    
+    def get_total_price(self):
+        return self.cantidad * self.producto.precio
 
+    def __str__(self):
+        return f"{self.cantidad} x {self.producto.nombre}"
+    
+    
 class Registro(models.Model): 
      usuario = models.CharField(max_length=50, primary_key=True)
      email = models.CharField(max_length=20)

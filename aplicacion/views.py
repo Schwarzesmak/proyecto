@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages 
-from .models import Persona, Producto, Envio, Pedido,Carrito ,Usuario, DetallePedido
+from .models import Persona, Producto, Envio, Pedido,Carrito ,Usuario, DetallePedido, CarritoItem
 from os import path, remove 
 from django.conf import settings
 #Cosas que importe en esta rama
@@ -59,34 +59,36 @@ from .models import Carrito, Usuario
 def cart(request):
     user = request.user
     usr = get_object_or_404(Usuario, nombusuario=user)
-    carritos = Carrito.objects.filter(usuario_id=usr)
+    carrito, created = Carrito.objects.get_or_create(usuario=usr)
+    carrito_items = CarritoItem.objects.filter(carrito=carrito)
     productos = Producto.objects.all()
-    subtotal = sum(c.get_total_price() for c in carritos)
+    subtotal = sum(item.get_total_price() for item in carrito_items)
+
+    if request.method == 'POST':
+        # Actualizar cantidades
+        for item in carrito_items:
+            cantidad = request.POST.get(f'cantidad_{item.id}')
+            if cantidad:
+                item.cantidad = int(cantidad)
+                item.save()
+
+        # Eliminar item si se envió un ID para eliminar
+        id = request.POST.get('id')
+        if id:
+            carrito_item = get_object_or_404(CarritoItem, id=id, carrito=carrito)
+            carrito_item.delete()
+
+        # Recalcular subtotal después de los cambios
+        carrito_items = CarritoItem.objects.filter(carrito=carrito)
+        subtotal = sum(item.get_total_price() for item in carrito_items)
+
+        return redirect('cart')
 
     datos = {
-        "carritos": carritos,
+        "carrito_items": carrito_items,
         "productos": productos,
         "subtotal": subtotal,
     }
-
-    print("Y aqui")  # Confirmar que se accede a la vista
-
-    if request.method == 'POST':
-        print("Pasa por aca?")  # Confirmar que se recibe una solicitud POST
-        id = request.POST.get('id')  # Obtener el ID del carrito a eliminar
-        print(f"Carrito ID: {id}")  # Confirmar el ID del carrito
-        
-        carrito = get_object_or_404(Carrito, id=id, usuario=usr)
-        carrito.delete()  # Eliminar el carrito
-
-        #Recalcular subtotal después de eliminar el producto
-        carritos = Carrito.objects.filter(usuario=usr)
-        subtotal = sum(c.get_total_price() for c in carritos)
-        datos['carritos'] = carritos
-        datos['subtotal'] = subtotal
-
-        # Redirigir nuevamente a la página de carrito después de eliminar
-        return redirect('cart')
 
     return render(request, "aplicacion/cart.html", datos)
 ####################################################################
