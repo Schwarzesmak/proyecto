@@ -167,7 +167,7 @@
 						<div class="col-6 col-md-6">
 							<div class="feature">
 								<div class="icon">
-							   <!-- <img src="images/truck.svg" alt="Image" class="imf-fluid"> -->
+							   <!-- <Iconos > -->
 									<img src="{% static "aplicacion/img/truck.svg" %}" alt="Image" class="imf-fluid">
 								</div>
 								<h3>Rapido &amp; y envío gratis</h3>
@@ -178,7 +178,7 @@
 						<div class="col-6 col-md-6">
 							<div class="feature">
 								<div class="icon">
-							   <!-- <img src="images/bag.svg" alt="Image" class="imf-fluid">  -->
+							   <!-- mas iconos  -->
 									<img src="{% static "aplicacion/img/bag.svg" %}" alt="Image" class="imf-fluid">
 								</div>
 								<h3>Facil de comprar</h3>
@@ -189,7 +189,7 @@
 						<div class="col-6 col-md-6">
 							<div class="feature">
 								<div class="icon">
-							    <!--<img src="images/support.svg" alt="Image" class="imf-fluid">  -->
+							    <!-- Iconos  -->
 									<img src="{% static "aplicacion/img/support.svg" %}" alt="Image" class="imf-fluid">
 								</div>
 								<h3>Atención al cliente</h3>
@@ -201,7 +201,7 @@
 						<div class="col-6 col-md-6">
 							<div class="feature">
 								<div class="icon">
-							 <!--	<img src="images/return.svg" alt="Image" class="imf-fluid"> -->
+							 <!--	Iconos -->
 									<img src="{% static "aplicacion/img/return.svg" %}" alt="Image" class="imf-fluid">
 								</div>
 								<h3>Garantia </h3>
@@ -215,7 +215,7 @@
 
 				<div class="col-lg-5">
 					<div class="img-wrap">
-					<!--<img src="images/bramalimpioo.jpg" alt="Image" class="img-fluid"> -->
+					<!-- imagen en vertical-->
 						<img src="{% static "aplicacion/img/bramalimpioo.jpg" %}" alt="Image" class="img-fluid">
 					</div>
 				</div>
@@ -234,6 +234,7 @@
 	<script src='{% static "aplicacion/js/custom.js" %}'></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+<!-- Si el usuario no está autenticado, mostrar un mensaje de SweetAlert -->
 {% if not request.user.is_authenticated %}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
