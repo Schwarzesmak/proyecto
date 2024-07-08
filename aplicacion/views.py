@@ -59,38 +59,45 @@ from .models import Carrito, Usuario
 def cart(request):
     user = request.user
     usr = get_object_or_404(Usuario, nombusuario=user)
-    carrito, created = Carrito.objects.get_or_create(usuario=usr)
-    carrito_items = CarritoItem.objects.filter(carrito=carrito)
-    productos = Producto.objects.all()
+
+    # Obtener todos los carritos del usuario
+    carritos = Carrito.objects.filter(usuario=usr)
+
+    # Si hay más de un carrito, selecciona uno (puedes ajustar la lógica según tu necesidad)
+    if carritos.exists():
+        carrito = carritos.first()  # Selecciona el primer carrito encontrado
+    else:
+        carrito = Carrito.objects.create(usuario=usr)  # Crear un nuevo carrito si no hay ninguno
+
+    # Obtener todos los ítems del carrito para ese usuario, incluyendo los productos asociados
+    carrito_items = CarritoItem.objects.filter(carrito=carrito).select_related('producto')
+
+    # Calcular subtotal
     subtotal = sum(item.get_total_price() for item in carrito_items)
 
-    if request.method == 'POST':
-        # Actualizar cantidades
-        for item in carrito_items:
-            cantidad = request.POST.get(f'cantidad_{item.id}')
-            if cantidad:
-                item.cantidad = int(cantidad)
-                item.save()
-
-        # Eliminar item si se envió un ID para eliminar
-        id = request.POST.get('id')
-        if id:
-            carrito_item = get_object_or_404(CarritoItem, id=id, carrito=carrito)
-            carrito_item.delete()
-
-        # Recalcular subtotal después de los cambios
-        carrito_items = CarritoItem.objects.filter(carrito=carrito)
-        subtotal = sum(item.get_total_price() for item in carrito_items)
-
-        return redirect('cart')
-
     datos = {
-        "carrito_items": carrito_items,
-        "productos": productos,
+        "carritos": carrito_items,
         "subtotal": subtotal,
     }
 
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        # Eliminar el ítem del carrito
+        carrito_item = get_object_or_404(CarritoItem, id=id, carrito=carrito)
+        carrito_item.delete()
+
+        # Recalcular el subtotal después de eliminar el ítem
+        carrito_items = CarritoItem.objects.filter(carrito=carrito).select_related('producto')
+        subtotal = sum(item.get_total_price() for item in carrito_items)
+        datos['carritos'] = carrito_items
+        datos['subtotal'] = subtotal
+
+        # Redirigir nuevamente a la página de carrito después de eliminar
+        return redirect('cart')
+
     return render(request, "aplicacion/cart.html", datos)
+
+
 ####################################################################
 @user_passes_test(is_admin)
 def eliminarproducto(request, id):
