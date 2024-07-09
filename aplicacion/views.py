@@ -23,7 +23,6 @@ from .forms import PersonaForm, UpdatePersonaForm, ProductoForm, UpdateProductoF
 # Create your views here.
 #Aqui es para las  paginas
 def index (request):
-    
     #obtener productos en especifico, beretta, cuchillo y carpa    
     beretta = Producto.objects.get(nombre="Beretta")
     cuchillo = Producto.objects.get(nombre="cuchillo")
@@ -43,10 +42,11 @@ def salir(request):
     logout(request)
     return redirect(to='index')
 
-
 def about (request):
     return render(request, "aplicacion/about.html")
 
+# Si el usuario envía un formulario POST con un nombre de usuario y contraseña válidos para un usuario administrador, 
+# se inicia sesión y se redirige al panel de control. Si no, muestra un mensaje de error en la página admini.html.
 def admini(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -65,6 +65,8 @@ def is_admin(user):
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Carrito, Usuario
 
+
+#Se maneja el carrito, con permisos de inicio de sesion, muestra los productos en carro y calcula subtotal
 @login_required
 def cart(request):
     user = request.user
@@ -99,7 +101,8 @@ def cart(request):
         return redirect('cart')
 
     return render(request, "aplicacion/cart.html", datos)
-####################################################################
+
+#Elimina un producto específico basado en su ID cod_producto
 @user_passes_test(is_admin)
 def eliminarproducto(request, id):
     producto = get_object_or_404(Producto, cod_producto=id)
@@ -116,44 +119,34 @@ def eliminarproducto(request, id):
     }
 
     return render(request, 'aplicacion/eliminarproducto.html', datos)
-####################################################################
-
+# permite eliminar un carrito de compras específico para el usuario autenticado. 
 @login_required
 def eliminar_carrito(request, id):
     if request.method == 'POST':
         carrito_id = id
         carrito = get_object_or_404(Carrito, id=carrito_id, usuario=request.user.usuario)
-        # Delete the cart item
         carrito.delete()
-        # Optionally, you can print or log a message to confirm deletion
         print(f'Carrito eliminado correctamente: {carrito_id}')
-        # Redirect back to the cart page or any other desired page
         return redirect('cart')
     else:
-        # Handle the case where the request method is not POST (optional)
         print(f'No se recibió una solicitud POST para eliminar el carrito con ID: {id}')
-        return redirect('cart')  # Redirect to the cart page in case of any issue
+        return redirect('cart')  
     
+    
+# Si la solicitud es POST, recupera y muestra el subtotal del carrito
 def checkout (request):
     
     if request.method == 'POST':
         print(f'Solicitud POST recibida para eliminar el carrito con ID: {id}')
         subtotal = request.POST.get('subtotal', 0)  # Recuperar el subtotal del formulario
         print(f'Carrito con ID {id} eliminado exitosamente.')
-        # Aquí puedes realizar cualquier lógica adicional, como procesar el pedido, aplicar cupones, etc.
-
         return render(request, 'aplicacion/checkout.html', {'subtotal': subtotal})
-
-
-
-
-    # Si el método no es POST (por ejemplo, GET), puedes manejarlo según tu flujo de aplicación
     
     return render(request, 'aplicacion/checkout.html')
-
+# muestra el estado de los pedidos realizados por el usuario autenticado. Obtiene los pedidos y detalles de pedidos asociados al usuario
 @login_required
 def estado (request):
-    #obtener el carro del usuario en especifico ##terminar 
+    #obtener el carro del usuario en especifico
     user = request.user
     usr = get_object_or_404(Usuario, nombusuario=user) 
     pedidos_usuario = Pedido.objects.filter(usuario_id=usr)
@@ -165,11 +158,7 @@ def estado (request):
     }
     return render(request, "aplicacion/estado.html",datos)
 
-
-#############################################
-
-##############################################
-
+# Muestra los detalles de un pedido específico
 def detallepedido(request,id):
     detallepedido = get_list_or_404(DetallePedido, pedido_id=id)
     datos = {
@@ -177,9 +166,11 @@ def detallepedido(request,id):
     }
     return render(request, "aplicacion/detallepedido.html",datos)
 
+
+# Muestra los pedidos realizados por el usuario autenticado
 @login_required
 def miscompras(request):
-    #obtener el carro del usuario en especifico ##terminar 
+    #obtener el carro del usuario en especifico
     user = request.user
     usr = get_object_or_404(Usuario, nombusuario=user) 
     pedidos = Pedido.objects.filter(usuario_id=usr)
@@ -193,16 +184,19 @@ def miscompras(request):
 def panelcerrarsesion (request):
     return render(request, "aplicacion/panelcerrarsesion.html")
 
+# Muestra el panel de control, pero solo para usuarios administradores 
 @user_passes_test(is_admin)
 def panelcontrol(request):
     print("Holis")
     if not request.user.is_staff:
         print("pasa por aqui??")
         messages.error(request, 'Acceso denegado. Debes ser administrador para acceder a esta página.')
-        return redirect('index')  # Ajusta la redirección según tu configuración
+        return redirect('index')  
 
     return render(request, "aplicacion/panelcontrol.html")
-#para que se vean los pedidos en panel control 
+
+
+# Muestra el estado de todas las compras en el panel de control para administradores. 
 @user_passes_test(is_admin) 
 def panelcontrolestadocompra (request):
     pedidos=Pedido.objects.all()
@@ -217,7 +211,7 @@ def panelcontrolestadocompra (request):
 def panelcontrolestadocompra(request):
     if not request.user.is_staff:
         messages.error(request, 'Acceso denegado. Debes ser administrador para acceder a esta página.')
-        return redirect('index')  # Puedes ajustar la redirección según tu estructura de URLs
+        return redirect('index') 
 
     pedidos = Pedido.objects.all()
     datos = {
@@ -225,6 +219,9 @@ def panelcontrolestadocompra(request):
     }
 
     return render(request, "aplicacion/panelcontrolestadocompra.html", datos)
+
+
+#Se crea un usuario, validando el usuario si existe en la base de datos, y lo crea
 def crearcuenta (request):
     form=CrearCuentaForm()
     datos={
@@ -242,10 +239,10 @@ def crearcuenta (request):
             }
         else:
             if form.is_valid():
-                # Guardar el usuario en la tabla User de Django
+                # Guarda el usuario en la tabla User de Django
                 usuario_django = form.save()
                 
-                # Crear la instancia de Usuario y guardarla en la tabla Usuario
+                # Crea la instancia de Usuario y guardarla en la tabla Usuario
                 usuario_personalizado = Usuario(nombusuario=usuario_django.username, pwd=usuario_django.password)
                 usuario_personalizado.save()
                 
@@ -255,9 +252,7 @@ def crearcuenta (request):
             }
     return render(request, "registration/crearcuenta.html", datos)
 
-#def sesion (request):
-#    return render(request, "aplicacion/sesion.html")
-
+#  muestra todos los productos disponibles en la tienda
 def shop (request):
     
     productos=Producto.objects.all()
@@ -269,6 +264,7 @@ def shop (request):
     
     return render(request, "aplicacion/shop.html", datos)
 
+#permite a los usuarios autenticados agregar productos al carrito de compras
 @login_required
 def comprar(request, id):
     print("Request method:", request.method)
@@ -289,7 +285,7 @@ def comprar(request, id):
     return render(request, "aplicacion/comprar.html", datos)
 
 
-
+#maneja el proceso después de que el usuario ha realizado un pedido. Verifica la solicitud y crea un nuevo Pedido con los detalles del pedido
 @login_required
 @require_POST
 def thankyou(request):
@@ -304,8 +300,6 @@ def thankyou(request):
         celular = request.POST.get('celular', '')
         region = request.POST.get('region', '')
         adicional = request.POST.get('adicional', '')
-
-        # Concatenar nombres si es necesario
         nombre_cliente = primer_nombre + (' ' + segundo_nombre if segundo_nombre else '') + ' ' + apellido
 
         
@@ -320,7 +314,7 @@ def thankyou(request):
                 correo=correo,
                 celular=celular,
                 region=region,
-                adicional=adicional,  # Incluir el campo adicional en la creación del pedido
+                adicional=adicional,  
                 fecha_pedido=timezone.now(),  # Usar la fecha y hora actual
                 estado='en_proceso'  # Estado inicial del pedido
             )
@@ -333,9 +327,6 @@ def thankyou(request):
             #obtener el ultimo id
             ultimo_pedido = Pedido.objects.latest('id')
             ultimo_id_pedido = ultimo_pedido.id
-            ##** Suponiendo que tienes un producto específico que quieres agregar al detalle de pedido
-            #productos = get_object_or_404 (Producto, id=ultimo_id_pedido) ##** Obtén el producto que deseas agregar al detalle
-            #crear el detalle con el ultimo id de pedido mas todos los item del usuario logeado
             
             for carrito in carritos_usuario:
                     detalle_pedido = DetallePedido.objects.create(
@@ -350,14 +341,14 @@ def thankyou(request):
             # Por ejemplo, puedes agregar registro de errores, mostrar un mensaje de error, etc.
             print(f"Error al procesar pedido: {str(e)}")
             # Redirigir a una página de error o mostrar un mensaje al usuario
-            return redirect('index')  # Ajusta el nombre de la URL según tu configuración
+            return redirect('index')  
 
-    # Si la solicitud no es POST, manejar adecuadamente (idealmente deberías manejar otros métodos también)
+    # Si la solicitud no es POST, manejar adecuadamente
     return render(request, "aplicacion/thankyou.html")
 
 #DETALLES DE PERSONA Y PRODUCTO 
 #FUNCIONES CREAR MODIFICAR Y ELIMINAR PARA PRODUCTO Y PERSONAS ##SE LE CAMBIA EL NOMBRE DE LA FUNCION POR LA PAGINA HTML , son vistas
-#CREAR 
+#muestra todos los usuarios
 @user_passes_test(is_admin)
 def personas(request):
  
@@ -371,14 +362,7 @@ def personas(request):
 
     return render(request,'aplicacion/personas.html', datos)
 
-#def detallepersona(request,id):
-     #persona=Persona.objects.get(rut=id)
-#     persona=get_object_or_404(Persona, rut=id)
-#     datos={
-#         "persona":persona
-#     }
-#     return render(request,'appcrud/detallepersona.html', datos)
- 
+# muestra un formulario para crear nuevos usuarios y también crea un usuario correspondiente en auth.User de Django. Si es válido, guarda los usuarios y redirige a la lista de personas. 
 @user_passes_test(is_admin)
 def crearpersona(request):
     form=UsuarioForm()
@@ -406,7 +390,7 @@ def crearpersona(request):
     }
     return render(request, 'aplicacion/crearpersona.html', datos)
 
-
+#permite a los administradores agregar nuevos productos mediante el formulario
 @user_passes_test(is_admin)
 def crearproducto(request):
     if request.method == 'POST':
@@ -423,7 +407,7 @@ def crearproducto(request):
     }
     return render(request, 'aplicacion/crearproducto.html', datos)
 
-#MODIFICAR, VER CRUD DEL PROFE Y TERMINAR BIEN NUESTROS MODIFICAR 
+#Permite modificar los datos de un usuario específico, actualizando los datos en la bd
 def modificarpersona(request, id):
     usuario = get_object_or_404(Usuario, nombusuario=id)
 
@@ -442,6 +426,7 @@ def modificarpersona(request, id):
 
     return render(request, 'aplicacion/modificarpersona.html', datos)
 
+# Permite modificar los datos de un producto específico, actualizando en la bd
 @user_passes_test(is_admin)
 def modificarproducto(request, id): #******
     producto=get_object_or_404(Producto, cod_producto=id) #**********
@@ -461,8 +446,8 @@ def modificarproducto(request, id): #******
         
     return render(request,'aplicacion/modificarproducto.html',datos)
 
-#ELIMINAR , VER EL CRUD DEL PROFE Y ADAPTARLO A NUESTRA PAGINA
 
+#Permite eliminar un usuario específico
 def eliminarpersona(request, id):
     usuario = get_object_or_404(Usuario, nombusuario=id)
 
@@ -481,7 +466,7 @@ def eliminarpersona(request, id):
         return redirect('personas')
 
     return render(request, 'aplicacion/eliminarpersona.html', datos)
-
+# Permite eliminar un producto especifico, verificando si esta en la bd, y eliminarlo desde ahi
 def eliminarproducto(request, id):
     producto = get_object_or_404(Producto, cod_producto=id)
 
@@ -503,6 +488,7 @@ def alguna_vista(request):
     persona_id = 1 
     return redirect('modificar_persona', id=persona_id)
 
+# Permite modificar los datos de una persona específica
 def modificar_persona(request, id):
     persona = get_object_or_404(Persona, cod_persona=id)
 
@@ -519,7 +505,7 @@ def modificar_persona(request, id):
             return redirect(to="personas")
 
     return render(request, 'aplicacion/modificarpersona.html', datos)
-
+#muestra todos los producto del cliente, solo vista de administrador
 @user_passes_test(is_admin)
 def productos(request):
     productos=Producto.objects.all()
@@ -531,6 +517,7 @@ def productos(request):
 
     return render(request,'aplicacion/productos.html', datos)
 
+#  Muestra el estado de envío de una compra que realizó el cliente
 def orden_estado(request, idcompra):
      Envio = get_object_or_404(Envio, idcompra=idcompra)
      datos = {
@@ -538,6 +525,7 @@ def orden_estado(request, idcompra):
     }
      return render(request, 'aplicacion/estado.html', datos)
  
+ # muestra todos los pedidos ordenados por fecha de pedido descendente en la página
 @user_passes_test(is_admin)
 def panel_control(request):
     # Obtener todos los pedidos ordenados por fecha de pedido descendente
@@ -549,12 +537,13 @@ def panel_control(request):
     
     return render(request, 'panel_control.html', context)
 
+#devuelve un JSON con información detallada de todos los pedidos y sus productos asociados. Es útil para integraciones o consumos de API donde se necesite acceder a estos datos estructurados.
 def api_pedidos(request):
     pedidos = Pedido.objects.all()
     data = []
     
     for pedido in pedidos:
-        productos_pedido = pedido.productos.all()  # Suponiendo que 'productos' es un campo ManyToManyField en tu modelo Pedido
+        productos_pedido = pedido.productos.all() 
         
         for producto in productos_pedido:
             data.append({
@@ -562,12 +551,13 @@ def api_pedidos(request):
                 'nombre_cliente': pedido.nombre_cliente,
                 'fecha_pedido': pedido.fecha_pedido,
                 'estado': pedido.estado,
-                'nombre_producto': producto.nombre,  # Accedes al nombre del producto
-                'precio_producto': producto.precio,  # Ejemplo: acceder al precio del producto
-                # Agrega más campos del producto que necesites
+                'nombre_producto': producto.nombre,  
+                'precio_producto': producto.precio,  
             })
     return JsonResponse(data, safe=False)
 
+
+#Manejan las actualizaciones del estado y la boleta de un pedido específico identificado por pedido_id.
 @csrf_exempt
 def actualizar_estado_pedido(request, pedido_id, nuevo_estado):
     if request.method == 'POST':
@@ -592,6 +582,7 @@ def actualizar_boleta_pedido(request, pedido_id, nueva_boleta):
             return JsonResponse({'error': 'Pedido no encontrado'}, status=404)
     return JsonResponse({'error': 'Método no permitido'}, status=405)
 
+#Maneja la lógica básica de inicio de sesión de usuarios utilizando las credenciales proporcionadas.
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -601,14 +592,12 @@ def login_view(request):
         
         if user is not None:
             login(request, user)
-            # Redirigir al usuario a la página de inicio (index)
             return redirect('index')
         else:
-            # Manejar el caso de inicio de sesión inválido
-            # Puedes agregar lógica para mostrar un mensaje de error en el template login.html
             pass
-
+#maneja las actualizaciones del carrito de compras según la acción de subir o bajar
 @require_POST
+
 def update_cart(request):
     cart_id = request.POST.get('cart_id')
     action = request.POST.get('action')

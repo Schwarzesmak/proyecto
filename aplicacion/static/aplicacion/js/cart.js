@@ -1,4 +1,5 @@
-// Asegúrate de que el script no se ejecute más de una vez para remover elementos del carrito
+// Asegura que el script de eliminación de productos del carrito se ejecute solo una vez por carga de página,
+// configurando listeners para los botones de eliminación.
 if (!window.hasRunCartRemovalScript) {
     document.addEventListener("DOMContentLoaded", function() {
         setupRemoveButtonListeners();
@@ -7,7 +8,8 @@ if (!window.hasRunCartRemovalScript) {
 }
 
 
-// boton eliminar
+// Configura listeners para los botones de eliminar productos del carrito. 
+//Al hacer clic en un botón, elimina la fila correspondiente del DOM y actualiza el total del carrito.
 function setupRemoveButtonListeners() {
     const removeButtons = document.querySelectorAll('.btn-remove');
     if (removeButtons.length > 0) {
@@ -28,7 +30,7 @@ function setupRemoveButtonListeners() {
     }
 }
 
-// Función para actualizar el total del carrito
+// Esta función calcula y actualiza el subtotal y el total del carrito en función de los elementos .product-total presentes en la página.
 function updateTotal() {
     let total = 0;
     const elements = document.querySelectorAll('.product-total');
@@ -43,7 +45,7 @@ function updateTotal() {
     }
 }
 
-// Script para actualizar cantidades y totales del carrito
+// Este bloque gestiona la actualización dinámica de cantidades y totales del carrito cuando se modifican las cantidades de los productos.
 if (!window.hasDOMContentLoadedListener) {
     document.addEventListener("DOMContentLoaded", function() {
         const updateCartButton = document.getElementById('updateCartButton');
@@ -54,7 +56,7 @@ if (!window.hasDOMContentLoadedListener) {
             event.preventDefault();
             updateQuantities();
         });
-
+//Utiliza fetch para enviar una solicitud y actualizar la cantidad de un producto en el carrito, luego actualiza la cantidad mostrada en el front-end y el subtotal del carrito.
         function updateQuantities() {
             let subtotal = 0;
             document.querySelectorAll('.quantity-amount').forEach(input => {
@@ -69,7 +71,7 @@ if (!window.hasDOMContentLoadedListener) {
         }
 
         function updateTotals(subtotal) {
-            const total = subtotal; // Puedes agregar impuestos, descuentos, etc. aquí si es necesario
+            const total = subtotal; 
             subtotalDisplay.textContent = '$' + subtotal.toLocaleString();
             totalDisplay.textContent = '$' + total.toLocaleString();
         }
@@ -88,7 +90,7 @@ if (!window.hasDOMContentLoadedListener) {
         }
 
         setupQuantityButtonListeners();
-        updateQuantities(); // Calcular el total inicial cuando se carga la página
+        updateQuantities(); 
     });
     window.hasDOMContentLoadedListener = true;
 }
