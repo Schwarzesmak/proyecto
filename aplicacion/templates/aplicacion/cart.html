@@ -56,15 +56,17 @@
             </div>
         </div>
     </div>
-
+    <!-- Sección de productos en el carrito -->
     <div class="untree_co-section before-footer-section">
         <div class="container">
             <div class="row mb-5">
+                  <!-- Formulario para actualizar y eliminar productos -->
                 <form class="col-md-12" method="post" action="{% url 'cart' %}">
                     {% csrf_token %}
                     <div class="site-blocks-table">
                         <table class="table">
                             <thead>
+                                 <!-- Encabezados de la tabla -->
                                 <tr>
                                     <th class="product-thumbnail">Imagen</th>
                                     <th class="product-name">Producto</th>
@@ -75,6 +77,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- Iteración sobre los productos en el carrito -->
                                 {% for c in carritos %}
                                 <tr>
                                     <td class="product-thumbnail">
@@ -84,6 +87,7 @@
                                         <h2 class="h5 text-black">{{ c.producto.nombre }}</h2>
                                     </td>
                                     <td class="product-price"> ${{ c.producto.precio }}</td>
+                                     <!-- Cantidad del producto -->
                                     <td>
                                         <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
                                             <div class="input-group-prepend">
@@ -95,7 +99,9 @@
                                             </div>
                                         </div>
                                     </td>
+                                     <!-- Precio total del producto -->
                                     <td class="product-total"> ${{ c.get_total_price }}</td>
+                                     <!-- Botón para eliminar el producto -->
                                     <td>
                                         <form method="post" action="{% url 'cart' %}">
                                             {% csrf_token %}
@@ -112,19 +118,23 @@
             </div>
         </div>
         
+        <!-- Botones de acción adicionales -->
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
                     <div class="row mb-4">
+                        <!-- Botón para actualizar el carrito -->
                         <div class="col-md-6 mb-3 mb-md-0">
                             <a href="{% url 'cart' %}" onclick="updateCart();" class="btn btn-black btn-sm btn-block">Actualizar carro de compra</a>
                         </div>
+                          <!-- Botón para continuar comprando -->
                         <div class="col-md-6">
                             <a href="{% url 'shop' %}" class="btn btn-black btn-sm btn-block">Continuar comprando</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <!-- Total del carrito -->
                     <div class="text-center">
                         <h3 class="text-black h4 text-uppercase mb-4">Total en Carro de compras</h3>
                         <!-- Mostrar subtotal en la tabla -->
@@ -150,6 +160,7 @@
     </div>
    <!-- Scripts para la funcionalidad de la página -->
    <script>
+    // Función para actualizar la cantidad de productos en el carrito
     function updateQuantity(cartId, action) {
         const formData = new FormData();
         formData.append('cart_id', cartId);
@@ -181,11 +192,13 @@
     }
 </script>
     <script>
+         // Función para validar que el carrito no esté vacío antes de proceder al checkout
         function checkCart(event) {
             event.preventDefault(); // Evita el envío automático del formulario
     
             const quantities = document.querySelectorAll('.quantity-amount');
             if (quantities.length === 0 || [...quantities].every(input => parseInt(input.value) === 0)) {
+                // Muestra mensaje de error si el carrito está vacío
                 Swal.fire({
                     icon: 'error',
                     title: 'Carro vacío',
@@ -203,7 +216,7 @@
                 document.querySelector('#checkout-form').submit();
             }
         }
-    
+         // Listener para validar el carrito antes de enviar el formulario de checkout
         document.addEventListener('DOMContentLoaded', function () {
             const checkoutForm = document.querySelector('#checkout-form');
             checkoutForm.addEventListener('submit', function (event) {
@@ -211,7 +224,8 @@
             });
         });
     </script>
-    <script>
+    <script> 
+         // Función para calcular y actualizar el subtotal del carrito dinámicamente
         function updateCart() {
             const quantityInputs = document.querySelectorAll('.quantity-amount');
             let newSubtotal = 0;
@@ -222,10 +236,10 @@
                 const total = quantity * price;
                 newSubtotal += total;
             });
-
+            // Actualiza el subtotal en la interfaz
             document.getElementById('subtotal').innerHTML = `<strong class="text-black">$${newSubtotal.toFixed(2)}</strong>`;
         }
-
+        // Actualiza el subtotal al cargar la página
         document.addEventListener('DOMContentLoaded', function () {
             updateCart(); // Actualiza el subtotal al cargar la página  
         
